@@ -1,0 +1,10 @@
+# Phase 002 event consumer check
+
+- Command: `uv run --locked pytest -q --basetemp artifacts/evidence/.pytest-tmp tests/events`
+- Exit code: `0`
+- Output:
+  ```text
+  ........                                                                 [100%]
+  8 passed in 0.04s
+  ```
+- Result: PASS for local unit behavior. This does not establish SNS/LocalStack integration.

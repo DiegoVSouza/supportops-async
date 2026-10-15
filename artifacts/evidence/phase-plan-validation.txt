@@ -1,4 +1,3 @@
-001-api-store: 4 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
-002-broker-worker: 3 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
-003-durability: 3 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
-004-infrastructure: 4 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
+COMMAND: `python artifacts/evidence/validate-phase-plans.py`
+EXIT_CODE: 0
+OUTPUT: PASS: 4 phases each have SPEC/PLAN/VERIFY, 2-4 tasks, ownership, forbidden changes, and stop conditions

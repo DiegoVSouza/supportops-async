@@ -15,3 +15,9 @@
 - Exit code: `0`; saved output is `phase-plan-validation.txt`.
 - Review: accepted with clarifications recorded in phase 001 (duplicate-key payload and cooperative cancellation), phase 003 (transactional event outbox), and phase 004 (runtime wiring and demo paths). Every plan retains 2–4 observable tasks, owned paths, forbidden changes, validation, and a stop condition.
 - Contract impact: this documents the original duplicate-key behavior and cancellation limits; it does not change public fields or status names.
+
+## Phase 002 review update
+
+- Command: `python artifacts/evidence/validate-phase-plans.py`
+- Exit code: `0`; saved output is `phase-plan-validation.txt`.
+- Review: accepted. The phase plan now includes an idempotent SNS notification consumer example; verification explicitly requires duplicate `event_id` suppression and rejects malformed or unsupported messages. The consumer uses an injected inbox contract; its in-memory implementation is a local example only and does not qualify as durable production deduplication.

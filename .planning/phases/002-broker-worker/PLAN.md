@@ -10,7 +10,7 @@ No relative sibling imports, real AWS calls, or changes to phase 001 public sche
 ## Tasks
 1. Define broker message, handle, retry and DLQ contracts; implement in-memory test double.
 2. Implement SQS/SNS adapter against LocalStack and contract tests.
-3. Implement worker retry, ack/nack, visibility extension and deduplicated fake effects.
+3. Implement worker retry, ack/nack, visibility extension, deduplicated fake effects, and an idempotent SNS notification consumer example.
 
 ## Check and stop
 Unit tests run with fake broker; integration only against local LocalStack. Stop on unavailable LocalStack and record INCOMPLETE rather than faking integration.
