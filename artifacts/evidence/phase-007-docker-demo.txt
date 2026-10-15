@@ -1,0 +1,12 @@
+commands:
+  POST http://127.0.0.1:18000/tasks with Idempotency-Key remediation-local-002 and body {ticket_id:T-REM-002, steps:[triage,draft_reply]}
+  GET http://127.0.0.1:18000/tasks/b971d524-ed05-4041-96f1-272db0449ec7
+  docker exec p04-remediation-api-1 id
+  docker exec p04-remediation-worker-1 id
+exit_codes: POST=0; GET=0; API id=0; worker id=0
+classification: local Docker API-to-PostgreSQL-to-SQS-to-worker fake-mode E2E
+output:
+POST task_id=b971d524-ed05-4041-96f1-272db0449ec7
+GET status=done; step=2:draft_reply; progress=2
+API uid=10001(app) gid=10001(app)
+worker uid=10001(app) gid=10001(app)

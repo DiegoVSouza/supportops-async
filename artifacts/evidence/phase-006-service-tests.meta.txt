@@ -1,0 +1,4 @@
+command=uv run --locked pytest -q -m integration tests/integration/test_services.py
+exit_code=
+1
+classification=service integration against Docker PostgreSQL and LocalStack

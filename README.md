@@ -52,6 +52,12 @@ docker compose -f docker-compose.async.yml config
 docker compose -f docker-compose.async.yml up --build
 ```
 
+When the default host ports are already occupied, use the committed verification override; it binds PostgreSQL to 15432, LocalStack to 14566, and the API to 18000 without changing ports used by other stacks:
+
+```sh
+docker compose -p p04-remediation -f docker-compose.async.yml -f docker-compose.remediation.yml up -d --build
+```
+
 Submit and retrieve a task:
 
 ```sh
@@ -71,7 +77,7 @@ SQS is at-least-once. The idempotency key deduplicates submission, and each `(ta
 
 ## Verification status
 
-Unit and subprocess recovery tests use SQLite and an in-memory broker. They do not count as PostgreSQL/LocalStack integration or full-stack E2E. Those gates stay INCOMPLETE until run against local services. Terraform validation/plan and Docker image build also stay INCOMPLETE if their tools or daemon are unavailable. There are no live LLM metrics; `LLM_MODE=fake`, and model quality/cost metrics are PENDING.
+SQLite and in-memory tests remain the deterministic unit/recovery layer. The PostgreSQL idempotency and LocalStack SQS publish/consume/visibility/ack integration tests passed against local Docker services; the full 29-test suite and API/worker demo also passed. The Compose image build runs the API and worker as UID 10001. Terraform 1.16.6 init, validate, and a LocalStack-only plan passed through the official Docker image; no apply was run. Evidence is in `artifacts/evidence/phase-007-*.txt`. Long-step crash/recovery and DLQ behavior against PostgreSQL/SQS remain INCOMPLETE. There are no live LLM metrics; `LLM_MODE=fake`, and model quality/cost metrics are PENDING.
 
 ## Infrastructure and authorization
 

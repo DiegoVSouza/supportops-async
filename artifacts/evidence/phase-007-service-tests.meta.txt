@@ -1,0 +1,4 @@
+command=uv run --locked pytest -q -m integration tests/integration/test_services.py
+exit_code=1
+classification=service integration diagnostic; first run was blocked by a persisted fixed idempotency key, corrected by the repeatable test fixture
+superseded_by=phase-007-service-tests-repeat-1.txt and phase-007-service-tests-repeat-2.txt

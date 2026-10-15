@@ -25,3 +25,10 @@
 - P05's FastAPI 0.142.4 pin was tested in an isolated compatibility environment: API contract 2/2 and all 25 local unit/recovery tests passed.
 - ADR-001 sets the tested range to `>=0.137.1,<0.143.0`; the new lock resolves FastAPI 0.142.4 and OpenTelemetry API 1.45.1. Full local tests pass on both range endpoints. P04 does not configure telemetry exporters.
 - The API and public task contract did not change. The 0.1.2 wheel was built offline and passed isolated consumer smoke; full offline dependency recreation remains INCOMPLETE because `psycopg-binary` is absent from the cache.
+
+## 2026-10-15 - Docker service verification
+
+- Phase 007 fixed the LocalStack READY hook to pass SQS RedrivePolicy as a JSON map file, as required by AWS CLI 1.44.45. P04 service tests now use unique PostgreSQL idempotency keys and a temporary SQS queue so they can repeat with a persistent database and a running worker.
+- The PostgreSQL/LocalStack integration test passed twice (2 tests each run). The full suite passed with services configured (29 passed), and a Docker API/worker task completed and persisted as status done; both containers run as UID 10001. Evidence: artifacts/evidence/phase-007-service-tests-repeat-1.txt, phase-007-service-tests-repeat-2.txt, phase-007-full-tests.txt, and phase-007-docker-demo.txt.
+- python scripts/check_full.py passes with PostgreSQL/LocalStack configured. It validates Compose, builds the non-root image, runs tests, and uses the official Terraform 1.16.6 Docker image for init, validate, and a local-only plan (6 resources to add, 0 to change/destroy). Evidence: artifacts/evidence/phase-007-check-full.txt. No Terraform apply was run.
+- A test with a step longer than the lease interval against PostgreSQL and SQS, full crash/retry/DLQ recovery against services, and cloud deployment remain INCOMPLETE. Model quality and cost remain PENDING.

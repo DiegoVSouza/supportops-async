@@ -1,0 +1,10 @@
+services:
+  postgres:
+    ports:
+      - 127.0.0.1:15432:5432
+  localstack:
+    ports: !override
+      - 127.0.0.1:14566:4566
+  api:
+    ports: !override
+      - 127.0.0.1:18000:8000

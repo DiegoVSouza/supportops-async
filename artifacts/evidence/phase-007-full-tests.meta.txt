@@ -1,0 +1,3 @@
+command=uv run --locked pytest -q -rs --basetemp artifacts/evidence/phase-007-pytest-tmp tests
+exit_code=0
+classification=unit, subprocess recovery, and service integration; 29 passed

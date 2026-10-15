@@ -13,3 +13,4 @@ build/
 artifacts/evidence/.pytest-tmp/
 artifacts/evidence/.compat-fastapi/
 artifacts/packages/.venv/
+.terraform/

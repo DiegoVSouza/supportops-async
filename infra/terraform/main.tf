@@ -29,12 +29,12 @@ resource "aws_iam_policy" "worker" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect = "Allow"
-      Action = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:ChangeMessageVisibility", "sqs:GetQueueUrl", "sqs:SendMessage"]
+      Effect   = "Allow"
+      Action   = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:ChangeMessageVisibility", "sqs:GetQueueUrl", "sqs:SendMessage"]
       Resource = [aws_sqs_queue.tasks.arn, aws_sqs_queue.dlq.arn]
-    }, {
-      Effect = "Allow"
-      Action = ["sns:Publish"]
+      }, {
+      Effect   = "Allow"
+      Action   = ["sns:Publish"]
       Resource = [aws_sns_topic.created.arn, aws_sns_topic.completed.arn, aws_sns_topic.failed.arn]
     }]
   })

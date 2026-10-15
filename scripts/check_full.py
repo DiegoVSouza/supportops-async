@@ -7,6 +7,7 @@ import shutil
 import socket
 import subprocess
 import sys
+from urllib.parse import urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 INCOMPLETE = []
@@ -30,12 +31,22 @@ compose_rc = run("compose-config", ["docker", "compose", "-f", "docker-compose.a
 if compose_rc == 0:
     print("STATUS compose-config: PASS")
 
-try:
-    with socket.create_connection(("127.0.0.1", 5432), timeout=0.5):
-        pg_reachable = True
-except OSError:
-    pg_reachable = False
-if not os.getenv("P04_POSTGRES_DSN") or not pg_reachable:
+pg_dsn = os.getenv("P04_POSTGRES_DSN")
+pg_reachable = False
+pg_target = "not configured"
+if pg_dsn:
+    parsed_dsn = urlsplit(pg_dsn)
+    if parsed_dsn.scheme in {"postgres", "postgresql"} and parsed_dsn.hostname:
+        pg_host = parsed_dsn.hostname
+        pg_port = parsed_dsn.port or 5432
+        pg_target = f"{pg_host}:{pg_port}"
+        try:
+            with socket.create_connection((pg_host, pg_port), timeout=0.5):
+                pg_reachable = True
+        except OSError:
+            pass
+print(f"PostgreSQL TCP probe: {pg_target}; reachable={pg_reachable}")
+if not pg_dsn or not pg_reachable:
     INCOMPLETE.append("PostgreSQL integration: P04_POSTGRES_DSN and reachable local server required")
 if not os.getenv("P04_LOCALSTACK_ENDPOINT"):
     INCOMPLETE.append("LocalStack integration: P04_LOCALSTACK_ENDPOINT required")
@@ -49,15 +60,49 @@ else:
     INCOMPLETE.append("Docker image build: Docker daemon unavailable")
 
 terraform = shutil.which("terraform")
+localstack_endpoint = os.getenv("P04_LOCALSTACK_ENDPOINT")
+terraform_dir = ROOT / "infra" / "terraform"
 if terraform:
-    run("terraform-init", [terraform, "-chdir=infra/terraform", "init", "-backend=false"])
-    run("terraform-validate", [terraform, "-chdir=infra/terraform", "validate"])
-    if os.getenv("P04_LOCALSTACK_ENDPOINT"):
-        run("terraform-plan", [terraform, "-chdir=infra/terraform", "plan", "-input=false"])
-    else:
-        INCOMPLETE.append("Terraform plan: local LocalStack endpoint unavailable")
+    terraform_prefix = [terraform, "-chdir=infra/terraform"]
+elif docker_info.returncode == 0:
+    terraform_image = "hashicorp/terraform:1.16.6"
+    terraform_mount = f"{terraform_dir.resolve()}:/workspace"
+    terraform_prefix = [
+        "docker", "run", "--rm",
+        "-e", "AWS_ACCESS_KEY_ID=test",
+        "-e", "AWS_SECRET_ACCESS_KEY=test",
+        "-e", "AWS_DEFAULT_REGION=us-east-1",
+        "-v", terraform_mount,
+        "-w", "/workspace",
+        terraform_image,
+    ]
 else:
-    INCOMPLETE.append("Terraform validate/plan/provider lock: Terraform CLI unavailable")
+    terraform_prefix = []
+
+if terraform_prefix:
+    init_rc = run(
+        "terraform-init",
+        terraform_prefix + ["init", "-backend=false", "-input=false"],
+    )
+    if init_rc == 0:
+        run("terraform-validate", terraform_prefix + ["validate"])
+        if localstack_endpoint:
+            if not terraform:
+                parsed_endpoint = urlsplit(localstack_endpoint)
+                if parsed_endpoint.hostname in {"localhost", "127.0.0.1"}:
+                    endpoint_host = f"host.docker.internal:{parsed_endpoint.port or 4566}"
+                    localstack_endpoint = parsed_endpoint._replace(
+                        netloc=endpoint_host
+                    ).geturl()
+            run(
+                "terraform-plan",
+                terraform_prefix
+                + ["plan", "-input=false", f"-var=localstack_endpoint={localstack_endpoint}"],
+            )
+        else:
+            INCOMPLETE.append("Terraform plan: local LocalStack endpoint unavailable")
+else:
+    INCOMPLETE.append("Terraform validate/plan/provider lock: Terraform CLI and Docker unavailable")
 
 for item in INCOMPLETE:
     print(f"STATUS INCOMPLETE: {item}")
