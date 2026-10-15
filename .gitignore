@@ -9,5 +9,6 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+build/
 artifacts/evidence/.pytest-tmp/
 artifacts/packages/.venv/

@@ -1,0 +1,13 @@
+COMMAND: uv run --locked python scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 33 packages in 0.48ms
+artifact=supportops_async-0.1.0-py3-none-any.whl
+artifact_sha256=5210a3c87afa7680c81ac6a7d2e37f16651e2ee06981a4ff9c1bc26c51725e23
+source_commit=d66bf316eedb2a5a810bc0a35ebf80d37f4474ab
+dependency_lock_sha256=e5b794c629d40ca4d4e1a51747bac113bd4206a685c7daa493cd8327335c93b9
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
+check-fast: PASS

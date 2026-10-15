@@ -1,0 +1,8 @@
+*
+!.gitignore
+!*.whl
+!artifact.lock.json
+!provenance.md
+!README.md
+!.venv/
+.venv/**

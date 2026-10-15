@@ -1,0 +1,41 @@
+COMMAND: uv venv artifacts/packages/.venv --python 3.13.12
+EXIT_CODE: 0
+OUTPUT:
+Using CPython 3.13.12 interpreter at: C:\Users\dvsdi\AppData\Local\Programs\Python\Python313\python.exe
+Creating virtual environment at: artifacts/packages/.venv
+Activate with: artifacts\packages\.venv\Scripts\activate
+COMMAND: uv pip install --offline --python artifacts/packages/.venv/Scripts/python.exe artifacts/packages/supportops_async-0.1.0-py3-none-any.whl
+EXIT_CODE: 1
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\packages\.venv
+  × No solution found when resolving dependencies:
+  ╰─▶ Because psycopg-binary==3.2.10 needs to be downloaded
+      from a registry and psycopg[binary]==3.2.10 depends on
+      psycopg-binary{implementation_name != 'pypy'}==3.2.10, we can conclude
+      that psycopg[binary]==3.2.10 cannot be used.
+      And because supportops-async==0.1.0 depends on psycopg[binary]==3.2.10,
+      we can conclude that supportops-async==0.1.0 cannot be used.
+      And because only supportops-async==0.1.0 is available and you
+      require supportops-async, we can conclude that your requirements are
+      unsatisfiable.
+
+hint: Packages were unavailable because the network was disabled. When the network is disabled, registry packages may only be read from the cache.
+
+COMMAND: uv pip install --offline --no-deps --python artifacts/packages/.venv/Scripts/python.exe artifacts/packages/supportops_async-0.1.0-py3-none-any.whl
+EXIT_CODE: 0
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\packages\.venv
+Resolved 1 package in 1ms
+Prepared 1 package in 21ms
+Installed 1 package in 64ms
+ + supportops-async==0.1.0 (from file:///C:/estudo/Golpe/lab/projects/p04/artifacts/packages/supportops_async-0.1.0-py3-none-any.whl)
+
+COMMAND: artifacts/packages/.venv/Scripts/python.exe -I -S scripts/package_smoke.py --wheel-site artifacts/packages/.venv/Lib/site-packages --dependency-site .venv/Lib/site-packages
+EXIT_CODE: 0
+OUTPUT:
+distribution_version=0.1.0
+package_file=C:\estudo\Golpe\lab\projects\p04\artifacts\packages\.venv\Lib\site-packages\supportops_async\__init__.py
+migration_in_wheel=C:\estudo\Golpe\lab\projects\p04\artifacts\packages\.venv\Lib\site-packages\supportops_async\store\migrations\001_tasks.sql
+task_status=done
+api_route=/tasks
+package-smoke: PASS

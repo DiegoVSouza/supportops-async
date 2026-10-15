@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "distribution": "supportops-async",
+  "version": "0.1.0",
+  "python_requires": ">=3.13,<3.14",
+  "artifact": "supportops_async-0.1.0-py3-none-any.whl",
+  "artifact_sha256": "5210a3c87afa7680c81ac6a7d2e37f16651e2ee06981a4ff9c1bc26c51725e23",
+  "source_repository": "P04 independent local Git repository",
+  "source_commit": "d66bf316eedb2a5a810bc0a35ebf80d37f4474ab",
+  "project_dependency_lock": "uv.lock",
+  "project_dependency_lock_sha256": "e5b794c629d40ca4d4e1a51747bac113bd4206a685c7daa493cd8327335c93b9",
+  "direct_dependencies": {
+    "fastapi": "0.137.1",
+    "uvicorn": "0.46.0",
+    "psycopg[binary]": "3.2.10",
+    "boto3": "1.43.114"
+  }
+}

@@ -6,6 +6,7 @@
     {"id": "P04-RECOVERY", "description": "Subprocess crash recovery with SQLite lease and effect ledger", "status": "PASS_LOCAL_SUBPROCESS", "evidence": "artifacts/evidence/phase-003-recovery.txt"},
     {"id": "P04-INTEGRATION", "description": "PostgreSQL and LocalStack service integration", "status": "INCOMPLETE", "evidence": "artifacts/evidence/check-full.txt"},
     {"id": "P04-INFRA", "description": "Compose runtime, container image and Terraform verification", "status": "INCOMPLETE", "evidence": "artifacts/evidence/check-full.txt"},
+    {"id": "P04-LOCAL-PACKAGE", "description": "Versioned runtime wheel with source provenance and isolated install smoke", "status": "PASS_WHEEL_SMOKE; INCOMPLETE_FULL_OFFLINE_DEPENDENCIES", "evidence": "artifacts/packages/provenance.md"},
     {"id": "P04-MODEL-METRICS", "description": "Real model quality and cost metrics", "status": "PENDING", "evidence": "No live model run is authorized or required"}
   ]
 }

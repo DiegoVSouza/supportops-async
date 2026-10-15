@@ -5,9 +5,15 @@ OUTPUT:
 COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_fast.py
 EXIT_CODE: 0
 OUTPUT:
-Resolved 33 packages in 0.59ms
+Resolved 33 packages in 0.51ms
+artifact=supportops_async-0.1.0-py3-none-any.whl
+artifact_sha256=5210a3c87afa7680c81ac6a7d2e37f16651e2ee06981a4ff9c1bc26c51725e23
+source_commit=d66bf316eedb2a5a810bc0a35ebf80d37f4474ab
+dependency_lock_sha256=e5b794c629d40ca4d4e1a51747bac113bd4206a685c7daa493cd8327335c93b9
+artifact-lock: PASS
 python -m compileall -q supportops_async scripts: exit=0
 uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
 check-fast: PASS
 
 COMMAND: uv run --locked pytest -q -rs --basetemp artifacts/evidence/.pytest-tmp tests
@@ -17,7 +23,7 @@ OUTPUT:
 =========================== short test summary info ===========================
 SKIPPED [1] tests\integration\test_services.py:14: P04_POSTGRES_DSN is not configured
 SKIPPED [1] tests\integration\test_services.py:25: P04_LOCALSTACK_ENDPOINT is not configured
-25 passed, 2 skipped in 0.80s
+25 passed, 2 skipped in 0.77s
 
 COMMAND: docker compose -f docker-compose.async.yml config --quiet
 EXIT_CODE: 0
