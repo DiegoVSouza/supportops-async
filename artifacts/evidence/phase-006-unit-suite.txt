@@ -1,0 +1,5 @@
+..........ss.................                                            [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_services.py:14: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:25: P04_LOCALSTACK_ENDPOINT is not configured
+27 passed, 2 skipped in 1.18s

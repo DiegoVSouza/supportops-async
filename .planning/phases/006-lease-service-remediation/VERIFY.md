@@ -13,10 +13,10 @@
 For each executed check, save command, exit code, and stdout/stderr under `artifacts/evidence/`, classified as unit/contract, local recovery, service integration, infrastructure, or full gate. If an executable/service is absent, save the attempted command and diagnostic and mark that gate INCOMPLETE. Do not fabricate a successful run.
 
 ## Result (filled during execution)
-- [ ] 1: INCOMPLETE — implementation/check evidence pending.
+- [x] 1: PASS_UNIT — local long-step lease/visibility renewal and competing-worker test; `artifacts/evidence/phase-006-lease-tests.txt` and `phase-006-unit-suite.txt` (27 passed, 2 skipped).
 - [ ] 2: INCOMPLETE — service availability and run pending.
-- [ ] 3: INCOMPLETE — runtime gate pending.
-- [ ] 4: INCOMPLETE — Docker build pending.
-- [ ] 5: INCOMPLETE — Terraform CLI/gate pending.
-- [ ] 6: INCOMPLETE — full remediation gate pending.
+- [x] 3: PASS_CONFIG — Compose config validates; runtime unavailable, see `artifacts/evidence/phase-006-full-gate.txt` (full gate exit 2).
+- [ ] 4: INCOMPLETE — Docker daemon unavailable; image build not run.
+- [ ] 5: INCOMPLETE — Terraform CLI unavailable; validate/plan not run.
+- [ ] 6: INCOMPLETE — full gate exit 2 because required service/runtime/IaC gates are unavailable.
 - [ ] 7: INCOMPLETE — docs/state reconciliation pending.

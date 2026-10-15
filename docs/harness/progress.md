@@ -14,6 +14,12 @@
 - Full dependency resolution in a fresh offline venv is INCOMPLETE because the uv offline resolver could not source `psycopg-binary`; the wheel-only install and smoke with the project's locked installed dependencies passed.
 - LLM mode remains fake; model quality and cost metrics are PENDING.
 
+## 2026-10-15 — Lease renewal remediation
+
+- Worker now renews the task-store lease and broker visibility on a configurable interval while a step runs. Local long-step tests prove renewal and reject a competing worker claim; evidence: `artifacts/evidence/phase-006-unit-suite.txt` (27 passed, 2 skipped).
+- Compose configuration passes. The required full gate exits 2/INCOMPLETE because PostgreSQL, LocalStack, Docker daemon, and Terraform CLI are unavailable; see `artifacts/evidence/phase-006-full-gate.txt`.
+- Service-backed recovery, image build, Terraform validation/plan, and end-to-end service behavior remain INCOMPLETE. Model quality and cost remain PENDING.
+
 ## 2026-10-15 — FastAPI consumer compatibility
 
 - P05's FastAPI 0.142.4 pin was tested in an isolated compatibility environment: API contract 2/2 and all 25 local unit/recovery tests passed.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 import time
+import threading
 
 from supportops_async.queue.contracts import Broker, MessageHandle
 from supportops_async.store.models import TaskStore
@@ -34,13 +35,56 @@ class FakeRunner:
 
 
 class Worker:
-    def __init__(self, store: TaskStore, broker: Broker, *, runner: Callable[[dict[str, Any], str], dict[str, Any]] | None = None, event_publisher: EventPublisher | None = None, worker_id: str = "worker-1", max_attempts: int = 3, base_delay: int = 1) -> None:
+    def __init__(self, store: TaskStore, broker: Broker, *, runner: Callable[[dict[str, Any], str], dict[str, Any]] | None = None, event_publisher: EventPublisher | None = None, worker_id: str = "worker-1", max_attempts: int = 3, base_delay: int = 1, heartbeat_interval_seconds: float = 5, visibility_timeout_seconds: int = 30) -> None:
         if max_attempts < 1 or base_delay < 0:
             raise ValueError("max_attempts must be positive and base_delay non-negative")
+        if heartbeat_interval_seconds <= 0 or heartbeat_interval_seconds >= 30:
+            raise ValueError("heartbeat interval must be positive and shorter than the 30-second store lease")
+        if visibility_timeout_seconds < 1 or heartbeat_interval_seconds >= visibility_timeout_seconds:
+            raise ValueError("visibility timeout must exceed the heartbeat interval")
         self.store, self.broker = store, broker
         self.runner = runner or FakeRunner()
         self.event_publisher = event_publisher
         self.worker_id, self.max_attempts, self.base_delay = worker_id, max_attempts, base_delay
+        self.heartbeat_interval_seconds = heartbeat_interval_seconds
+        self.visibility_timeout_seconds = visibility_timeout_seconds
+
+    def _run_step_with_renewal(self, handle: MessageHandle, task_id: str, payload: dict[str, Any], step: str) -> dict[str, Any]:
+        """Run a potentially long step while renewing both task lease and broker visibility."""
+        done = threading.Event()
+        outcome: dict[str, Any] = {}
+
+        def execute() -> None:
+            try:
+                outcome["result"] = self.runner(payload, step)
+            except BaseException as exc:
+                outcome["error"] = exc
+            finally:
+                done.set()
+
+        execution = threading.Thread(target=execute, name=f"task-step-{task_id}", daemon=True)
+        execution.start()
+        renewal_error: Exception | None = None
+        while not done.wait(self.heartbeat_interval_seconds):
+            try:
+                if not self.store.heartbeat(task_id, self.worker_id):
+                    raise RuntimeError("task lease renewal rejected: worker no longer owns the running task")
+                self.broker.extend_visibility(handle, self.visibility_timeout_seconds)
+            except Exception as exc:
+                renewal_error = exc
+                # The runner may already be performing an external effect; wait for it to
+                # finish before allowing retry/ack logic to proceed.
+                done.wait()
+                break
+        execution.join()
+        if renewal_error is not None:
+            raise renewal_error
+        if "error" in outcome:
+            raise outcome["error"]
+        result = outcome.get("result")
+        if not isinstance(result, dict):
+            raise TypeError("runner must return a dictionary")
+        return result
 
     def run_once(self) -> bool:
         handle = self.broker.consume()
@@ -73,13 +117,13 @@ class Worker:
                 if current is None or current.status.value == "cancelled":
                     self.broker.ack(handle)
                     return
-                self.broker.extend_visibility(handle, 30)
+                self.broker.extend_visibility(handle, self.visibility_timeout_seconds)
                 key = f"{index}:{step}"
                 prior = self.store.effect(task.task_id, key)
                 if prior is not None:
                     result = prior
                 else:
-                    effect_result = self.runner(task.payload, step)
+                    effect_result = self._run_step_with_renewal(handle, task.task_id, task.payload, step)
                     effect_result["effect_key"] = f"{task.payload.get('operation_id', task.task_id)}:{key}"
                     result = self.store.apply_effect(task.task_id, key, effect_result)
                 results.append(result)

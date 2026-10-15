@@ -1,0 +1,41 @@
+
+COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 34 packages in 0.53ms
+artifact=supportops_async-0.1.1-py3-none-any.whl
+artifact_sha256=250985c33e334b1e8f1c31bf8dcfe770ed8ff20419b96decaa9adf9d05010c1f
+source_commit=6a074e906b080fdb837907237787f623f17c3e3c
+dependency_lock_sha256=3c7978be17811ef1b02f037d2ecbf077ed37b65fe4a5347a878a20a0b543a880
+fastapi_requirement=fastapi<0.143.0,>=0.137.1
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
+check-fast: PASS
+
+COMMAND: uv run --locked pytest -q -rs --basetemp artifacts/evidence/.pytest-tmp tests
+EXIT_CODE: 0
+OUTPUT:
+..........ss.................                                            [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_services.py:14: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:25: P04_LOCALSTACK_ENDPOINT is not configured
+27 passed, 2 skipped in 1.05s
+
+COMMAND: docker compose -f docker-compose.async.yml config --quiet
+EXIT_CODE: 0
+OUTPUT:
+(empty)
+STATUS compose-config: PASS
+
+COMMAND: docker info --format {{.ServerVersion}}
+EXIT_CODE: 1
+OUTPUT:
+
+failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.
+STATUS INCOMPLETE: PostgreSQL integration: P04_POSTGRES_DSN and reachable local server required
+STATUS INCOMPLETE: LocalStack integration: P04_LOCALSTACK_ENDPOINT required
+STATUS INCOMPLETE: Docker image build: Docker daemon unavailable
+STATUS INCOMPLETE: Terraform validate/plan/provider lock: Terraform CLI unavailable
+check-full: INCOMPLETE

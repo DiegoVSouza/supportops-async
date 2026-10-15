@@ -1,0 +1,5 @@
+command: uv run pytest -q -rs --basetemp artifacts/evidence/.pytest-tmp/phase-006-full tests
+exit_code: 0
+classification: unit/contract and local subprocess suite; PostgreSQL and LocalStack integration skipped
+output: 27 passed, 2 skipped in 1.18s
+skips: P04_POSTGRES_DSN and P04_LOCALSTACK_ENDPOINT are not configured

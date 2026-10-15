@@ -67,3 +67,49 @@ def test_fake_runner_rejects_unsafe_or_unbounded_delay():
         except PermanentFailure:
             continue
         raise AssertionError(f"unsafe delay accepted: {value!r}")
+
+
+def test_long_step_renews_store_lease_and_broker_visibility():
+    import time
+
+    store, broker = SQLiteTaskStore(), InMemoryBroker()
+    task, _ = store.create({"steps": ["long"], "step_delay_seconds": 0.14}, "long-step-heartbeat")
+    broker.publish(BrokerMessage(task.task_id))
+    heartbeat_calls = []
+    visibility_calls = []
+    original_heartbeat = store.heartbeat
+    original_extend = broker.extend_visibility
+
+    def record_heartbeat(task_id, worker_id):
+        heartbeat_calls.append(time.monotonic())
+        return original_heartbeat(task_id, worker_id)
+
+    def record_visibility(handle, seconds):
+        visibility_calls.append(time.monotonic())
+        return original_extend(handle, seconds)
+
+    store.heartbeat = record_heartbeat
+    broker.extend_visibility = record_visibility
+    worker = Worker(store, broker, heartbeat_interval_seconds=0.02, visibility_timeout_seconds=1)
+    assert worker.run_once()
+    assert len(heartbeat_calls) >= 2
+    assert len(visibility_calls) >= 2
+    assert store.get(task.task_id).status.value == "done"
+
+
+def test_competing_worker_cannot_claim_during_long_running_step():
+    import time
+
+    store, broker = SQLiteTaskStore(), InMemoryBroker()
+    task, _ = store.create({"steps": ["long"]}, "long-step-claim")
+    broker.publish(BrokerMessage(task.task_id))
+    claim_results = []
+
+    def slow_runner(payload, step):
+        time.sleep(0.12)
+        claim_results.append(store.claim(task.task_id, "competitor"))
+        return {"step": step}
+
+    Worker(store, broker, runner=slow_runner, heartbeat_interval_seconds=0.02, visibility_timeout_seconds=1).run_once()
+    assert claim_results == [False]
+    assert store.get(task.task_id).status.value == "done"

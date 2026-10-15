@@ -1,0 +1,5 @@
+command: uv run python scripts/check_full.py
+exit_code: 2
+classification: full required gate; INCOMPLETE because PostgreSQL/LocalStack endpoints, Docker daemon, and Terraform CLI are unavailable
+output: recorded in phase-006-full-gate.txt
+local checks: check_fast PASS; 27 tests passed, 2 service tests skipped; Compose config PASS

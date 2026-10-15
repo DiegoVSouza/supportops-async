@@ -1,0 +1,4 @@
+command: uv run pytest -q tests/worker/test_worker.py
+exit_code: 0
+classification: unit/worker lease and broker-visibility tests
+output: 8 passed in 0.32s
