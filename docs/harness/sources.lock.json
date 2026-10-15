@@ -1,0 +1,6 @@
+{
+  "python": {"version": "3.13.12", "source": "https://docs.python.org/3.13/", "checked": "2026-10-15"},
+  "fastapi": {"version": "PENDING official-doc and environment check before implementation", "source": "https://fastapi.tiangolo.com/", "checked": "2026-10-15"},
+  "postgresql": {"version": "PENDING local availability check", "source": "https://www.postgresql.org/docs/", "checked": "2026-10-15"},
+  "localstack": {"version": "PENDING local availability check", "source": "https://docs.localstack.cloud/", "checked": "2026-10-15"}
+}
