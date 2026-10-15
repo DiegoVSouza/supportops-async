@@ -1,6 +1,7 @@
 {
   "python": {"version": "3.13.12", "source": "https://docs.python.org/3.13/", "checked": "2026-10-15"},
-  "fastapi": {"version": "0.137.1", "source": "https://fastapi.tiangolo.com/release-notes/", "checked": "2026-10-15"},
+  "fastapi": {"version": "0.142.4 (supported range >=0.137.1,<0.143.0; tested at 0.137.1 and 0.142.4)", "source": "https://fastapi.tiangolo.com/release-notes/", "checked": "2026-10-15"},
+  "opentelemetry-api": {"version": "1.45.1", "source": "https://github.com/open-telemetry/opentelemetry-python/releases", "checked": "2026-10-15"},
   "uvicorn": {"version": "0.46.0", "source": "https://www.uvicorn.org/release-notes/", "checked": "2026-10-15"},
   "httpx": {"version": "0.28.1", "source": "https://fastapi.tiangolo.com/tutorial/testing/", "checked": "2026-10-15"},
   "pytest": {"version": "9.1.1", "source": "https://docs.pytest.org/en/stable/", "checked": "2026-10-15"},

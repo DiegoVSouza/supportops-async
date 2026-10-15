@@ -1,0 +1,13 @@
+COMMAND: uv lock --check
+EXIT_CODE: 0
+OUTPUT:
+Resolved 34 packages in 0.91ms
+
+COMMAND: python -m compileall -q supportops_async scripts
+EXIT_CODE: 0
+OUTPUT:
+
+COMMAND: uv run --locked python -c import fastapi and package versions
+EXIT_CODE: 0
+OUTPUT:
+fastapi=0.142.4 supportops-async=0.1.1

@@ -11,17 +11,20 @@ FastAPI's official release notes show 0.142.0 added native OpenTelemetry support
 
 ## Decision
 
-Set P04's supported FastAPI interval to `>=0.142.4,<0.143.0`, lock the tested resolver result, and publish the next patch package version, 0.1.1. This range includes the P05-pinned version while avoiding an untested next minor release. No route, status, schema, or response behavior changes.
+Set P04's supported FastAPI interval to `>=0.137.1,<0.143.0`, lock FastAPI 0.142.4 with `opentelemetry-api` 1.45.1, and publish the next patch package version, 0.1.1. The API suite passed on both range endpoints (0.137.1 and 0.142.4); the upper bound avoids an untested next minor release. No route, status, schema, or response behavior changes.
 
 ## Evidence
 
 - Official [FastAPI release notes](https://fastapi.tiangolo.com/release-notes/) list changes for 0.142.0 and 0.142.4.
 - Official [FastAPI testing documentation](https://fastapi.tiangolo.com/tutorial/testing/) and [async tests documentation](https://fastapi.tiangolo.com/advanced/async-tests/) describe the supported ASGI testing approach used by P04.
+- Official [OpenTelemetry Python release notes](https://github.com/open-telemetry/opentelemetry-python/releases) identify the locked `opentelemetry-api` 1.45.1 release.
 - `artifacts/evidence/fastapi-compat-api-tests.txt`: API contract tests pass on FastAPI 0.142.4.
 - `artifacts/evidence/fastapi-compat-full-tests.txt`: all 25 local unit/recovery tests pass on FastAPI 0.142.4; two service integrations are deliberately deselected.
+- `artifacts/evidence/fastapi-compat-0137-full-tests.txt`: all 25 local unit/recovery tests pass on the supported lower endpoint, FastAPI 0.137.1.
+- `artifacts/evidence/fastapi-compat-locked-full-tests.txt`: all 25 local unit/recovery tests pass after `uv sync --locked --offline`; service integrations remain skipped.
 
 ## Consequences
 
-- Consumers using FastAPI 0.137.1 must upgrade to 0.142.4 or a compatible 0.142.x release when moving to P04 package 0.1.1.
-- The lock now includes FastAPI's required OpenTelemetry API dependency. P04 does not enable telemetry or make telemetry exporter calls.
+- Consumers on FastAPI 0.137.1 remain supported; consumers on FastAPI 0.142.4 can now install P04 0.1.1 without bypassing dependency metadata.
+- The lock resolves FastAPI's required OpenTelemetry API dependency to 1.45.1. P04 does not enable telemetry or make telemetry exporter calls.
 - PostgreSQL/LocalStack integration remains INCOMPLETE until those services are available; FastAPI compatibility tests do not approve service integration.

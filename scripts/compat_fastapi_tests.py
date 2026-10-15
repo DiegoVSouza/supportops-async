@@ -11,6 +11,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--fastapi-site", type=pathlib.Path, required=True)
     parser.add_argument("--dependency-site", type=pathlib.Path, required=True)
+    parser.add_argument("--expected-fastapi", default="0.142.4")
     parser.add_argument("--suite", choices=("api", "all"), default="all")
     args = parser.parse_args()
     root = pathlib.Path(__file__).resolve().parents[1]
@@ -35,7 +36,7 @@ def main() -> None:
     import fastapi
 
     print(f"FastAPI {fastapi.__version__}")
-    if fastapi.__version__ != "0.142.4":
+    if fastapi.__version__ != args.expected_fastapi:
         raise RuntimeError(f"wrong FastAPI version loaded: {fastapi.__version__}")
     raise SystemExit(result)
 

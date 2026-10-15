@@ -31,7 +31,7 @@ uv sync --locked
 uv run --locked python scripts/demo.py
 ```
 
-O pacote de runtime instalável tem versão `0.1.0`. Gere um wheel local sem publicá-lo:
+O pacote de runtime instalável tem versão `0.1.1`. Gere um wheel local sem publicá-lo:
 
 ```sh
 uv build --wheel --out-dir artifacts/packages

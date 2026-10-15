@@ -1,0 +1,10 @@
+COMMAND: uv sync --locked --offline
+EXIT_CODE: 0
+OUTPUT:
+Resolved 34 packages in 0.83ms
+   Building supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+      Built supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+Prepared 1 package in 1.15s
+Uninstalled 1 package in 2ms
+Installed 1 package in 50ms
+ ~ supportops-async==0.1.1 (from file:///C:/estudo/Golpe/lab/projects/p04)

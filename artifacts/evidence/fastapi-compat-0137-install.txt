@@ -1,0 +1,9 @@
+COMMAND: uv pip install --offline --no-deps --python artifacts/evidence/.compat-fastapi/Scripts/python.exe fastapi==0.137.1
+EXIT_CODE: 0
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\evidence\.compat-fastapi
+Resolved 1 package in 1ms
+Uninstalled 1 package in 24ms
+Installed 1 package in 83ms
+ - fastapi==0.142.4
+ + fastapi==0.137.1

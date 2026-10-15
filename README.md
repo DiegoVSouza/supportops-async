@@ -31,7 +31,7 @@ uv sync --locked
 uv run --locked python scripts/demo.py
 ```
 
-The importable runtime package is pinned at version `0.1.0`. Build a local wheel without publishing it:
+The importable runtime package is pinned at version `0.1.1`. Build a local wheel without publishing it:
 
 ```sh
 uv build --wheel --out-dir artifacts/packages

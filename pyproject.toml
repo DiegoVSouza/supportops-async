@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "supportops-async"
-version = "0.1.0"
+version = "0.1.1"
 description = "Durable asynchronous support operations task platform"
 requires-python = ">=3.13,<3.14"
 dependencies = [
-  "fastapi==0.137.1",
+  "fastapi>=0.137.1,<0.143.0",
   "uvicorn==0.46.0",
   "psycopg[binary]==3.2.10",
   "boto3==1.43.114",
