@@ -1,0 +1,6 @@
+Resolved 34 packages in 0.49ms
+FAIL: dependency lock SHA-256 does not match artifact.lock.json
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=1
+check-fast: FAIL
