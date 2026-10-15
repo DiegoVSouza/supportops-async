@@ -1,0 +1,6 @@
+COMMAND: artifacts/evidence/.compat-fastapi/Scripts/python.exe -I -S scripts/compat_fastapi_tests.py --fastapi-site artifacts/evidence/.compat-fastapi/Lib/site-packages --dependency-site .venv/Lib/site-packages --suite all
+EXIT_CODE: 0
+OUTPUT:
+.........................                                                [100%]
+25 passed, 2 deselected in 0.80s
+FastAPI 0.142.4

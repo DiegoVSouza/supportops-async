@@ -1,0 +1,148 @@
+COMMAND: uv pip install --offline --python artifacts/evidence/.compat-fastapi/Scripts/python.exe fastapi==0.142.4 httpx==0.28.1 pytest==9.1.1
+EXIT_CODE: 1
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\evidence\.compat-fastapi
+  × No solution found when resolving dependencies:
+  ╰─▶ Because all of:
+          pydantic>=2.9.0,<=2.12.0
+          pydantic>=2.12.2,<=2.12.4
+          pydantic>=2.13.0b1,<=2.13.3
+          pydantic>=2.14.0a1,<=2.14.0b2
+       need to be downloaded from a registry and only the following versions
+      of pydantic are available:
+          pydantic<=2.12.0
+          pydantic==2.12.1
+          pydantic>=2.12.2
+      we can conclude that all of:
+          pydantic>=2.9.0,<2.12.1
+          pydantic>2.12.1,<=2.12.4
+          pydantic>=2.13.0b1,<=2.13.3
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used.
+      And because pydantic==2.12.1 was yanked (reason: references a yanked
+      version of pydantic-core) and only the following versions of pydantic
+      are available:
+          pydantic<=2.12.4
+          pydantic==2.12.5
+          pydantic>=2.13.0b1
+      we can conclude that all of:
+          pydantic>=2.9.0,<2.12.5
+          pydantic>2.12.5,<=2.13.3
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used. (1)
+
+      Because pydantic-core==2.41.5 needs to be downloaded from a registry and
+      pydantic==2.12.5 depends on pydantic-core==2.41.5, we can conclude that
+      pydantic==2.12.5 cannot be used.
+      And because we know from (1) that all of:
+          pydantic>=2.9.0,<2.12.5
+          pydantic>2.12.5,<=2.13.3
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used, we can conclude that all of:
+          pydantic>=2.9.0,<=2.13.3
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used.
+      And because only the following versions of pydantic are available:
+          pydantic<=2.13.3
+          pydantic>=2.13.4
+      we can conclude that all of:
+          pydantic>=2.9.0,<2.13.4
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used. (2)
+
+      Because pydantic-core==2.46.4 needs to be downloaded from a registry and
+      pydantic==2.13.4 depends on pydantic-core==2.46.4, we can conclude that
+      pydantic==2.13.4 cannot be used.
+      And because we know from (2) that all of:
+          pydantic>=2.9.0,<2.13.4
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used, we can conclude that all of:
+          pydantic>=2.9.0,<=2.13.4
+          pydantic>=2.14.0a1,<=2.14.0b2
+       cannot be used.
+      And because only the following versions of pydantic are available:
+          pydantic<=2.14.0b2
+          pydantic>=2.14.0
+      we can conclude that all of:
+          pydantic>=2.9.0,<=2.13.4
+          pydantic>=2.14.0a1,<2.14.0
+       cannot be used.
+      And because pydantic==2.14.0 needs to be downloaded from a registry and
+      only the following versions of pydantic are available:
+          pydantic<=2.13.4
+          pydantic==2.13.5
+          pydantic>=2.14.0a1
+      we can conclude that all of:
+          pydantic>=2.9.0,<2.13.5
+          pydantic>2.13.5,<=2.14.0
+       cannot be used. (3)
+
+      Because pydantic-core==2.46.5 needs to be downloaded from a registry and
+      pydantic==2.13.5 depends on pydantic-core==2.46.5, we can conclude that
+      pydantic==2.13.5 cannot be used.
+      And because we know from (3) that all of:
+          pydantic>=2.9.0,<2.13.5
+          pydantic>2.13.5,<=2.14.0
+       cannot be used, we can conclude that pydantic>=2.9.0,<=2.14.0 cannot
+      be used.
+      And because only the following versions of pydantic are available:
+          pydantic<=2.14.0
+          pydantic>=2.14.1
+      we can conclude that pydantic>=2.9.0,<2.14.1 cannot be used. (4)
+
+      Because pydantic-core==2.50.1 needs to be downloaded from a registry and
+      pydantic>=2.14.1 depends on pydantic-core==2.50.1, we can conclude that
+      pydantic>=2.14.1 cannot be used.
+      And because we know from (4) that pydantic>=2.9.0,<2.14.1 cannot be
+      used, we can conclude that pydantic>=2.9.0 cannot be used.
+      And because fastapi==0.142.4 depends on pydantic>=2.9.0 and you
+      require fastapi==0.142.4, we can conclude that your requirements are
+      unsatisfiable.
+
+hint: Packages were unavailable because the network was disabled. When the network is disabled, registry packages may only be read from the cache.
+
+COMMAND: uv pip install --offline --no-deps --python artifacts/evidence/.compat-fastapi/Scripts/python.exe fastapi==0.142.4
+EXIT_CODE: 0
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\evidence\.compat-fastapi
+Resolved 1 package in 1ms
+Installed 1 package in 88ms
+ + fastapi==0.142.4
+
+COMMAND: artifacts/evidence/.compat-fastapi/Scripts/python.exe -I -S -c <isolated FastAPI version import>
+EXIT_CODE: 1
+OUTPUT:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; sys.path[:0]=['artifacts/evidence/.compat-fastapi/Lib/site-packages','.venv/Lib/site-packages']; import fastapi; print(fastapi.__version__)
+                                                                                                                 ^^^^^^^^^^^^^^
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\__init__.py", line 7, in <module>
+    from .applications import FastAPI as FastAPI
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\applications.py", line 7, in <module>
+    from fastapi import routing
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\routing.py", line 58, in <module>
+    from fastapi.dependencies.utils import (
+    ...<9 lines>...
+    )
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\dependencies\utils.py", line 52, in <module>
+    from fastapi.background import BackgroundTasks
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\background.py", line 5, in <module>
+    from fastapi.telemetry._api import _operation
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\telemetry\__init__.py", line 1, in <module>
+    from ._api import TelemetryConfig as TelemetryConfig
+  File "C:\estudo\Golpe\lab\projects\p04\artifacts/evidence/.compat-fastapi/Lib/site-packages\fastapi\telemetry\_api.py", line 9, in <module>
+    from opentelemetry import context as otel_context
+ModuleNotFoundError: No module named 'opentelemetry'
+
+COMMAND: uv pip install --offline --no-deps --python artifacts/evidence/.compat-fastapi/Scripts/python.exe opentelemetry-api==1.44.0
+EXIT_CODE: 0
+OUTPUT:
+Using Python 3.13.12 environment at: artifacts\evidence\.compat-fastapi
+Resolved 1 package in 1ms
+Installed 1 package in 49ms
+ + opentelemetry-api==1.44.0
+
+COMMAND: isolated import FastAPI 0.142.4 with locked P04 dependencies
+EXIT_CODE: 0
+OUTPUT:
+0.142.4
