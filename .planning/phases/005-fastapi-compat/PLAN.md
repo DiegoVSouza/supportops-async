@@ -2,7 +2,7 @@
 
 ## allowed_write_paths
 
-- `.planning/phases/005-fastapi-compat/**`, `docs/decisions/**`, `docs/harness/**`
+- `.planning/phases/005-fastapi-compat/**`, `docs/decisions/**`, `docs/harness/**`, `README*`
 - `pyproject.toml`, `uv.lock`, `docs/harness/sources.lock.json`
 - `tests/api/**`, `tests/compat/**`, `scripts/**`
 - `artifacts/evidence/**`, `artifacts/packages/**`
@@ -13,7 +13,7 @@ No P05 edits, sibling imports, route/status/schema changes, external publication
 
 ## Tasks
 
-1. Record the consumer mismatch and test the current API suite against FastAPI 0.142.4 with the existing locked dependencies.
+1. Record the consumer mismatch and test the API suite against FastAPI 0.142.4 and the prior supported endpoint 0.137.1.
 2. Record an ADR, update the documented source and compatibility range, pin the lock to the tested release, and bump the package patch version.
 3. Build the local wheel, verify metadata/hash/source provenance, and install/smoke it in an isolated environment.
 

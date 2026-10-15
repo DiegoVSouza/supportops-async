@@ -27,3 +27,4 @@
 - Command: `python artifacts/evidence/validate-phase-plans.py`
 - Exit code: `0`; saved output is `phase-005-plan-validation.txt`.
 - Review: accepted. Scope is limited to the documented FastAPI dependency compatibility and local package patch. It preserves route/status/schema contracts; the plan requires an ADR, exact version lock, full local suite on 0.142.4, wheel metadata/provenance, and isolated install smoke. External service gates remain separate.
+- Review update: accepted. `README*` is now explicitly included in the allowed paths because its package version command and displayed version are updated by this phase.
