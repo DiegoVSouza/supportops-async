@@ -1,0 +1,5 @@
+Command: uv build --wheel --out-dir artifacts/packages
+Exit code: 0
+Output:
+Successfully built artifacts/packages/supportops_async-0.1.1-py3-none-any.whl
+Build metadata: supportops_async-0.1.1.dist-info/METADATA

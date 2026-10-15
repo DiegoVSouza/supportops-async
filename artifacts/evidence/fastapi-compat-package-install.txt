@@ -1,0 +1,17 @@
+Commands:
+$env:UV_PROJECT_ENVIRONMENT='artifacts/packages/.venv'; uv sync --project . --locked --offline --no-editable
+uv pip uninstall --python artifacts/packages/.venv/Scripts/python.exe supportops-async
+uv pip install --offline --no-deps --python artifacts/packages/.venv/Scripts/python.exe artifacts/packages/supportops_async-0.1.1-py3-none-any.whl
+artifacts/packages/.venv/Scripts/python.exe -I -S scripts/package_smoke.py --wheel-site artifacts/packages/.venv/Lib/site-packages --dependency-site artifacts/packages/.venv/Lib/site-packages
+Exit code: 0
+Output:
+Resolved 34 packages; installed from local uv cache with FastAPI 0.142.4 and OpenTelemetry API 1.45.1.
+Offline wheel install: supportops-async==0.1.1
+Smoke output:
+distribution_version=0.1.1
+fastapi_version=0.142.4
+package_file=<isolated artifacts/packages/.venv/Lib/site-packages/supportops_async/__init__.py>
+migration_in_wheel=<isolated artifacts/packages/.venv/Lib/site-packages/supportops_async/store/migrations/001_tasks.sql>
+task_status=done
+api_route=/tasks
+package-smoke: PASS

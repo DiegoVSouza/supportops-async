@@ -1,18 +1,22 @@
 {
   "schema_version": 1,
   "distribution": "supportops-async",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "python_requires": ">=3.13,<3.14",
-  "artifact": "supportops_async-0.1.0-py3-none-any.whl",
-  "artifact_sha256": "5210a3c87afa7680c81ac6a7d2e37f16651e2ee06981a4ff9c1bc26c51725e23",
+  "artifact": "supportops_async-0.1.1-py3-none-any.whl",
+  "artifact_sha256": "250985c33e334b1e8f1c31bf8dcfe770ed8ff20419b96decaa9adf9d05010c1f",
   "source_repository": "P04 independent local Git repository",
-  "source_commit": "d66bf316eedb2a5a810bc0a35ebf80d37f4474ab",
+  "source_commit": "6a074e906b080fdb837907237787f623f17c3e3c",
   "project_dependency_lock": "uv.lock",
-  "project_dependency_lock_sha256": "e5b794c629d40ca4d4e1a51747bac113bd4206a685c7daa493cd8327335c93b9",
+  "project_dependency_lock_sha256": "3c7978be17811ef1b02f037d2ecbf077ed37b65fe4a5347a878a20a0b543a880",
   "direct_dependencies": {
-    "fastapi": "0.137.1",
+    "fastapi": ">=0.137.1,<0.143.0",
     "uvicorn": "0.46.0",
     "psycopg[binary]": "3.2.10",
     "boto3": "1.43.114"
+  },
+  "tested_resolution": {
+    "fastapi": "0.142.4",
+    "opentelemetry-api": "1.45.1"
   }
 }

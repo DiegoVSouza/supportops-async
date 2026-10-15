@@ -1,0 +1,24 @@
+Command: uv run --locked pytest -q -rs --basetemp artifacts/evidence/.pytest-tmp tests
+Exit code: 0
+Output:
+25 passed, 2 skipped in 0.74s
+SKIPPED tests/integration/test_services.py:14: P04_POSTGRES_DSN is not configured
+SKIPPED tests/integration/test_services.py:25: P04_LOCALSTACK_ENDPOINT is not configured
+
+Command: uv run --locked python scripts/check_fast.py
+Exit code: 0
+Output:
+artifact=supportops_async-0.1.1-py3-none-any.whl
+artifact_sha256=250985c33e334b1e8f1c31bf8dcfe770ed8ff20419b96decaa9adf9d05010c1f
+source_commit=6a074e906b080fdb837907237787f623f17c3e3c
+dependency_lock_sha256=3c7978be17811ef1b02f037d2ecbf077ed37b65fe4a5347a878a20a0b543a880
+fastapi_requirement=fastapi<0.143.0,>=0.137.1
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+check-fast: PASS
+
+Command: uv lock --check
+Exit code: 0
+Output:
+Resolved 34 packages in 0.87ms

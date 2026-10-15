@@ -2,7 +2,9 @@
 !.gitignore
 !*.whl
 !artifact.lock.json
+!artifact-*.lock.json
 !provenance.md
+!provenance-*.md
 !README.md
 !.venv/
 .venv/**

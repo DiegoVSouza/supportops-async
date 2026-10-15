@@ -24,8 +24,12 @@ with zipfile.ZipFile(wheel) as archive:
     metadata = set(archive.read(metadata_name).decode("utf-8").splitlines())
 if f"Name: {lock['distribution']}" not in metadata or f"Version: {lock['version']}" not in metadata:
     sys.exit("FAIL: wheel metadata does not match artifact.lock.json")
+fastapi_requirement = next((line.removeprefix("Requires-Dist: ") for line in metadata if line.startswith("Requires-Dist: fastapi")), None)
+if fastapi_requirement != "fastapi<0.143.0,>=0.137.1":
+    sys.exit(f"FAIL: wheel FastAPI requirement does not match supported range: {fastapi_requirement}")
 print(f"artifact={wheel.name}")
 print(f"artifact_sha256={wheel_hash}")
 print(f"source_commit={lock['source_commit']}")
 print(f"dependency_lock_sha256={dependency_hash}")
+print(f"fastapi_requirement={fastapi_requirement}")
 print("artifact-lock: PASS")

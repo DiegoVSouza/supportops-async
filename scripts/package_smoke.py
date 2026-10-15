@@ -26,8 +26,14 @@ def main() -> None:
     package_file = pathlib.Path(__import__("supportops_async").__file__).resolve()
     if args.wheel_site.resolve() not in package_file.parents:
         raise AssertionError(f"package imported outside installed wheel: {package_file}")
-    if importlib.metadata.version("supportops-async") != "0.1.0":
+    if importlib.metadata.version("supportops-async") != "0.1.1":
         raise AssertionError("unexpected installed package version")
+    requirements = importlib.metadata.distribution("supportops-async").requires or []
+    if not any(requirement.lower().startswith("fastapi<0.143.0,>=0.137.1") for requirement in requirements):
+        raise AssertionError(f"unexpected FastAPI compatibility requirement: {requirements}")
+    import fastapi
+    if fastapi.__version__ != "0.142.4":
+        raise AssertionError(f"unexpected FastAPI consumer version: {fastapi.__version__}")
     migration = importlib.resources.files("supportops_async.store").joinpath("migrations/001_tasks.sql")
     if not migration.is_file():
         raise AssertionError("PostgreSQL migration was not included in the wheel")
@@ -44,6 +50,7 @@ def main() -> None:
         raise AssertionError("installed API does not expose the task route")
 
     print(f"distribution_version={importlib.metadata.version('supportops-async')}")
+    print(f"fastapi_version={fastapi.__version__}")
     print(f"package_file={package_file}")
     print(f"migration_in_wheel={migration}")
     print(f"task_status={store.get(task.task_id).status.value}")
