@@ -13,7 +13,7 @@ llm_mode: fake
 tasks:
   - Fix RedrivePolicy input for the current AWS CLI parser and validate the hook syntax.
   - Make service tests repeatable with unique PostgreSQL keys and a dedicated temporary SQS queue; make the full gate check the PostgreSQL host/port from its configured DSN instead of assuming port 5432.
-  - Build and start the P04 API/worker images, verify health/non-root runtime, use the official pinned Terraform Docker image for local init/validate/plan, then run the project full gate.
+  - Build and start the P04 API/worker images, verify health/non-root runtime, use local Terraform or the official pinned Docker image fallback for init/validate/plan, then run the project full gate.
 checks:
   - docker compose config and image build
   - uv run --locked pytest -q -m integration tests/integration/test_services.py
@@ -25,4 +25,4 @@ stop_condition: Stop with any required service integration failure unresolved; m
 Coordinator review: accepted. The phase is restricted to P04 and local Docker evidence; all external effects are forbidden.
 
 ## Amendment after service execution
-The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its persisted row. A full-suite run also showed the active worker can consume the fixed test message from the shared queue. The plan owns the integration test and full-gate script: tests use unique keys and a dedicated temporary queue, and reachability is checked at the configured PostgreSQL DSN. Existing same-key, SQS visibility, and acknowledgement assertions remain intact. Docker makes Terraform CLI available through the official versioned image, so this phase now includes local init/validate/plan with no apply. Coordinator review: accepted.
+The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its persisted row. A full-suite run also showed the active worker can consume the fixed test message from the shared queue. The plan owns the integration test and full-gate script: tests use unique keys and a dedicated temporary queue, and reachability is checked at the configured PostgreSQL DSN. Existing same-key, SQS visibility, and acknowledgement assertions remain intact. Docker makes Terraform CLI available through the official versioned image, so this phase adds a Docker fallback for local init/validate/plan when the host CLI is absent; no apply is allowed. Coordinator review: accepted.
