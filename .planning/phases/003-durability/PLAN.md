@@ -8,7 +8,7 @@ No weakening idempotency assertions, no silent schema changes, no cloud deploy.
 
 ## Tasks
 1. Specify checkpoint and idempotency key schema with migration.
-2. Persist checkpoints around each simulated effect and enforce unique effect keys.
+2. Persist checkpoints around each simulated effect, enforce unique effect keys, and atomically record lifecycle events in a transactional outbox.
 3. Kill/restart a local worker mid-task and verify resume without duplicate effects.
 
 ## Check and stop

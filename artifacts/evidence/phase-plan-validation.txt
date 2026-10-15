@@ -1,0 +1,4 @@
+001-api-store: 4 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
+002-broker-worker: 3 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
+003-durability: 3 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
+004-infrastructure: 4 tasks; SPEC/PLAN/VERIFY and ownership/stop conditions: PASS
