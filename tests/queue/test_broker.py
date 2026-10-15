@@ -29,7 +29,10 @@ def test_sqs_adapter_uses_receive_count_and_safe_dead_letter():
     broker = SqsBroker(client, "source", "dlq")
     handle = broker.consume()
     assert handle.attempts == 4 and handle.message.task_id == "t1"
+    broker.extend_visibility(handle, 35)
+    assert client.calls[-1][0] == "visibility"
+    assert client.calls[-1][1]["VisibilityTimeout"] == 35
     broker.dead_letter(handle)
-    assert [call[0] for call in client.calls] == ["send", "delete"]
+    assert [call[0] for call in client.calls] == ["visibility", "send", "delete"]
     broker.nack(handle, 99999)
     assert client.calls[-1][1]["VisibilityTimeout"] == 43200
