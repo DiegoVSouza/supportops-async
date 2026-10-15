@@ -26,7 +26,7 @@ def main() -> None:
     package_file = pathlib.Path(__import__("supportops_async").__file__).resolve()
     if args.wheel_site.resolve() not in package_file.parents:
         raise AssertionError(f"package imported outside installed wheel: {package_file}")
-    if importlib.metadata.version("supportops-async") != "0.1.1":
+    if importlib.metadata.version("supportops-async") != "0.1.2":
         raise AssertionError("unexpected installed package version")
     requirements = importlib.metadata.distribution("supportops-async").requires or []
     if not any(requirement.lower().startswith("fastapi<0.143.0,>=0.137.1") for requirement in requirements):

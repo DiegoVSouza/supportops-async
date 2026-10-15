@@ -1,0 +1,5 @@
+COMMAND: python -m pip install --no-index --no-deps --target artifacts/tmp/p04-012-site2 artifacts/packages/supportops_async-0.1.2-py3-none-any.whl
+Processing .\artifacts\packages\supportops_async-0.1.2-py3-none-any.whl
+Installing collected packages: supportops-async
+Successfully installed supportops-async-0.1.2
+EXIT_CODE=0

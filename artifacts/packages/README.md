@@ -9,7 +9,7 @@ uv venv artifacts/packages/.venv --python 3.13.12
 $env:UV_PROJECT_ENVIRONMENT = "artifacts/packages/.venv"
 uv sync --project . --locked --offline --no-editable
 Remove-Item Env:UV_PROJECT_ENVIRONMENT
-uv pip install --offline --no-deps --python artifacts/packages/.venv/Scripts/python.exe artifacts/packages/supportops_async-0.1.1-py3-none-any.whl
+uv pip install --offline --no-deps --python artifacts/packages/.venv/Scripts/python.exe artifacts/packages/supportops_async-0.1.2-py3-none-any.whl
 artifacts/packages/.venv/Scripts/python.exe -I -S scripts/package_smoke.py --wheel-site artifacts/packages/.venv/Lib/site-packages --dependency-site artifacts/packages/.venv/Lib/site-packages
 ```
 

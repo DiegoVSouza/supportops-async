@@ -1,0 +1,165 @@
+COMMAND: uv build --offline --out-dir artifacts/packages .
+Building source distribution...
+running egg_info
+writing supportops_async.egg-info\PKG-INFO
+writing dependency_links to supportops_async.egg-info\dependency_links.txt
+writing entry points to supportops_async.egg-info\entry_points.txt
+writing requirements to supportops_async.egg-info\requires.txt
+writing top-level names to supportops_async.egg-info\top_level.txt
+reading manifest file 'supportops_async.egg-info\SOURCES.txt'
+writing manifest file 'supportops_async.egg-info\SOURCES.txt'
+running sdist
+running egg_info
+writing supportops_async.egg-info\PKG-INFO
+writing dependency_links to supportops_async.egg-info\dependency_links.txt
+writing entry points to supportops_async.egg-info\entry_points.txt
+writing requirements to supportops_async.egg-info\requires.txt
+writing top-level names to supportops_async.egg-info\top_level.txt
+reading manifest file 'supportops_async.egg-info\SOURCES.txt'
+writing manifest file 'supportops_async.egg-info\SOURCES.txt'
+running check
+creating supportops_async-0.1.2
+creating supportops_async-0.1.2\supportops_async
+creating supportops_async-0.1.2\supportops_async.egg-info
+creating supportops_async-0.1.2\supportops_async\api
+creating supportops_async-0.1.2\supportops_async\events
+creating supportops_async-0.1.2\supportops_async\queue
+creating supportops_async-0.1.2\supportops_async\store
+creating supportops_async-0.1.2\supportops_async\store\migrations
+creating supportops_async-0.1.2\supportops_async\worker
+copying files to supportops_async-0.1.2...
+copying README.md -> supportops_async-0.1.2
+copying pyproject.toml -> supportops_async-0.1.2
+copying supportops_async\__init__.py -> supportops_async-0.1.2\supportops_async
+copying supportops_async.egg-info\PKG-INFO -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async.egg-info\SOURCES.txt -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async.egg-info\dependency_links.txt -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async.egg-info\entry_points.txt -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async.egg-info\requires.txt -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async.egg-info\top_level.txt -> supportops_async-0.1.2\supportops_async.egg-info
+copying supportops_async\api\__init__.py -> supportops_async-0.1.2\supportops_async\api
+copying supportops_async\api\app.py -> supportops_async-0.1.2\supportops_async\api
+copying supportops_async\api\runtime.py -> supportops_async-0.1.2\supportops_async\api
+copying supportops_async\events\__init__.py -> supportops_async-0.1.2\supportops_async\events
+copying supportops_async\events\consumer.py -> supportops_async-0.1.2\supportops_async\events
+copying supportops_async\events\events.py -> supportops_async-0.1.2\supportops_async\events
+copying supportops_async\queue\__init__.py -> supportops_async-0.1.2\supportops_async\queue
+copying supportops_async\queue\contracts.py -> supportops_async-0.1.2\supportops_async\queue
+copying supportops_async\queue\memory.py -> supportops_async-0.1.2\supportops_async\queue
+copying supportops_async\store\__init__.py -> supportops_async-0.1.2\supportops_async\store
+copying supportops_async\store\models.py -> supportops_async-0.1.2\supportops_async\store
+copying supportops_async\store\postgres.py -> supportops_async-0.1.2\supportops_async\store
+copying supportops_async\store\sqlite.py -> supportops_async-0.1.2\supportops_async\store
+copying supportops_async\store\migrations\001_tasks.sql -> supportops_async-0.1.2\supportops_async\store\migrations
+copying supportops_async\worker\__init__.py -> supportops_async-0.1.2\supportops_async\worker
+copying supportops_async\worker\cli.py -> supportops_async-0.1.2\supportops_async\worker
+copying supportops_async\worker\runner.py -> supportops_async-0.1.2\supportops_async\worker
+Writing supportops_async-0.1.2\setup.cfg
+Creating tar archive
+removing 'supportops_async-0.1.2' (and everything under it)
+Building wheel from source distribution...
+running egg_info
+writing supportops_async.egg-info\PKG-INFO
+writing dependency_links to supportops_async.egg-info\dependency_links.txt
+writing entry points to supportops_async.egg-info\entry_points.txt
+writing requirements to supportops_async.egg-info\requires.txt
+writing top-level names to supportops_async.egg-info\top_level.txt
+reading manifest file 'supportops_async.egg-info\SOURCES.txt'
+writing manifest file 'supportops_async.egg-info\SOURCES.txt'
+running bdist_wheel
+running build
+running build_py
+creating build\lib\supportops_async
+copying supportops_async\__init__.py -> build\lib\supportops_async
+creating build\lib\supportops_async\api
+copying supportops_async\api\app.py -> build\lib\supportops_async\api
+copying supportops_async\api\runtime.py -> build\lib\supportops_async\api
+copying supportops_async\api\__init__.py -> build\lib\supportops_async\api
+creating build\lib\supportops_async\events
+copying supportops_async\events\consumer.py -> build\lib\supportops_async\events
+copying supportops_async\events\events.py -> build\lib\supportops_async\events
+copying supportops_async\events\__init__.py -> build\lib\supportops_async\events
+creating build\lib\supportops_async\queue
+copying supportops_async\queue\contracts.py -> build\lib\supportops_async\queue
+copying supportops_async\queue\memory.py -> build\lib\supportops_async\queue
+copying supportops_async\queue\__init__.py -> build\lib\supportops_async\queue
+creating build\lib\supportops_async\store
+copying supportops_async\store\models.py -> build\lib\supportops_async\store
+copying supportops_async\store\postgres.py -> build\lib\supportops_async\store
+copying supportops_async\store\sqlite.py -> build\lib\supportops_async\store
+copying supportops_async\store\__init__.py -> build\lib\supportops_async\store
+creating build\lib\supportops_async\worker
+copying supportops_async\worker\cli.py -> build\lib\supportops_async\worker
+copying supportops_async\worker\runner.py -> build\lib\supportops_async\worker
+copying supportops_async\worker\__init__.py -> build\lib\supportops_async\worker
+running egg_info
+writing supportops_async.egg-info\PKG-INFO
+writing dependency_links to supportops_async.egg-info\dependency_links.txt
+writing entry points to supportops_async.egg-info\entry_points.txt
+writing requirements to supportops_async.egg-info\requires.txt
+writing top-level names to supportops_async.egg-info\top_level.txt
+reading manifest file 'supportops_async.egg-info\SOURCES.txt'
+writing manifest file 'supportops_async.egg-info\SOURCES.txt'
+creating build\lib\supportops_async\store\migrations
+copying supportops_async\store\migrations\001_tasks.sql -> build\lib\supportops_async\store\migrations
+installing to build\bdist.win-amd64\wheel
+running install
+running install_lib
+creating build\bdist.win-amd64\wheel
+creating build\bdist.win-amd64\wheel\supportops_async
+creating build\bdist.win-amd64\wheel\supportops_async\api
+copying build\lib\supportops_async\api\app.py -> build\bdist.win-amd64\wheel\.\supportops_async\api
+copying build\lib\supportops_async\api\runtime.py -> build\bdist.win-amd64\wheel\.\supportops_async\api
+copying build\lib\supportops_async\api\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async\api
+creating build\bdist.win-amd64\wheel\supportops_async\events
+copying build\lib\supportops_async\events\consumer.py -> build\bdist.win-amd64\wheel\.\supportops_async\events
+copying build\lib\supportops_async\events\events.py -> build\bdist.win-amd64\wheel\.\supportops_async\events
+copying build\lib\supportops_async\events\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async\events
+creating build\bdist.win-amd64\wheel\supportops_async\queue
+copying build\lib\supportops_async\queue\contracts.py -> build\bdist.win-amd64\wheel\.\supportops_async\queue
+copying build\lib\supportops_async\queue\memory.py -> build\bdist.win-amd64\wheel\.\supportops_async\queue
+copying build\lib\supportops_async\queue\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async\queue
+creating build\bdist.win-amd64\wheel\supportops_async\store
+creating build\bdist.win-amd64\wheel\supportops_async\store\migrations
+copying build\lib\supportops_async\store\migrations\001_tasks.sql -> build\bdist.win-amd64\wheel\.\supportops_async\store\migrations
+copying build\lib\supportops_async\store\models.py -> build\bdist.win-amd64\wheel\.\supportops_async\store
+copying build\lib\supportops_async\store\postgres.py -> build\bdist.win-amd64\wheel\.\supportops_async\store
+copying build\lib\supportops_async\store\sqlite.py -> build\bdist.win-amd64\wheel\.\supportops_async\store
+copying build\lib\supportops_async\store\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async\store
+creating build\bdist.win-amd64\wheel\supportops_async\worker
+copying build\lib\supportops_async\worker\cli.py -> build\bdist.win-amd64\wheel\.\supportops_async\worker
+copying build\lib\supportops_async\worker\runner.py -> build\bdist.win-amd64\wheel\.\supportops_async\worker
+copying build\lib\supportops_async\worker\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async\worker
+copying build\lib\supportops_async\__init__.py -> build\bdist.win-amd64\wheel\.\supportops_async
+running install_egg_info
+Copying supportops_async.egg-info to build\bdist.win-amd64\wheel\.\supportops_async-0.1.2-py3.13.egg-info
+running install_scripts
+creating build\bdist.win-amd64\wheel\supportops_async-0.1.2.dist-info\WHEEL
+creating 'C:\\estudo\\Golpe\\lab\\projects\\p04\\artifacts\\packages\\.tmp-9d017nny\\supportops_async-0.1.2-py3-none-any.whl' and adding 'build\\bdist.win-amd64\\wheel' to it
+adding 'supportops_async/__init__.py'
+adding 'supportops_async/api/__init__.py'
+adding 'supportops_async/api/app.py'
+adding 'supportops_async/api/runtime.py'
+adding 'supportops_async/events/__init__.py'
+adding 'supportops_async/events/consumer.py'
+adding 'supportops_async/events/events.py'
+adding 'supportops_async/queue/__init__.py'
+adding 'supportops_async/queue/contracts.py'
+adding 'supportops_async/queue/memory.py'
+adding 'supportops_async/store/__init__.py'
+adding 'supportops_async/store/models.py'
+adding 'supportops_async/store/postgres.py'
+adding 'supportops_async/store/sqlite.py'
+adding 'supportops_async/store/migrations/001_tasks.sql'
+adding 'supportops_async/worker/__init__.py'
+adding 'supportops_async/worker/cli.py'
+adding 'supportops_async/worker/runner.py'
+adding 'supportops_async-0.1.2.dist-info/METADATA'
+adding 'supportops_async-0.1.2.dist-info/WHEEL'
+adding 'supportops_async-0.1.2.dist-info/entry_points.txt'
+adding 'supportops_async-0.1.2.dist-info/top_level.txt'
+adding 'supportops_async-0.1.2.dist-info/RECORD'
+removing build\bdist.win-amd64\wheel
+Successfully built artifacts\packages\supportops_async-0.1.2.tar.gz
+Successfully built artifacts\packages\supportops_async-0.1.2-py3-none-any.whl
+EXIT_CODE=0

@@ -1,0 +1,9 @@
+COMMAND: python -I -S scripts/package_smoke.py --wheel-site artifacts/tmp/p04-012-site2 --dependency-site .venv/Lib/site-packages
+distribution_version=0.1.2
+fastapi_version=0.142.4
+package_file=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-012-site2\supportops_async\__init__.py
+migration_in_wheel=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-012-site2\supportops_async\store\migrations\001_tasks.sql
+task_status=done
+api_route=/tasks
+package-smoke: PASS
+EXIT_CODE=0
