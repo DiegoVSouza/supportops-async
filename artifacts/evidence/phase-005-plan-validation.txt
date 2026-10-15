@@ -1,0 +1,4 @@
+COMMAND: python artifacts/evidence/validate-phase-plans.py
+EXIT_CODE: 0
+OUTPUT:
+PASS: 5 phases each have SPEC/PLAN/VERIFY, 2-4 tasks, ownership, forbidden changes, and stop conditions

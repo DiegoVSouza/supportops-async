@@ -21,3 +21,9 @@
 - Command: `python artifacts/evidence/validate-phase-plans.py`
 - Exit code: `0`; saved output is `phase-plan-validation.txt`.
 - Review: accepted. The phase plan now includes an idempotent SNS notification consumer example; verification explicitly requires duplicate `event_id` suppression and rejects malformed or unsupported messages. The consumer uses an injected inbox contract; its in-memory implementation is a local example only and does not qualify as durable production deduplication.
+
+## Phase 005 review
+
+- Command: `python artifacts/evidence/validate-phase-plans.py`
+- Exit code: `0`; saved output is `phase-005-plan-validation.txt`.
+- Review: accepted. Scope is limited to the documented FastAPI dependency compatibility and local package patch. It preserves route/status/schema contracts; the plan requires an ADR, exact version lock, full local suite on 0.142.4, wheel metadata/provenance, and isolated install smoke. External service gates remain separate.
