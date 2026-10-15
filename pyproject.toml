@@ -14,6 +14,9 @@ dependencies = [
   "boto3==1.43.114",
 ]
 
+[project.scripts]
+supportops-worker = "supportops_async.worker.cli:main"
+
 [dependency-groups]
 dev = ["httpx==0.28.1", "pytest==9.1.1"]
 

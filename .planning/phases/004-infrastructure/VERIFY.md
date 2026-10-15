@@ -1,6 +1,6 @@
 # Verify — Infrastructure and CI
 
-- [ ] Compose validates and services are health-checked when Docker is available.
-- [ ] Docker image builds as non-root; no image push occurs.
-- [ ] Terraform validate/plan completes without cloud credentials, otherwise INCOMPLETE.
-- [ ] CI commands match local fake-mode verification; bilingual docs contain no unsupported metrics.
+- [x] Compose configuration validates; service health and startup remain INCOMPLETE while the Docker daemon is unavailable.
+- [ ] Docker image builds as non-root; no image push occurs. Build remains INCOMPLETE because the Docker daemon is unavailable.
+- [ ] Terraform validate/plan completes without cloud credentials, otherwise INCOMPLETE. Terraform CLI and provider lock are unavailable.
+- [x] CI commands match local fake-mode unit verification; bilingual docs contain no unsupported metrics. CI itself was not run on a remote provider.

@@ -1,0 +1,9 @@
+COMMAND: uv run --locked pytest -q --basetemp artifacts/evidence/.pytest-tmp tests/api tests/store tests/queue tests/worker tests/events
+EXIT_CODE: 0
+OUTPUT:
+   Building supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+      Built supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+Uninstalled 1 package in 2ms
+Installed 1 package in 63ms
+........................                                                 [100%]
+24 passed in 0.51s

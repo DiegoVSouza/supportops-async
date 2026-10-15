@@ -1,0 +1,7 @@
+COMMAND: uv run --locked python scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 33 packages in 0.61ms
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+check-fast: PASS

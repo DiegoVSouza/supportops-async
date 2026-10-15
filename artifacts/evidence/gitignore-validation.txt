@@ -1,0 +1,12 @@
+COMMAND: git check-ignore -v .env .venv/Scripts/python.exe __pycache__/cached.pyc .pytest_cache/v/cache/nodeids artifacts/packages/.venv/Scripts/python.exe
+EXIT_CODE: 0
+OUTPUT:
+.gitignore:4:.env	.env
+.gitignore:3:.venv/	.venv/Scripts/python.exe
+.gitignore:1:__pycache__/	__pycache__/cached.pyc
+.gitignore:9:.pytest_cache/	.pytest_cache/v/cache/nodeids
+.gitignore:13:artifacts/packages/.venv/	artifacts/packages/.venv/Scripts/python.exe
+
+COMMAND: git check-ignore .env.example (expected not ignored)
+EXIT_CODE: 1
+OUTPUT:

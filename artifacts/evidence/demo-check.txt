@@ -1,0 +1,4 @@
+COMMAND: uv run --locked python scripts/demo.py
+EXIT_CODE: 0
+OUTPUT:
+Task(task_id='3b183318-ba50-4048-a65a-08d8d4ca99e5', status=<TaskStatus.DONE: 'done'>, payload={'operation_id': 'demo-2026-01', 'steps': ['triage', 'draft_reply'], 'ticket_id': 'T-100'}, step='2:draft_reply', progress=2, result={'steps': [{'effect_key': 'demo-2026-01:1:triage', 'outcome': 'simulated', 'step': 'triage'}, {'effect_key': 'demo-2026-01:2:draft_reply', 'outcome': 'simulated', 'step': 'draft_reply'}]}, error=None, attempts=1)

@@ -5,6 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.13' }
-      - run: python scripts/check_fast.py
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: 0.12.7
+      - run: uv sync --locked
+      - run: uv run --locked pytest -q tests/api tests/store tests/queue tests/worker tests/events tests/recovery
+      - run: docker compose -f docker-compose.async.yml config --quiet
+      - run: docker build --file Dockerfile --tag supportops-async:ci .

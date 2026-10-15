@@ -1,3 +1,11 @@
 {
-  "features": []
+  "features": [
+    {"id": "P04-API-STORE", "description": "Idempotent task API, status, cancellation, SQLite/PostgreSQL stores and transactional outbox", "status": "PASS_UNIT", "evidence": "artifacts/evidence/check-full.txt"},
+    {"id": "P04-BROKER-WORKER", "description": "SQS adapter, retry bounds, visibility heartbeat, DLQ and fake broker worker behavior", "status": "PASS_UNIT", "evidence": "artifacts/evidence/check-full.txt"},
+    {"id": "P04-EVENT-CONSUMER", "description": "SNS event parsing, event ID deduplication contract and handler retry behavior", "status": "PASS_UNIT", "evidence": "artifacts/evidence/phase-002-events.txt"},
+    {"id": "P04-RECOVERY", "description": "Subprocess crash recovery with SQLite lease and effect ledger", "status": "PASS_LOCAL_SUBPROCESS", "evidence": "artifacts/evidence/phase-003-recovery.txt"},
+    {"id": "P04-INTEGRATION", "description": "PostgreSQL and LocalStack service integration", "status": "INCOMPLETE", "evidence": "artifacts/evidence/check-full.txt"},
+    {"id": "P04-INFRA", "description": "Compose runtime, container image and Terraform verification", "status": "INCOMPLETE", "evidence": "artifacts/evidence/check-full.txt"},
+    {"id": "P04-MODEL-METRICS", "description": "Real model quality and cost metrics", "status": "PENDING", "evidence": "No live model run is authorized or required"}
+  ]
 }

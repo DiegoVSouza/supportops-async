@@ -8,3 +8,6 @@ __pycache__/
 *.key
 .pytest_cache/
 .ruff_cache/
+*.egg-info/
+artifacts/evidence/.pytest-tmp/
+artifacts/packages/.venv/

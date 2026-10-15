@@ -1,0 +1,4 @@
+# Historical output — superseded by check-full.txt after adding the event consumer. This earlier run is not final evidence.
+
+....ss...............                                                    [100%]
+19 passed, 2 skipped in 0.85s
