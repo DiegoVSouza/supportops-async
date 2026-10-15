@@ -1,6 +1,18 @@
 {
   "python": {"version": "3.13.12", "source": "https://docs.python.org/3.13/", "checked": "2026-10-15"},
-  "fastapi": {"version": "PENDING official-doc and environment check before implementation", "source": "https://fastapi.tiangolo.com/", "checked": "2026-10-15"},
-  "postgresql": {"version": "PENDING local availability check", "source": "https://www.postgresql.org/docs/", "checked": "2026-10-15"},
-  "localstack": {"version": "PENDING local availability check", "source": "https://docs.localstack.cloud/", "checked": "2026-10-15"}
+  "fastapi": {"version": "0.137.1", "source": "https://fastapi.tiangolo.com/release-notes/", "checked": "2026-10-15"},
+  "uvicorn": {"version": "0.46.0", "source": "https://www.uvicorn.org/release-notes/", "checked": "2026-10-15"},
+  "httpx": {"version": "0.28.1", "source": "https://fastapi.tiangolo.com/tutorial/testing/", "checked": "2026-10-15"},
+  "pytest": {"version": "9.1.1", "source": "https://docs.pytest.org/en/stable/", "checked": "2026-10-15"},
+  "boto3": {"version": "1.43.114", "source": "https://docs.aws.amazon.com/boto3/latest/reference/services/sqs.html", "checked": "2026-10-15"},
+  "psycopg": {"version": "3.2.10", "source": "https://www.psycopg.org/psycopg3/docs/news.html", "checked": "2026-10-15"},
+  "postgresql": {"version": "PENDING local server availability check", "source": "https://www.postgresql.org/docs/", "checked": "2026-10-15"},
+  "localstack": {"version": "PENDING image availability check", "source": "https://docs.localstack.cloud/", "checked": "2026-10-15"},
+  "sqlite": {"version": "Python 3.13 sqlite3 module", "source": "https://docs.python.org/3.13/library/sqlite3.html", "checked": "2026-10-15"},
+  "docker-compose": {"version": "Compose Specification; CLI 5.0.1 locally", "source": "https://docs.docker.com/reference/compose-file/", "checked": "2026-10-15"},
+  "postgres-image": {"version": "17.11-alpine3.24", "source": "https://hub.docker.com/_/postgres/tags?name=17.", "checked": "2026-10-15"},
+  "localstack-image": {"version": "4.14.0; repository archived 2026-03-23", "source": "https://github.com/localstack/localstack/releases", "checked": "2026-10-15"},
+  "uv-image": {"version": "0.12.7", "source": "https://docs.astral.sh/uv/", "checked": "2026-10-15"},
+  "terraform-aws-provider": {"version": "6.62.0", "source": "https://registry.terraform.io/providers/-/aws/latest", "checked": "2026-10-15"},
+  "terraform-provider-endpoints": {"version": "6.62.0 custom endpoints block", "source": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/custom-service-endpoints.html", "checked": "2026-10-15"}
 }
