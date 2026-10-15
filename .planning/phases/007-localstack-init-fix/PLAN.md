@@ -4,7 +4,7 @@ Plan fields:
 
 project: p04
 requirement_ids: [P04-007-001]
-allowed_write_paths: [.planning/phases/007-localstack-init-fix/**, infra/localstack-init/**, tests/integration/test_services.py, scripts/check_full.py, artifacts/evidence/**, docs/harness/**]
+allowed_write_paths: [.planning/phases/007-localstack-init-fix/**, infra/localstack-init/**, infra/terraform/**, tests/integration/test_services.py, scripts/check_full.py, artifacts/evidence/**, artifacts/tmp/**, docs/harness/**]
 forbidden_changes: [sibling repositories, weakened tests, AWS deployment, Terraform apply, image publication, push, secrets]
 dependencies:
   - Docker Compose 5.0.1, PostgreSQL 17.11-alpine3.24, LocalStack 4.14.0
@@ -13,7 +13,7 @@ llm_mode: fake
 tasks:
   - Fix RedrivePolicy input for the current AWS CLI parser and validate the hook syntax.
   - Make service tests repeatable with unique PostgreSQL keys and a dedicated temporary SQS queue; make the full gate check the PostgreSQL host/port from its configured DSN instead of assuming port 5432.
-  - Build and start the P04 API/worker images, verify health/non-root runtime, then run the project full gate and record unavailable Terraform checks.
+  - Build and start the P04 API/worker images, verify health/non-root runtime, use the official pinned Terraform Docker image for local init/validate/plan, then run the project full gate.
 checks:
   - docker compose config and image build
   - uv run --locked pytest -q -m integration tests/integration/test_services.py
@@ -25,4 +25,4 @@ stop_condition: Stop with any required service integration failure unresolved; m
 Coordinator review: accepted. The phase is restricted to P04 and local Docker evidence; all external effects are forbidden.
 
 ## Amendment after service execution
-The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its persisted row. A full-suite run also showed the active worker can consume the fixed test message from the shared queue. The plan owns the integration test and full-gate script: tests use unique keys and a dedicated temporary queue, and reachability is checked at the configured PostgreSQL DSN. Existing same-key, SQS visibility, and acknowledgement assertions remain intact. Coordinator review: accepted.
+The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its persisted row. A full-suite run also showed the active worker can consume the fixed test message from the shared queue. The plan owns the integration test and full-gate script: tests use unique keys and a dedicated temporary queue, and reachability is checked at the configured PostgreSQL DSN. Existing same-key, SQS visibility, and acknowledgement assertions remain intact. Docker makes Terraform CLI available through the official versioned image, so this phase now includes local init/validate/plan with no apply. Coordinator review: accepted.
