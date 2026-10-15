@@ -1,6 +1,7 @@
 # Plan - Phase 007: LocalStack queue initialization
 
-`yaml
+Plan fields:
+
 project: p04
 requirement_ids: [P04-007-001]
 allowed_write_paths: [.planning/phases/007-localstack-init-fix/**, infra/localstack-init/**, tests/integration/test_services.py, artifacts/evidence/**, docs/harness/**]
@@ -19,10 +20,9 @@ checks:
   - uv run --locked pytest -q
   - uv run --locked python scripts/check_full.py
 stop_condition: Stop with any required service integration failure unresolved; mark absent executables INCOMPLETE and never infer PASS from a skipped test.
-`
 
 ## Plan review
 Coordinator review: accepted. The phase is restricted to P04 and local Docker evidence; all external effects are forbidden.
 
 ## Amendment after service execution
-The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its own persisted row. The plan now owns the integration test file and scopes the change to a unique per-invocation key; it retains both same-key assertions within the run. Coordinator review: accepted.
+The first PostgreSQL service run passed, while the repeated run exposed a fixed idempotency key colliding with its own persisted row. The plan owns the integration test file and scopes the change to a unique per-invocation key; it retains both same-key assertions within the run. Coordinator review: accepted.
