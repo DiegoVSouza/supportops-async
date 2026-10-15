@@ -1,0 +1,46 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from enum import StrEnum
+from typing import Any, Protocol
+
+
+class TaskStatus(StrEnum):
+    QUEUED = "queued"
+    RUNNING = "running"
+    RETRYING = "retrying"
+    DONE = "done"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+
+
+TERMINAL = {TaskStatus.DONE, TaskStatus.FAILED, TaskStatus.CANCELLED}
+
+
+@dataclass(frozen=True)
+class Task:
+    task_id: str
+    status: TaskStatus
+    payload: dict[str, Any]
+    step: str | None = None
+    progress: int = 0
+    result: dict[str, Any] | None = None
+    error: str | None = None
+    attempts: int = 0
+
+
+class TaskStore(Protocol):
+    def create(self, payload: dict[str, Any], idem_key: str) -> tuple[Task, bool]: ...
+    def get(self, task_id: str) -> Task | None: ...
+    def claim(self, task_id: str, worker_id: str) -> bool: ...
+    def heartbeat(self, task_id: str, worker_id: str) -> bool: ...
+    def checkpoint(self, task_id: str, step: str, state: dict[str, Any]) -> None: ...
+    def effect(self, task_id: str, step: str) -> dict[str, Any] | None: ...
+    def apply_effect(self, task_id: str, step: str, result: dict[str, Any]) -> dict[str, Any]: ...
+    def complete(self, task_id: str, result: dict[str, Any]) -> None: ...
+    def fail(self, task_id: str, error: str) -> None: ...
+    def retry(self, task_id: str) -> None: ...
+    def cancel(self, task_id: str) -> bool: ...
+    def enqueue_event(self, event_type: str, task_id: str, payload: dict[str, Any]) -> None: ...
+    def pending_events(self) -> list[tuple[str, str, dict[str, Any]]]: ...
+    def mark_event_sent(self, event_id: str) -> None: ...
