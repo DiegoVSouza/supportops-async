@@ -1,0 +1,10 @@
+project:
+  name: p04
+  type: workflow-automation
+  stack: { backend: python, frontend: none }
+  kit_version: 2.1.0
+builder: { tools: [codex, claude-code], long_running: true, clean_context_reviewer: false, stop_hook_runs_check: true }
+product: { has_agent: false, pattern: workflow, runtime: none, multi_agent: none, rag: false, memory: none, tools_via_mcp: false }
+risk: { trifecta: { private_data: false, untrusted_content: false, external_comms: false }, multi_tenant: false, sensitive_data: false, irreversible_actions: [], governance: lite }
+budget: { max_turns: 0, max_usd_per_task: 0, tool_timeout_s: 60 }
+evals: { capability: true, regression: true, trials: 1, production_sampling: false, judge: code-first }
