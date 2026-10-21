@@ -10,7 +10,10 @@ No terraform apply, external deployment/publication, push, unrelated stacks, no 
 Docker CLI/daemon; isolated docker-compose.remediation.yml services with loopback ports 15432/14566/18000; Terraform plan only.
 
 ## Observable tasks
-`n- 1. Review commit 1d919a2 and prior evidence; start isolated services. `n- 2. Run PostgreSQL/SQS service scenarios and save each command result. `n- 3. Run permitted configuration/full gates. `n- 4. Reconcile states and docs from evidence.
+- Review commit 1d919a2 and existing evidence; start isolated services.
+- Run PostgreSQL/SQS recovery, idempotency, bounded retry, and DLQ service scenarios.
+- Run permitted Compose, image, Terraform plan, and full checks.
+- Reconcile states and docs from saved evidence.
 
 ## Checks
 Existing full gate; PostgreSQL and LocalStack service tests; explicit long-step lease/recovery, idempotency, bounded retry/DLQ tests; Compose/image/Terraform gates if not already evidenced.
@@ -20,3 +23,4 @@ Do not claim PostgreSQL/SQS behavior unless executed against those services. Rec
 
 ## Review
 Plan reviewed before execution: scope is evidence-first, tasks are observable, path ownership is explicit, and unavailable services cannot become PASS.
+
