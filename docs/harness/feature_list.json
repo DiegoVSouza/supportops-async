@@ -50,9 +50,9 @@
     },
     {
       "id": "P04-LOCAL-PACKAGE",
-      "description": "Versioned runtime wheel with source provenance and isolated install smoke",
+      "description": "Versioned P04 0.1.3 wheel with provenance and isolated consumer install smoke",
       "status": "PASS_WHEEL_SMOKE; INCOMPLETE_FULL_OFFLINE_DEPENDENCIES",
-      "evidence": "artifacts/evidence/p04-012-wheel-consumer.txt; artifacts/packages/provenance-0.1.2.md"
+      "evidence": "artifacts/evidence/phase-010-wheel-build.txt; phase-010-wheel-install.txt; phase-010-wheel-consumer.txt"
     },
     {
       "id": "P04-MODEL-METRICS",

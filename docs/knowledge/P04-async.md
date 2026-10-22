@@ -53,3 +53,7 @@ I would choose SQS for independent task messages when managed delivery, visibili
 **PT — Quando escolher SQS em vez de Kafka?**
 
 Eu escolheria SQS para mensagens independentes quando entrega gerenciada, visibility timeout e DLQ atendem ao caso. Kafka faz mais sentido quando ordenação por partição, retenção de eventos e vários consumidores com replay justificam operar uma plataforma de streaming.
+
+## 2026-10-22 — Phase 010 evidence supersedes earlier pending notes
+
+A real PostgreSQL lease/SQS visibility flow now proves early redelivery deferral and recovery following worker termination after an effect commit. P04 0.1.3 full service gate includes long-step, duplicate delivery, retry-to-DLQ, and Terraform plan-only checks. Model quality/cost remain PENDING; external deployment remains outside local acceptance.

@@ -46,3 +46,7 @@ Phase 009 kills a subprocess after its PostgreSQL effect commit, waits for the a
 ## 2026-10-22 — Early-redelivery fix, 0.1.3
 
 A failed store claim now defers the broker message instead of acknowledging it. Retry caps count actual store execution attempts rather than broker receive counts inflated by lease contention. The regression failed before and passed after; real subprocess recovery now attempts early SQS redelivery while the PostgreSQL lease remains active, then recovers after its actual expiry with one effect row. Full gate passed with 31 tests and existing service scenarios. Wheel provenance checks use the dependency lock at the artifact source commit, while current source lock consistency is checked separately. Patch wheel construction follows this source commit.
+
+## 2026-10-22 â€” phase 010 completed
+
+The phase 010 regression fixed early SQS redelivery during an active PostgreSQL lease. Failed claims defer the message; retry limits count actual task execution claims. A process killed after a committed PostgreSQL effect recovered over LocalStack SQS after lease expiry without repeating the first effect. P04 0.1.3 wheel and consumer smoke passed. The earlier phase 009 note that the follow-up fix remained pending is historical and superseded by phase 010. No Terraform apply or external effect was run.

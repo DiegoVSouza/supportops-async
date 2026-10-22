@@ -82,3 +82,7 @@ SQLite and in-memory tests remain the deterministic unit/recovery layer. The Pos
 ## Infrastructure and authorization
 
 Terraform templates declare local SQS, SNS, and a least-privilege worker policy with a LocalStack endpoint. The commands in `infra/terraform/README.md` are plan-only. Real AWS deployment, image push, or Terraform apply are outside the local demo and need separate authorization.
+
+## Verified service recovery
+
+Phase 010 closes the early-redelivery data-loss case in version 0.1.3. If a broker message arrives before the PostgreSQL lease expires, the worker defers it instead of acknowledging it; retry caps count actual store claims. A real subprocess was killed after committing an effect, a message was redelivered before lease expiry and deferred, and recovery after lease expiry skipped the recorded effect and completed the remaining work. The PostgreSQL/LocalStack full gate also passed long-step heartbeat, duplicate delivery, retry exhaustion/DLQ, image build, and Terraform init/validate/plan (no apply). See `artifacts/evidence/phase-010-full-gate.txt` and `phase-010-early-redelivery-green.txt`. Local ledger idempotency does not guarantee exactly-once arbitrary external effects.
