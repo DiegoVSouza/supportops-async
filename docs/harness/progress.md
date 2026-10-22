@@ -50,3 +50,8 @@ A failed store claim now defers the broker message instead of acknowledging it. 
 ## 2026-10-22 — phase 010 completed
 
 The phase 010 regression fixed early SQS redelivery during an active PostgreSQL lease. Failed claims defer the message; retry limits count actual task execution claims. A process killed after a committed PostgreSQL effect recovered over LocalStack SQS after lease expiry without repeating the first effect. P04 0.1.3 wheel and consumer smoke passed. The earlier phase 009 note that the follow-up fix remained pending is historical and superseded by phase 010. No Terraform apply or external effect was run.
+
+
+## 2026-10-22 - phase 011 offline dependency recreation
+
+All 34 locked project and development packages were installed into a fresh temporary Python 3.13 environment with `uv sync --offline --locked --all-groups`; the P04 fast gate passed from that environment with offline/no-sync mode. Evidence: `artifacts/evidence/phase-011-offline-dependencies.txt`. This verifies the current machine's populated uv cache, not a cold-cache or arbitrary-machine install. The earlier phase 010 failure was a service-availability failure (missing PostgreSQL DSN), not an offline resolver failure.
