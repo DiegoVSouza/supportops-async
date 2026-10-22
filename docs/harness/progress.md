@@ -32,3 +32,9 @@
 - The PostgreSQL/LocalStack integration test passed twice (2 tests each run). The full suite passed with services configured (29 passed), and a Docker API/worker task completed and persisted as status done; both containers run as UID 10001. Evidence: artifacts/evidence/phase-007-service-tests-repeat-1.txt, phase-007-service-tests-repeat-2.txt, phase-007-full-tests.txt, and phase-007-docker-demo.txt.
 - python scripts/check_full.py passes with PostgreSQL/LocalStack configured. It validates Compose, builds the non-root image, runs tests, and uses the official Terraform 1.16.6 Docker image for init, validate, and a local-only plan (6 resources to add, 0 to change/destroy). Evidence: artifacts/evidence/phase-007-check-full.txt. No Terraform apply was run.
 - A test with a step longer than the lease interval against PostgreSQL and SQS, full crash/retry/DLQ recovery against services, and cloud deployment remain INCOMPLETE. Model quality and cost remain PENDING.
+
+## 2026-10-21 — PostgreSQL and LocalStack service scenarios
+
+- Phase 008 reran the full local gate successfully: 29 tests, Compose configuration, image build, and Terraform 1.16.6 init/validate/plan against LocalStack (6 resources to add, no changes or destroys; no apply). Evidence: `artifacts/evidence/phase-008-full-gate-rerun-summary.txt` and full output `phase-008-full-gate-rerun.txt`.
+- PostgreSQL/SQS long-step scenario passed after 31.7 seconds; the PostgreSQL lease and SQS visibility heartbeat prevented a competing claim and persisted task completion. Duplicate delivery produced one effect record. Retry exhaustion reached attempt 3 and placed one message in the DLQ. Evidence: `artifacts/evidence/phase-008-service-scenarios.txt`; service integration tests: `phase-008-service-tests.txt`.
+- Service crash after a committed external effect remains INCOMPLETE. The effect ledger is not a universal exactly-once guarantee. Model quality and cost remain PENDING.

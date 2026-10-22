@@ -1,0 +1,5 @@
+Command: uv run --locked pytest tests/integration -q
+Environment: P04 local PostgreSQL/LocalStack; credentials redacted
+Exit code: 0
+..                                                                       [100%]
+2 passed in 0.86s

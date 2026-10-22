@@ -24,6 +24,10 @@ O visibility timeout precisa cobrir o processamento ou ser renovado por heartbea
 
 SQS oferece serviço gerenciado, DLQ e integração com IAM. Kafka mantém log ordenado por partição e favorece replay e consumidores independentes, mas exige decisões de partição, retenção e operação. Kafka não é automaticamente melhor para tarefas de suporte; ordenação e replay devem justificar sua complexidade.
 
+## Evidência de serviço local — 2026-10-21
+
+O gate executado contra PostgreSQL 17.11 e LocalStack 4.14.0 manteve uma etapa por 31,7 segundos, acima do lease de 30 segundos, sem permitir claim concorrente e com a tarefa persistida como concluída. A entrega duplicada criou um único registro de efeito; três tentativas falhas encaminharam uma mensagem à DLQ. O comando reproduzível e os resultados estão em `artifacts/evidence/phase-008-service-scenarios.txt`. A queda do worker após commit de efeito externo ainda não foi simulada contra esses serviços; por isso, recuperação completa de crash e semântica exactly-once permanecem INCOMPLETE.
+
 ## Respostas de entrevista / Interview answers
 
 **EN — What does at-least-once delivery mean?**

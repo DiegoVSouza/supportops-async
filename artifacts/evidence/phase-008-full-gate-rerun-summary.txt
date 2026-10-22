@@ -1,0 +1,4 @@
+Command: $env:P04_POSTGRES_DSN=<local DSN>; $env:P04_LOCALSTACK_ENDPOINT=http://127.0.0.1:14566; python scripts/check_full.py
+Exit code: 0
+Output: artifacts/evidence/phase-008-full-gate-rerun.txt
+Full gate: 29 tests passed; Compose config, image build, Terraform 1.16.6 init/validate/plan passed; no apply.
