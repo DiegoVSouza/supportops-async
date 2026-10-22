@@ -31,7 +31,7 @@ uv sync --locked
 uv run --locked python scripts/demo.py
 ```
 
-O pacote de runtime instalável tem versão `0.1.1`. Gere um wheel local sem publicá-lo:
+O pacote de runtime instalável está na versão `0.1.3`. Gere um wheel local sem publicá-lo:
 
 ```sh
 uv build --wheel --out-dir artifacts/packages
@@ -69,9 +69,9 @@ Para observar recuperação durante uma operação fake longa, envie `"step_dela
 
 O SQS entrega ao menos uma vez. A chave idempotente deduplica o envio; cada efeito `(task_id, step)` e checkpoint são gravados juntos. Isso garante execução única no ledger fake local. Efeitos externos reais ainda precisam de chave idempotente própria ou transação compartilhada; a plataforma não promete entrega universal exatamente uma vez. Falhas transitórias usam atraso exponencial limitado; falhas permanentes ou esgotadas vão para a DLQ. Eventos SNS usam uma outbox transacional, e eventos pendentes podem ser reenviados.
 
-## Estado das validações
+## Validação local
 
-Testes unitários e de recuperação em subprocesso usam SQLite e broker em memória. Eles não aprovam integração PostgreSQL/LocalStack nem E2E completa. Esses gates ficam INCOMPLETE até execução contra serviços locais. Validação/plan do Terraform e build da imagem também ficam INCOMPLETE quando ferramentas ou daemon não estão disponíveis. Não há métricas de LLM real; `LLM_MODE=fake`, e qualidade/custos de modelo ficam PENDING.
+O gate completo passou com 31 testes, PostgreSQL, LocalStack, cenários de lease longo, entrega duplicada, retry/DLQ, build da imagem e Terraform `init`, `validate` e `plan` local. A recuperação após encerrar um worker depois de gravar o efeito também foi exercitada. Não houve `terraform apply`, chamadas a modelos reais ou métricas de qualidade/custo de LLM. Consulte `artifacts/evidence/comment-cleanup-services.txt`.
 
 ## Infraestrutura e autorização
 
