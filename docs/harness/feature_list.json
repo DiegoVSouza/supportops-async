@@ -27,8 +27,8 @@
     {
       "id": "P04-RECOVERY",
       "description": "Subprocess crash recovery with SQLite lease and effect ledger; service crash after committed effect",
-      "status": "PASS_SERVICE_AFTER_LEASE_EXPIRY; INCOMPLETE_EARLY_REDELIVERY",
-      "evidence": "artifacts/evidence/phase-009-crash-recovery.txt; phase-009-full-gate.txt"
+      "status": "PASS_SERVICE",
+      "evidence": "artifacts/evidence/phase-010-full-gate.txt; phase-010-early-redelivery-green.txt"
     },
     {
       "id": "P04-INTEGRATION",

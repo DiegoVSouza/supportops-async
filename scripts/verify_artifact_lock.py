@@ -13,7 +13,8 @@ lock_path = ROOT / "artifacts/packages/artifact.lock.json"
 lock = json.loads(lock_path.read_text(encoding="utf-8"))
 wheel = ROOT / "artifacts/packages" / lock["artifact"]
 wheel_hash = hashlib.sha256(wheel.read_bytes()).hexdigest()
-dependency_hash = hashlib.sha256((ROOT / lock["project_dependency_lock"]).read_bytes()).hexdigest()
+source_lock=subprocess.check_output(["git","show",lock["source_commit"]+":"+lock["project_dependency_lock"]],cwd=ROOT)
+dependency_hash = hashlib.sha256(source_lock).hexdigest()
 if wheel_hash != lock["artifact_sha256"]:
     sys.exit("FAIL: wheel SHA-256 does not match artifact.lock.json")
 if dependency_hash != lock["project_dependency_lock_sha256"]:

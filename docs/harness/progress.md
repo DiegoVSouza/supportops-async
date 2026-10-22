@@ -42,3 +42,7 @@
 ## 2026-10-22 — Service crash recovery
 
 Phase 009 kills a subprocess after its PostgreSQL effect commit, waits for the actual 30-second lease and recovers via real SQS. The first effect is skipped, only the remaining step executes, and one effect row persists. Full gate exit 0: 30 tests plus long-step, duplicate, retry/DLQ, image and Terraform plan. Follow-up phase 010 will fix early redelivery during an unexpired store lease: the current worker acknowledges a failed claim and may discard recoverable work.
+
+## 2026-10-22 — Early-redelivery fix, 0.1.3
+
+A failed store claim now defers the broker message instead of acknowledging it. Retry caps count actual store execution attempts rather than broker receive counts inflated by lease contention. The regression failed before and passed after; real subprocess recovery now attempts early SQS redelivery while the PostgreSQL lease remains active, then recovers after its actual expiry with one effect row. Full gate passed with 31 tests and existing service scenarios. Wheel provenance checks use the dependency lock at the artifact source commit, while current source lock consistency is checked separately. Patch wheel construction follows this source commit.

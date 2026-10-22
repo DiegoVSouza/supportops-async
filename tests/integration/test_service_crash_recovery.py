@@ -62,6 +62,12 @@ Worker(CrashWindowStore(os.environ["P04_POSTGRES_DSN"]),
         child.terminate()
         assert child.wait(timeout=5) != 0
         assert store.get(task.task_id).status.value == "running"
+        calls = []
+        recovered = Worker(store, broker, worker_id="recovery-worker",
+                           runner=lambda payload, step: calls.append(step) or {"step": step})
+        time.sleep(2.2)
+        assert recovered.run_once(), "early SQS redelivery must be deferred rather than deleted"
+        assert store.get(task.task_id).status.value=="running"
         # Observe the real 30-second database lease; do not bypass it with SQL updates.
         deadline = time.monotonic() + 35
         while True:
@@ -72,9 +78,6 @@ Worker(CrashWindowStore(os.environ["P04_POSTGRES_DSN"]),
                 break
             assert time.monotonic() < deadline, "worker lease never expired"
             time.sleep(0.2)
-        calls = []
-        recovered = Worker(store, broker, worker_id="recovery-worker",
-                           runner=lambda payload, step: calls.append(step) or {"step": step})
         assert recovered.run_once(), "SQS did not redeliver the unacknowledged message"
         assert store.get(task.task_id).status.value == "done"
         assert store.get(task.task_id).attempts == 2
@@ -84,7 +87,7 @@ Worker(CrashWindowStore(os.environ["P04_POSTGRES_DSN"]),
                                 (task.task_id, "1:authorize")).fetchone()[0] == 1
         assert client.receive_message(QueueUrl=dead).get("Messages", []) == []
         print("service_crash_recovery=PASS killed_after_commit=true lease_expired=true "
-              "sqs_redelivery=true resumed_steps=complete effect_rows=1 attempts=2")
+              "early_redelivery_deferred=true sqs_redelivery=true resumed_steps=complete effect_rows=1 attempts=2")
     finally:
         if child.poll() is None:
             child.terminate()

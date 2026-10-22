@@ -105,8 +105,9 @@ class Worker:
             self.broker.ack(handle)
             return
         if not self.store.claim(task.task_id, self.worker_id):
-            self.broker.ack(handle)
+            self.broker.nack(handle, max(1,self.base_delay))
             return
+        execution_attempts=task.attempts+1
         try:
             steps = task.payload.get("steps", ["triage", "resolve"])
             if not isinstance(steps, list) or not steps or len(steps) > 20 or not all(isinstance(s, str) and s for s in steps):
@@ -131,12 +132,12 @@ class Worker:
             self.store.complete(task.task_id, {"steps": results})
             self.broker.ack(handle)
         except TransientFailure as exc:
-            if handle.attempts >= self.max_attempts:
+            if execution_attempts >= self.max_attempts:
                 self.store.fail(task.task_id, str(exc))
                 self.broker.dead_letter(handle)
             else:
                 self.store.retry(task.task_id)
-                self.broker.nack(handle, self.base_delay * (2 ** (handle.attempts - 1)))
+                self.broker.nack(handle, self.base_delay * (2 ** (execution_attempts - 1)))
         except Exception as exc:
             self.store.fail(task.task_id, str(exc))
             self.broker.dead_letter(handle)

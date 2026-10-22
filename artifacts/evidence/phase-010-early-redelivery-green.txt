@@ -1,0 +1,7 @@
+   Building supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+      Built supportops-async @ file:///C:/estudo/Golpe/lab/projects/p04
+Uninstalled 1 package in 7ms
+Installed 1 package in 59ms
+.                                                                        [100%]
+1 passed in 0.08s
+Command: uv run --locked pytest tests/worker/test_early_redelivery.py -q; Exit code: 0

@@ -1,0 +1,26 @@
+time="2026-10-22T08:22:02-03:00" level=warning msg="No services to build"
+ Container p04-remediation-postgres-1 Starting 
+ Container p04-remediation-localstack-1 Starting 
+ Container p04-remediation-postgres-1 Started 
+ Container p04-remediation-localstack-1 Started 
+ Container p04-remediation-postgres-1 Waiting 
+ Container p04-remediation-localstack-1 Waiting 
+ Container p04-remediation-postgres-1 Waiting 
+ Container p04-remediation-localstack-1 Waiting 
+ Container p04-remediation-postgres-1 Healthy 
+ Container p04-remediation-postgres-1 Healthy 
+ Container p04-remediation-localstack-1 Healthy 
+ Container p04-remediation-api-1 Starting 
+ Container p04-remediation-localstack-1 Healthy 
+ Container p04-remediation-worker-1 Starting 
+ Container p04-remediation-worker-1 Started 
+ Container p04-remediation-api-1 Started 
+ Container p04-remediation-postgres-1 Waiting 
+ Container p04-remediation-localstack-1 Waiting 
+ Container p04-remediation-api-1 Waiting 
+ Container p04-remediation-worker-1 Waiting 
+ Container p04-remediation-postgres-1 Healthy 
+ Container p04-remediation-worker-1 Healthy 
+ Container p04-remediation-localstack-1 Healthy 
+ Container p04-remediation-api-1 Healthy 
+Command: docker compose -p p04-remediation -f docker-compose.async.yml -f docker-compose.remediation.yml up -d --wait; Exit code: 0

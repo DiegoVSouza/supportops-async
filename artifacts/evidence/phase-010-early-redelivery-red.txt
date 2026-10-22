@@ -1,0 +1,22 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_early_redelivery_is_deferred_until_database_lease_expires ________
+
+    def test_early_redelivery_is_deferred_until_database_lease_expires():
+        store=SQLiteTaskStore(lease_seconds=.03)
+        broker=InMemoryBroker()
+        task,_=store.create({"steps":["finish"]},"early-redelivery")
+        assert store.claim(task.task_id,"dead-worker")
+        broker.publish(BrokerMessage(task.task_id))
+        worker=Worker(store,broker,worker_id="recovery-worker")
+        assert worker.run_once()
+>       assert broker.nack_delays, "failed claim must preserve the surviving SQS message"
+E       AssertionError: failed claim must preserve the surviving SQS message
+E       assert []
+E        +  where [] = <supportops_async.queue.memory.InMemoryBroker object at 0x0000024729486A50>.nack_delays
+
+tests\worker\test_early_redelivery.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/worker/test_early_redelivery.py::test_early_redelivery_is_deferred_until_database_lease_expires
+1 failed in 0.20s
+Command: uv run --locked pytest tests/worker/test_early_redelivery.py -q; Exit code: 1
