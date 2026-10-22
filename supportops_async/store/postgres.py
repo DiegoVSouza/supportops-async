@@ -45,7 +45,6 @@ class PostgresTaskStore:
             conn.execute("DELETE FROM tasks WHERE task_id=%s", (task_id,))
             row = conn.execute("SELECT t.* FROM idempotency i JOIN tasks t USING(task_id) WHERE i.idem_key=%s", (idem_key,)).fetchone()
             if row is None:
-                # UUID collision is vanishingly unlikely; retry explicitly rather than misreporting conflict.
                 raise RuntimeError("task ID collision")
             return self._task(row), False  # type: ignore[return-value]
 
