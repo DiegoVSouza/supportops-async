@@ -1,6 +1,6 @@
 # PLAN — Preserve work during early SQS redelivery
 
-allowed_write_paths: supportops_async/worker/runner.py; supportops_async/__init__.py; pyproject.toml; uv.lock; tests/**; artifacts/**; docs/**; scripts/verify_artifact_lock.py
+allowed_write_paths: supportops_async/worker/runner.py; supportops_async/__init__.py; pyproject.toml; uv.lock; tests/**; artifacts/**; docs/**; scripts/verify_artifact_lock.py; scripts/package_smoke.py
 
 forbidden_changes: public contract break, sibling imports, unrelated stacks/files, root roadmap, kit, publish/push, apply, live LLM.
 

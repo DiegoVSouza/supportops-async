@@ -1,0 +1,8 @@
+distribution_version=0.1.3
+fastapi_version=0.142.4
+package_file=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-013-site\supportops_async\__init__.py
+migration_in_wheel=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-013-site\supportops_async\store\migrations\001_tasks.sql
+task_status=done
+api_route=/tasks
+package-smoke: PASS
+Command: python -I -S scripts/package_smoke.py --wheel-site artifacts/tmp/p04-013-site --dependency-site .venv/Lib/site-packages --expected-version 0.1.3; Exit code: 0

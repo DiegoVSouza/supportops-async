@@ -13,6 +13,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--wheel-site", type=pathlib.Path, required=True)
     parser.add_argument("--dependency-site", type=pathlib.Path, required=True)
+    parser.add_argument("--expected-version", default="0.1.2")
     args = parser.parse_args()
     sys.path.insert(0, str(args.wheel_site.resolve()))
     sys.path.insert(1, str(args.dependency_site.resolve()))
@@ -26,7 +27,7 @@ def main() -> None:
     package_file = pathlib.Path(__import__("supportops_async").__file__).resolve()
     if args.wheel_site.resolve() not in package_file.parents:
         raise AssertionError(f"package imported outside installed wheel: {package_file}")
-    if importlib.metadata.version("supportops-async") != "0.1.2":
+    if importlib.metadata.version("supportops-async") != args.expected_version:
         raise AssertionError("unexpected installed package version")
     requirements = importlib.metadata.distribution("supportops-async").requires or []
     if not any(requirement.lower().startswith("fastapi<0.143.0,>=0.137.1") for requirement in requirements):

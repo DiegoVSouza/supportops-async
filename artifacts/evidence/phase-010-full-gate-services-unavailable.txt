@@ -25,7 +25,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c202d0>
 
     def _new_conn(self) -> socket.socket:
         """Establish a socket connection and set nodelay settings on it.
-    
+
         :return: New socket connection.
         """
         try:
@@ -36,7 +36,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c202d0>
                 socket_options=self.socket_options,
             )
 
-.venv\Lib\site-packages\urllib3\connection.py:239: 
+.venv\Lib\site-packages\urllib3\connection.py:239:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\urllib3\util\connection.py:85: in create_connection
     raise err
@@ -52,7 +52,7 @@ socket_options = [(6, 1, 1)]
         socket_options: _TYPE_SOCKET_OPTIONS | None = None,
     ) -> socket.socket:
         """Connect to *address* and return the socket object.
-    
+
         Convenience function.  Connect to *address* (a 2-tuple ``(host,
         port)``) and return the socket object.  Passing the optional
         *timeout* parameter will set the timeout on the socket instance
@@ -62,31 +62,31 @@ socket_options = [(6, 1, 1)]
         for the socket to bind as a source address before making the connection.
         An host of '' or port 0 tells the OS to use the default.
         """
-    
+
         host, port = address
         if host.startswith("["):
             host = host.strip("[]")
         err = None
-    
+
         # Using the value from allowed_gai_family() in the context of getaddrinfo lets
         # us select whether to work with IPv4 DNS records, IPv6 records, or both.
         # The original create_connection function always returns all records.
         family = allowed_gai_family()
-    
+
         try:
             host.encode("idna")
         except UnicodeError:
             raise LocationParseError(f"'{host}', label empty or too long") from None
-    
+
         for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
             af, socktype, proto, canonname, sa = res
             sock = None
             try:
                 sock = socket.socket(af, socktype, proto)
-    
+
                 # If provided, set socket level options before connecting.
                 _set_socket_options(sock, socket_options)
-    
+
                 if timeout is not _DEFAULT_TIMEOUT:
                     sock.settimeout(timeout)
                 if source_address:
@@ -116,7 +116,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 # to this feature should strictly pin botocore.
                 host = urlparse(request.url).hostname
                 conn.proxy_headers['host'] = host
-    
+
             request_target = self._get_request_target(request.url, proxy_url)
             extra_kwargs = {}
             request_timeout = self._get_request_timeout(request)
@@ -138,7 +138,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 **extra_kwargs,
             )
 
-.venv\Lib\site-packages\botocore\httpsession.py:509: 
+.venv\Lib\site-packages\botocore\httpsession.py:509:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\urllib3\connectionpool.py:847: in urlopen
     retries = retries.increment(
@@ -174,7 +174,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c202d0>
 
     def _new_conn(self) -> socket.socket:
         """Establish a socket connection and set nodelay settings on it.
-    
+
         :return: New socket connection.
         """
         try:
@@ -191,7 +191,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c202d0>
                 self,
                 f"Connection to {self.host} timed out. (connect timeout={self.timeout})",
             ) from e
-    
+
         except OSError as e:
 >           raise NewConnectionError(
                 self, f"Failed to establish a new connection: {e}"
@@ -214,7 +214,7 @@ During handling of the above exception, another exception occurred:
 >       main = client.create_queue(QueueName=f"p04-crash-{suffix}")["QueueUrl"]
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-tests\integration\test_service_crash_recovery.py:29: 
+tests\integration\test_service_crash_recovery.py:29:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\botocore\client.py:606: in _api_call
     return self._make_api_call(operation_name, kwargs)
@@ -283,7 +283,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 # to this feature should strictly pin botocore.
                 host = urlparse(request.url).hostname
                 conn.proxy_headers['host'] = host
-    
+
             request_target = self._get_request_target(request.url, proxy_url)
             extra_kwargs = {}
             request_timeout = self._get_request_timeout(request)
@@ -304,20 +304,20 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 chunked=self._chunked(request.headers),
                 **extra_kwargs,
             )
-    
+
             http_response = botocore.awsrequest.AWSResponse(
                 request.url,
                 urllib_response.status,
                 urllib_response.headers,
                 urllib_response,
             )
-    
+
             if not request.stream_output:
                 # Cause the raw stream to be exhausted immediately. We do it
                 # this way instead of using preload_content because
                 # preload_content will never buffer chunked responses
                 http_response.content
-    
+
             return http_response
         except URLLib3SSLError as e:
             raise SSLError(endpoint_url=request.url, error=e)
@@ -336,7 +336,7 @@ __________________ test_postgres_idempotency_and_task_status __________________
 >       store = PostgresTaskStore(dsn)
                 ^^^^^^^^^^^^^^^^^^^^^^
 
-tests\integration\test_services.py:16: 
+tests\integration\test_services.py:16:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 supportops_async\store\postgres.py:19: in __init__
     with psycopg.connect(dsn) as conn:
@@ -363,7 +363,7 @@ cursor_factory = None, kwargs = {}
         """
         Connect to a database server and return a new `Connection` instance.
         """
-    
+
         params = cls._get_connection_params(conninfo, **kwargs)
         timeout = timeout_from_conninfo(params)
         rv = None
@@ -385,7 +385,7 @@ cursor_factory = None, kwargs = {}
             else:
                 logger.debug("connection succeeded: %s", descr)
                 break
-    
+
         if not rv:
             last_ex = conn_errors[-1][0]
             if len(conn_errors) == 1:
@@ -399,7 +399,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c23390>
 
     def _new_conn(self) -> socket.socket:
         """Establish a socket connection and set nodelay settings on it.
-    
+
         :return: New socket connection.
         """
         try:
@@ -410,7 +410,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c23390>
                 socket_options=self.socket_options,
             )
 
-.venv\Lib\site-packages\urllib3\connection.py:239: 
+.venv\Lib\site-packages\urllib3\connection.py:239:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\urllib3\util\connection.py:85: in create_connection
     raise err
@@ -426,7 +426,7 @@ socket_options = [(6, 1, 1)]
         socket_options: _TYPE_SOCKET_OPTIONS | None = None,
     ) -> socket.socket:
         """Connect to *address* and return the socket object.
-    
+
         Convenience function.  Connect to *address* (a 2-tuple ``(host,
         port)``) and return the socket object.  Passing the optional
         *timeout* parameter will set the timeout on the socket instance
@@ -436,31 +436,31 @@ socket_options = [(6, 1, 1)]
         for the socket to bind as a source address before making the connection.
         An host of '' or port 0 tells the OS to use the default.
         """
-    
+
         host, port = address
         if host.startswith("["):
             host = host.strip("[]")
         err = None
-    
+
         # Using the value from allowed_gai_family() in the context of getaddrinfo lets
         # us select whether to work with IPv4 DNS records, IPv6 records, or both.
         # The original create_connection function always returns all records.
         family = allowed_gai_family()
-    
+
         try:
             host.encode("idna")
         except UnicodeError:
             raise LocationParseError(f"'{host}', label empty or too long") from None
-    
+
         for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
             af, socktype, proto, canonname, sa = res
             sock = None
             try:
                 sock = socket.socket(af, socktype, proto)
-    
+
                 # If provided, set socket level options before connecting.
                 _set_socket_options(sock, socket_options)
-    
+
                 if timeout is not _DEFAULT_TIMEOUT:
                     sock.settimeout(timeout)
                 if source_address:
@@ -490,7 +490,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 # to this feature should strictly pin botocore.
                 host = urlparse(request.url).hostname
                 conn.proxy_headers['host'] = host
-    
+
             request_target = self._get_request_target(request.url, proxy_url)
             extra_kwargs = {}
             request_timeout = self._get_request_timeout(request)
@@ -512,7 +512,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 **extra_kwargs,
             )
 
-.venv\Lib\site-packages\botocore\httpsession.py:509: 
+.venv\Lib\site-packages\botocore\httpsession.py:509:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\urllib3\connectionpool.py:847: in urlopen
     retries = retries.increment(
@@ -548,7 +548,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c23390>
 
     def _new_conn(self) -> socket.socket:
         """Establish a socket connection and set nodelay settings on it.
-    
+
         :return: New socket connection.
         """
         try:
@@ -565,7 +565,7 @@ self = <AWSHTTPConnection(host='127.0.0.1', port=14566) at 0x27ea5c23390>
                 self,
                 f"Connection to {self.host} timed out. (connect timeout={self.timeout})",
             ) from e
-    
+
         except OSError as e:
 >           raise NewConnectionError(
                 self, f"Failed to establish a new connection: {e}"
@@ -582,13 +582,13 @@ During handling of the above exception, another exception occurred:
         if not endpoint:
             pytest.skip("P04_LOCALSTACK_ENDPOINT is not configured")
         import boto3
-    
+
         client = boto3.client("sqs", endpoint_url=endpoint, region_name="us-east-1", aws_access_key_id="test", aws_secret_access_key="test")
         suffix = uuid4().hex
 >       queue_url = client.create_queue(QueueName=f"p04-integration-{suffix}")["QueueUrl"]
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-tests\integration\test_services.py:32: 
+tests\integration\test_services.py:32:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .venv\Lib\site-packages\botocore\client.py:606: in _api_call
     return self._make_api_call(operation_name, kwargs)
@@ -657,7 +657,7 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 # to this feature should strictly pin botocore.
                 host = urlparse(request.url).hostname
                 conn.proxy_headers['host'] = host
-    
+
             request_target = self._get_request_target(request.url, proxy_url)
             extra_kwargs = {}
             request_timeout = self._get_request_timeout(request)
@@ -678,20 +678,20 @@ request = <AWSPreparedRequest stream_output=False, method=POST, url=http://127.0
                 chunked=self._chunked(request.headers),
                 **extra_kwargs,
             )
-    
+
             http_response = botocore.awsrequest.AWSResponse(
                 request.url,
                 urllib_response.status,
                 urllib_response.headers,
                 urllib_response,
             )
-    
+
             if not request.stream_output:
                 # Cause the raw stream to be exhausted immediately. We do it
                 # this way instead of using preload_content because
                 # preload_content will never buffer chunked responses
                 http_response.content
-    
+
             return http_response
         except URLLib3SSLError as e:
             raise SSLError(endpoint_url=request.url, error=e)

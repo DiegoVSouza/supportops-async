@@ -1,0 +1,6 @@
+Using CPython 3.13.12 interpreter at: .venv\Scripts\python.exe
+Resolved 1 package in 9ms
+Prepared 1 package in 25ms
+Installed 1 package in 67ms
+ + supportops-async==0.1.3 (from file:///C:/estudo/Golpe/lab/projects/p04/artifacts/packages/supportops_async-0.1.3-py3-none-any.whl)
+Command: uv pip install --no-deps --target artifacts/tmp/p04-013-site artifacts/packages/supportops_async-0.1.3-py3-none-any.whl; Exit code: 0
