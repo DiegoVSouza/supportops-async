@@ -1,4 +1,4 @@
-# VERIFY — Early redelivery
+# VERIFY â€” Early redelivery
 
 | Gate | Command | Exit | Evidence | Status |
 | --- | --- | ---: | --- | --- |

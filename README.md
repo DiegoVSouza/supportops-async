@@ -2,6 +2,10 @@
 
 An independently installable FastAPI and worker service for durable, asynchronous support workflows. The local demo uses a deterministic fake runner and makes no model or cloud calls.
 
+## Problem
+
+Support work can continue after an HTTP response and a broker may deliver the same message more than once. The service needs durable task state, explicit retry behavior, and a record of completed effects.
+
 ## Architecture
 
 ```mermaid
@@ -24,14 +28,14 @@ sequenceDiagram
     W->>S: Publish pending task.completed event
 ```
 
-## Run the deterministic demonstration
+## Quickstart
 
 ```sh
 uv sync --locked
 uv run --locked python scripts/demo.py
 ```
 
-The importable runtime package is pinned at version `0.1.2`. Build a local wheel without publishing it:
+The importable runtime package is pinned at version `0.1.3`. Build a local wheel without publishing it:
 
 ```sh
 uv build --wheel --out-dir artifacts/packages
@@ -67,7 +71,7 @@ curl http://localhost:8000/tasks/<task_id>
 
 To observe recovery during a long fake operation, submit `"step_delay_seconds":20` with two steps. After the first step finishes and the second starts, run `docker compose -f docker-compose.async.yml kill -s SIGKILL worker` and `docker compose -f docker-compose.async.yml up -d worker`. SQS visibility and the database lease delay redelivery until ownership expires; the next worker skips committed effects. Keep this local-only. Cancellation is observed between steps; an executing step is not forcibly interrupted.
 
-## Task states
+## How it works
 
 `queued → running → done | failed`; transient failures pass through `retrying`. Queued, retrying, and running tasks can be cancelled. Repeated `Idempotency-Key` values return the original task ID even if the payload differs; clients should reuse a key only for the same logical request.
 
@@ -75,14 +79,18 @@ To observe recovery during a long fake operation, submit `"step_delay_seconds":2
 
 SQS is at-least-once. The idempotency key deduplicates submission, and each `(task_id, step)` effect key and checkpoint are committed together. This provides exactly-once behavior for the local fake effect ledger. A real external effect still needs its own idempotency key or shared transaction; this platform does not claim universal exactly-once delivery. Transient failures use bounded exponential visibility delay; permanent or exhausted failures go to the DLQ. SNS notifications use a transactional outbox, and unsent events remain pending for retry.
 
-## Verification status
+## Results
 
-SQLite and in-memory tests remain the deterministic unit/recovery layer. The PostgreSQL idempotency and LocalStack SQS publish/consume/visibility/ack integration tests passed against local Docker services; the full 29-test suite and API/worker demo also passed. The Compose image build runs the API and worker as UID 10001. Terraform 1.16.6 init, validate, and a LocalStack-only plan passed through the official Docker image; no apply was run. Evidence is in `artifacts/evidence/phase-007-*.txt`. Long-step crash/recovery and DLQ behavior against PostgreSQL/SQS remain INCOMPLETE. There are no live LLM metrics; `LLM_MODE=fake`, and model quality/cost metrics are PENDING.
+The deterministic unit and recovery layer runs with SQLite and in-memory adapters. The full local gate passed with 31 tests, PostgreSQL, LocalStack, long-lease, duplicate-delivery, retry/DLQ, image-build, and Terraform `init`, `validate`, and LocalStack-only `plan` scenarios. The worker crash recovery path after an effect commit also passed. No Terraform apply or live LLM calls were run; model quality and cost metrics remain PENDING. Evidence is in `artifacts/evidence/comment-cleanup-services.txt`.
 
-## Infrastructure and authorization
+## Design decisions
 
 Terraform templates declare local SQS, SNS, and a least-privilege worker policy with a LocalStack endpoint. The commands in `infra/terraform/README.md` are plan-only. Real AWS deployment, image push, or Terraform apply are outside the local demo and need separate authorization.
 
-## Verified service recovery
+## Testing
 
 Phase 010 closes the early-redelivery data-loss case in version 0.1.3. If a broker message arrives before the PostgreSQL lease expires, the worker defers it instead of acknowledging it; retry caps count actual store claims. A real subprocess was killed after committing an effect, a message was redelivered before lease expiry and deferred, and recovery after lease expiry skipped the recorded effect and completed the remaining work. The PostgreSQL/LocalStack full gate also passed long-step heartbeat, duplicate delivery, retry exhaustion/DLQ, image build, and Terraform init/validate/plan (no apply). See `artifacts/evidence/phase-010-full-gate.txt` and `phase-010-early-redelivery-green.txt`. Local ledger idempotency does not guarantee exactly-once arbitrary external effects.
+
+## Limitations
+
+The ledger protects the simulated local effect. A real external system still needs its own idempotency boundary or shared transaction. `LLM_MODE=fake` is the only model mode used here.
