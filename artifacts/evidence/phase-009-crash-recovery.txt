@@ -1,0 +1,4 @@
+service_crash_recovery=PASS killed_after_commit=true lease_expired=true sqs_redelivery=true resumed_steps=complete effect_rows=1 attempts=2
+.
+1 passed in 32.00s
+Command: uv run --locked pytest tests/integration/test_service_crash_recovery.py -q -s; Exit code: 0

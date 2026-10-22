@@ -84,4 +84,4 @@ try:
     print(f"retry_dlq: PASS task_status={retry_record.status.value} attempts={retry_record.attempts} dlq_messages=1")
 finally:
     for queue_url in created:
-        client.delete_queue(QueueUrl=queue_url)\n
+        client.delete_queue(QueueUrl=queue_url)

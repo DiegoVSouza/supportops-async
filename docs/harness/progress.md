@@ -38,3 +38,7 @@
 - Phase 008 reran the full local gate successfully: 29 tests, Compose configuration, image build, and Terraform 1.16.6 init/validate/plan against LocalStack (6 resources to add, no changes or destroys; no apply). Evidence: `artifacts/evidence/phase-008-full-gate-rerun-summary.txt` and full output `phase-008-full-gate-rerun.txt`.
 - PostgreSQL/SQS long-step scenario passed after 31.7 seconds; the PostgreSQL lease and SQS visibility heartbeat prevented a competing claim and persisted task completion. Duplicate delivery produced one effect record. Retry exhaustion reached attempt 3 and placed one message in the DLQ. Evidence: `artifacts/evidence/phase-008-service-scenarios.txt`; service integration tests: `phase-008-service-tests.txt`.
 - Service crash after a committed external effect remains INCOMPLETE. The effect ledger is not a universal exactly-once guarantee. Model quality and cost remain PENDING.
+
+## 2026-10-22 — Service crash recovery
+
+Phase 009 kills a subprocess after its PostgreSQL effect commit, waits for the actual 30-second lease and recovers via real SQS. The first effect is skipped, only the remaining step executes, and one effect row persists. Full gate exit 0: 30 tests plus long-step, duplicate, retry/DLQ, image and Terraform plan. Follow-up phase 010 will fix early redelivery during an unexpired store lease: the current worker acknowledges a failed claim and may discard recoverable work.

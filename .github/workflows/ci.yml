@@ -9,6 +9,11 @@ jobs:
         with:
           version: 0.12.7
       - run: uv sync --locked
-      - run: uv run --locked pytest -q tests/api tests/store tests/queue tests/worker tests/events tests/recovery
-      - run: docker compose -f docker-compose.async.yml config --quiet
-      - run: docker build --file Dockerfile --tag supportops-async:ci .
+      - run: docker compose -p p04-ci -f docker-compose.async.yml -f docker-compose.remediation.yml up -d --wait
+      - run: uv run --locked python scripts/check_full.py
+        env:
+          LLM_MODE: fake
+          P04_POSTGRES_DSN: postgresql://supportops:supportops@127.0.0.1:15432/supportops
+          P04_LOCALSTACK_ENDPOINT: http://127.0.0.1:14566
+      - if: always()
+        run: docker compose -p p04-ci -f docker-compose.async.yml -f docker-compose.remediation.yml down

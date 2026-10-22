@@ -50,6 +50,8 @@ if not pg_dsn or not pg_reachable:
     INCOMPLETE.append("PostgreSQL integration: P04_POSTGRES_DSN and reachable local server required")
 if not os.getenv("P04_LOCALSTACK_ENDPOINT"):
     INCOMPLETE.append("LocalStack integration: P04_LOCALSTACK_ENDPOINT required")
+if pg_reachable and os.getenv("P04_LOCALSTACK_ENDPOINT"):
+    run("long-step-retry-dlq-services", [sys.executable, "scripts/service_scenarios.py"])
 
 docker_info = subprocess.run(["docker", "info", "--format", "{{.ServerVersion}}"], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 print("\nCOMMAND: docker info --format {{.ServerVersion}}")
