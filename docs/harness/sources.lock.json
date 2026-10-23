@@ -122,5 +122,22 @@
       "fastapi": "0.142.4",
       "opentelemetry-api": "1.45.1"
     }
+  },
+  "phase012_release": {
+    "schema_version": 1,
+    "distribution": "supportops-async",
+    "version": "0.1.4",
+    "artifact": "supportops_async-0.1.4-py3-none-any.whl",
+    "artifact_sha256": "fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f",
+    "source_commit": "f4b5df828b397e7ecbb9fa87c0ef77485d829dca",
+    "dependency_lock_sha256": "61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2",
+    "direct_dependencies": {
+      "fastapi": ">=0.137.1,<0.143.0",
+      "uvicorn": "0.46.0",
+      "psycopg[binary]": "3.2.10",
+      "boto3": "1.43.114",
+      "redis": "6.4.0"
+    },
+    "consumer": "artifacts/evidence/phase-012-wheel-consumer.txt"
   }
 }

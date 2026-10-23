@@ -1,0 +1,5 @@
+Using CPython 3.13.12 interpreter at: .venv\Scripts\python.exe
+Resolved 1 package in 7ms
+Prepared 1 package in 36ms
+Installed 1 package in 85ms
+ + supportops-async==0.1.4 (from file:///C:/estudo/Golpe/lab/projects/p04/artifacts/packages/supportops_async-0.1.4-py3-none-any.whl)

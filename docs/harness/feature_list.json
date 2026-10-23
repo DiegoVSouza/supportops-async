@@ -56,9 +56,9 @@
     },
     {
       "id": "P04-LOCAL-PACKAGE",
-      "description": "Versioned P04 0.1.3 wheel with provenance and isolated consumer install smoke",
+      "description": "Versioned P04 0.1.4 wheel with Redis Streams dependency, provenance and isolated consumer install smoke",
       "status": "PASS_WHEEL_SMOKE; PASS_OFFLINE_LOCKED_RECREATION_FROM_LOCAL_CACHE",
-      "evidence": "artifacts/evidence/phase-010-wheel-build.txt; phase-010-wheel-install.txt; phase-010-wheel-consumer.txt; phase-011-offline-dependencies.txt"
+      "evidence": "artifacts/evidence/phase-012-wheel-build.txt; phase-012-wheel-install.txt; phase-012-wheel-consumer.txt; phase-011-offline-dependencies.txt"
     },
     {
       "id": "P04-MODEL-METRICS",

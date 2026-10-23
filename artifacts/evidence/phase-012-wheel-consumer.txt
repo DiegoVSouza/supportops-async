@@ -1,0 +1,8 @@
+distribution_version=0.1.4
+fastapi_version=0.142.4
+package_file=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-014-site\supportops_async\__init__.py
+migration_in_wheel=C:\estudo\Golpe\lab\projects\p04\artifacts\tmp\p04-014-site\supportops_async\store\migrations\001_tasks.sql
+redis_stream_broker=supportops_async.queue.memory
+task_status=done
+api_route=/tasks
+package-smoke: PASS

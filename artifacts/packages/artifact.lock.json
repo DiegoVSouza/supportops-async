@@ -1,19 +1,20 @@
 {
   "schema_version": 1,
   "distribution": "supportops-async",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "python_requires": ">=3.13,<3.14",
-  "artifact": "supportops_async-0.1.3-py3-none-any.whl",
-  "artifact_sha256": "b9e0bc47793c1cebb29471db087084c52495ab20d6ee5debabca95d1d42156f8",
+  "artifact": "supportops_async-0.1.4-py3-none-any.whl",
+  "artifact_sha256": "fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f",
   "source_repository": "P04 independent local Git repository",
-  "source_commit": "ef1fe4398d30a91d471ef6ddab226160050c5eaf",
+  "source_commit": "f4b5df828b397e7ecbb9fa87c0ef77485d829dca",
   "project_dependency_lock": "uv.lock",
-  "project_dependency_lock_sha256": "7db6b099269f86aca84d2b811e961a218e0d9bfd6d48cc2adca118de00eddbc3",
+  "project_dependency_lock_sha256": "61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2",
   "direct_dependencies": {
     "fastapi": ">=0.137.1,<0.143.0",
     "uvicorn": "0.46.0",
     "psycopg[binary]": "3.2.10",
-    "boto3": "1.43.114"
+    "boto3": "1.43.114",
+    "redis": "6.4.0"
   },
   "tested_resolution": {
     "fastapi": "0.142.4",

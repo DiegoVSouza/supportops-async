@@ -20,7 +20,7 @@ def main() -> None:
 
     from supportops_async.api.app import create_app
     from supportops_async.queue.contracts import BrokerMessage
-    from supportops_async.queue.memory import InMemoryBroker
+    from supportops_async.queue.memory import InMemoryBroker, RedisStreamBroker
     from supportops_async.store.sqlite import SQLiteTaskStore
     from supportops_async.worker import Worker
 
@@ -32,6 +32,8 @@ def main() -> None:
     requirements = importlib.metadata.distribution("supportops-async").requires or []
     if not any(requirement.lower().startswith("fastapi<0.143.0,>=0.137.1") for requirement in requirements):
         raise AssertionError(f"unexpected FastAPI compatibility requirement: {requirements}")
+    if "redis==6.4.0" not in requirements:
+        raise AssertionError(f"Redis dependency missing from package metadata: {requirements}")
     import fastapi
     if fastapi.__version__ != "0.142.4":
         raise AssertionError(f"unexpected FastAPI consumer version: {fastapi.__version__}")
@@ -54,6 +56,7 @@ def main() -> None:
     print(f"fastapi_version={fastapi.__version__}")
     print(f"package_file={package_file}")
     print(f"migration_in_wheel={migration}")
+    print(f"redis_stream_broker={RedisStreamBroker.__module__}")
     print(f"task_status={store.get(task.task_id).status.value}")
     print("api_route=/tasks")
     print("package-smoke: PASS")
