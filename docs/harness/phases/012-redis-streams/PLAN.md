@@ -1,6 +1,6 @@
 # PLAN — Redis Streams broker
 
-allowed_write_paths: `supportops_async/queue/**`; `supportops_async/api/runtime.py`; `supportops_async/worker/**`; `pyproject.toml`; `uv.lock`; `tests/**`; `scripts/**`; `docs/harness/**`; `artifacts/packages/**`; `artifacts/evidence/phase-012-*`.
+allowed_write_paths: `supportops_async/queue/**`; `supportops_async/api/runtime.py`; `supportops_async/worker/**`; `pyproject.toml`; `uv.lock`; `.env.example`; `docker-compose.async.yml`; `tests/**`; `scripts/**`; `docs/**`; `artifacts/packages/**`; `artifacts/evidence/phase-012-*`.
 
 forbidden: remove SQS support, weaken crash/retry tests, change task API semantics, include secrets, publish a wheel, or change another project.
 

@@ -2,11 +2,11 @@
 
 ## Entrega, idempotência e recuperação
 
-Filas como SQS normalmente oferecem entrega ao menos uma vez. Uma mensagem pode reaparecer quando o worker falha antes do ACK ou quando expira o visibility timeout. O consumidor deve tolerar duplicatas. Neste projeto, a tarefa usa uma chave de idempotência e cada efeito simulado usa `(task_id, step)`. O ledger do efeito e o checkpoint são gravados na mesma transação local.
+Redis Streams entrega mensagens ao menos uma vez por meio de consumer groups. Se um worker cair, outra instância pode reivindicar a mensagem depois do visibility timeout. O consumidor tolera duplicatas usando chave de idempotência e o ledger `(task_id, step)`. O P04 mantém um adapter SQS para ambientes AWS; o Compose local usa Redis persistente.
 
 Isso não torna um efeito externo universalmente “exactly once”. Se o serviço externo aceitar uma chave idempotente, envie a mesma chave em cada retry. Sem suporte no destino, uma queda entre executar o efeito e salvar sua confirmação pode duplicá-lo.
 
-O worker mantém um lease para que uma tarefa `running` seja retomada depois que a posse expira. O SQS controla a invisibilidade da mensagem; workers longos renovam a visibilidade. O checkpoint reduz trabalho repetido e a chave do efeito impede repetir a simulação fake.
+O PostgreSQL mantém o lease da tarefa e Redis controla a posse temporária da mensagem. Workers longos renovam os dois. O Redis usa AOF no Compose para recuperar streams após reinício; os dados do produto continuam no PostgreSQL.
 
 ## Retry, backoff e DLQ
 
@@ -57,3 +57,7 @@ Eu escolheria SQS para mensagens independentes quando entrega gerenciada, visibi
 ## 2026-10-22 — Phase 010 evidence supersedes earlier pending notes
 
 A real PostgreSQL lease/SQS visibility flow now proves early redelivery deferral and recovery following worker termination after an effect commit. P04 0.1.3 full service gate includes long-step, duplicate delivery, retry-to-DLQ, and Terraform plan-only checks. Model quality/cost remain PENDING; external deployment remains outside local acceptance.
+
+## 2026-10-23 — Redis Streams service verification
+
+The Compose runtime now uses Redis Streams for task delivery, with AOF persistence, consumer-group reclaim after the visibility timeout, delayed retry, and a separate DLQ stream. The SQS adapter remains available for AWS. The phase 012 gate passed Redis broker recovery/retry/DLQ plus the existing PostgreSQL and LocalStack SQS scenarios; evidence is `artifacts/evidence/phase-012-full-gate.txt`. Redis transport does not change PostgreSQL task state or make arbitrary external effects exactly once.

@@ -44,6 +44,13 @@
     "source": "https://www.postgresql.org/docs/",
     "checked": "2026-10-15"
   },
+  "redis-python": {
+    "version": "6.4.0",
+    "source": "https://pypi.org/project/redis/6.4.0/",
+    "official_docs": "https://redis.readthedocs.io/en/stable/; https://redis.io/docs/latest/develop/data-types/streams/",
+    "checked": "2026-10-23",
+    "verified": "Consumer-group creation, XAUTOCLAIM, visibility renewal, delayed retry and dead-letter delivery against Redis 7.4.2; artifacts/evidence/phase-012-full-gate.txt."
+  },
   "localstack": {
     "version": "4.14.0 image tested locally; AWS CLI 1.44.45 in image",
     "source": "https://docs.localstack.cloud/",

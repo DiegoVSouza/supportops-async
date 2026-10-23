@@ -13,7 +13,7 @@ sequenceDiagram
     participant C as Client
     participant A as FastAPI
     participant P as PostgreSQL
-    participant Q as SQS
+    participant Q as Redis Streams
     participant W as Worker
     participant S as SNS
     C->>A: POST /tasks + Idempotency-Key
@@ -35,7 +35,7 @@ uv sync --locked
 uv run --locked python scripts/demo.py
 ```
 
-The importable runtime package is pinned at version `0.1.3`. Build a local wheel without publishing it:
+The importable runtime package is pinned at version `0.1.4`. Build a local wheel without publishing it:
 
 ```sh
 uv build --wheel --out-dir artifacts/packages
@@ -49,7 +49,7 @@ uv run --locked pytest -q --basetemp artifacts/evidence/.pytest-tmp tests/recove
 
 The test exits a child process after its effect and checkpoint commit, waits for the worker lease to expire, then starts another worker. It asserts the recorded effect is not run twice.
 
-## Run PostgreSQL and LocalStack
+## Run PostgreSQL, Redis and LocalStack
 
 ```sh
 docker compose -f docker-compose.async.yml config
@@ -62,14 +62,16 @@ When the default host ports are already occupied, use the committed verification
 docker compose -p p04-remediation -f docker-compose.async.yml -f docker-compose.remediation.yml up -d --build
 ```
 
+The Compose file binds PostgreSQL, Redis, LocalStack and the API to loopback only. Redis Streams uses AOF; PostgreSQL remains the source of task state.
+
 Submit and retrieve a task:
 
 ```sh
-curl -i -X POST http://localhost:8000/tasks -H "Content-Type: application/json" -H "Idempotency-Key: local-001" -d '{"payload":{"ticket_id":"T-100"},"steps":["triage","draft_reply"]}'
-curl http://localhost:8000/tasks/<task_id>
+curl -i -X POST http://localhost:18000/tasks -H "Content-Type: application/json" -H "Idempotency-Key: local-001" -d '{"payload":{"ticket_id":"T-100"},"steps":["triage","draft_reply"]}'
+curl http://localhost:18000/tasks/<task_id>
 ```
 
-To observe recovery during a long fake operation, submit `"step_delay_seconds":20` with two steps. After the first step finishes and the second starts, run `docker compose -f docker-compose.async.yml kill -s SIGKILL worker` and `docker compose -f docker-compose.async.yml up -d worker`. SQS visibility and the database lease delay redelivery until ownership expires; the next worker skips committed effects. Keep this local-only. Cancellation is observed between steps; an executing step is not forcibly interrupted.
+To observe recovery during a long fake operation, submit `"step_delay_seconds":20` with two steps. After the first step finishes and the second starts, run `docker compose -f docker-compose.async.yml kill -s SIGKILL worker` and `docker compose -f docker-compose.async.yml up -d worker`. The Redis consumer group recovers an unacknowledged message after its visibility lease; the next worker skips committed effects. Keep this local-only. Cancellation is observed between steps; an executing step is not forcibly interrupted.
 
 ## How it works
 
@@ -77,7 +79,7 @@ To observe recovery during a long fake operation, submit `"step_delay_seconds":2
 
 ## Delivery and failures
 
-SQS is at-least-once. The idempotency key deduplicates submission, and each `(task_id, step)` effect key and checkpoint are committed together. This provides exactly-once behavior for the local fake effect ledger. A real external effect still needs its own idempotency key or shared transaction; this platform does not claim universal exactly-once delivery. Transient failures use bounded exponential visibility delay; permanent or exhausted failures go to the DLQ. SNS notifications use a transactional outbox, and unsent events remain pending for retry.
+Redis Streams and SQS both provide at-least-once delivery here. The local Compose runtime uses Redis Streams with delayed retries; the SQS adapter remains available for AWS deployments. The idempotency key deduplicates submission, and each `(task_id, step)` effect key and checkpoint are committed together. This provides exactly-once behavior for the local fake effect ledger. A real external effect still needs its own idempotency key or shared transaction; this platform does not claim universal exactly-once delivery. Transient failures use bounded exponential delay; permanent or exhausted failures go to the DLQ stream. SNS notifications use a transactional outbox, and unsent events remain pending for retry.
 
 ## Results
 

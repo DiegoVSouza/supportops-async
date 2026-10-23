@@ -13,7 +13,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--wheel-site", type=pathlib.Path, required=True)
     parser.add_argument("--dependency-site", type=pathlib.Path, required=True)
-    parser.add_argument("--expected-version", default="0.1.2")
+    parser.add_argument("--expected-version", default="0.1.4")
     args = parser.parse_args()
     sys.path.insert(0, str(args.wheel_site.resolve()))
     sys.path.insert(1, str(args.dependency_site.resolve()))

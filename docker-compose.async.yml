@@ -11,6 +11,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
+    ports:
+      - "127.0.0.1:15432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
   localstack:
@@ -20,7 +22,7 @@ services:
       AWS_DEFAULT_REGION: us-east-1
       SQS_ENDPOINT_STRATEGY: path
     ports:
-      - "4566:4566"
+      - "127.0.0.1:14566:4566"
     volumes:
       - ./infra/localstack-init:/etc/localstack/init/ready.d:ro
     healthcheck:
@@ -28,6 +30,18 @@ services:
       interval: 5s
       timeout: 3s
       retries: 30
+  redis:
+    image: redis@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576
+    command: [redis-server, --appendonly, "yes"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "127.0.0.1:16379:6379"
+    volumes:
+      - redis-data:/data
   api:
     build: .
     command: ["uvicorn", "supportops_async.api.runtime:app", "--host", "0.0.0.0", "--port", "8000"]
@@ -35,8 +49,9 @@ services:
     depends_on:
       postgres: { condition: service_healthy }
       localstack: { condition: service_healthy }
+      redis: { condition: service_healthy }
     ports:
-      - "8000:8000"
+      - "127.0.0.1:18000:8000"
   worker:
     build: .
     command: ["python", "-m", "supportops_async.worker.cli"]
@@ -44,5 +59,7 @@ services:
     depends_on:
       postgres: { condition: service_healthy }
       localstack: { condition: service_healthy }
+      redis: { condition: service_healthy }
 volumes:
   postgres-data:
+  redis-data:

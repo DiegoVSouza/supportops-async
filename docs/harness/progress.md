@@ -43,6 +43,10 @@
 
 Phase 009 kills a subprocess after its PostgreSQL effect commit, waits for the actual 30-second lease and recovers via real SQS. The first effect is skipped, only the remaining step executes, and one effect row persists. Full gate exit 0: 30 tests plus long-step, duplicate, retry/DLQ, image and Terraform plan. Follow-up phase 010 will fix early redelivery during an unexpired store lease: the current worker acknowledges a failed claim and may discard recoverable work.
 
+## 2026-10-23 — Phase 012 Redis Streams runtime
+
+The API and worker now accept the shared Redis Streams broker while retaining the SQS adapter. Consumer groups reclaim abandoned work after the visibility timeout; failed work moves atomically to a delayed sorted set and is promoted for retry, while exhausted work uses a separate DLQ stream. The existing PostgreSQL lease and effect ledger remain authoritative. Local Compose uses persistent Redis AOF and loopback-only host ports. The full gate passed with 32 tests, PostgreSQL/SQS legacy scenarios, Redis retry/recovery/DLQ, image build, and Terraform init/validate/plan only; evidence is `artifacts/evidence/phase-012-full-gate.txt`. Wheel 0.1.4 and P05 consumer provenance are pending.
+
 ## 2026-10-22 — Early-redelivery fix, 0.1.3
 
 A failed store claim now defers the broker message instead of acknowledging it. Retry caps count actual store execution attempts rather than broker receive counts inflated by lease contention. The regression failed before and passed after; real subprocess recovery now attempts early SQS redelivery while the PostgreSQL lease remains active, then recovers after its actual expiry with one effect row. Full gate passed with 31 tests and existing service scenarios. Wheel provenance checks use the dependency lock at the artifact source commit, while current source lock consistency is checked separately. Patch wheel construction follows this source commit.

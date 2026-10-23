@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import os
-from urllib.parse import urlsplit, urlunsplit
 
 import boto3
+import redis
 
 from supportops_async.api import create_app
 from supportops_async.events import EventPublisher
-from supportops_async.queue.memory import SqsBroker
+from supportops_async.queue.memory import RedisStreamBroker
 from supportops_async.store.postgres import PostgresTaskStore
 
 
@@ -23,22 +23,20 @@ def aws_client(service: str):
 
 def runtime_components():
     dsn = os.environ["P04_DATABASE_URL"]
-    sqs = aws_client("sqs")
     sns = aws_client("sns")
-    queue_url = sqs.get_queue_url(QueueName=os.getenv("P04_QUEUE_NAME", "supportops-tasks"))["QueueUrl"]
-    dlq_url = sqs.get_queue_url(QueueName=os.getenv("P04_DLQ_NAME", "supportops-tasks-dlq"))["QueueUrl"]
-    # LocalStack path-style URLs default to localhost; inside Compose they must resolve to the service.
-    endpoint = urlsplit(os.getenv("AWS_ENDPOINT_URL", "http://localhost:4566"))
-    def internal_url(value: str) -> str:
-        parts = urlsplit(value)
-        return urlunsplit((parts.scheme, endpoint.netloc, parts.path, parts.query, parts.fragment))
-    queue_url, dlq_url = internal_url(queue_url), internal_url(dlq_url)
+    redis_client = redis.Redis.from_url(os.environ["P04_REDIS_URL"], decode_responses=True)
+    broker = RedisStreamBroker(
+        redis_client,
+        os.getenv("P04_QUEUE_NAME", "supportops-tasks"),
+        os.getenv("P04_DLQ_NAME", "supportops-tasks:dlq"),
+        visibility_timeout=int(os.getenv("P04_VISIBILITY_TIMEOUT", "30")),
+    )
     topic_arns = {
         event_type: os.environ[f"P04_{event_type.upper().replace('.', '_')}_TOPIC_ARN"]
         for event_type in ("task.created", "task.completed", "task.failed")
     }
     store = PostgresTaskStore(dsn)
-    return store, SqsBroker(sqs, queue_url, dlq_url), EventPublisher(sns, topic_arns)
+    return store, broker, EventPublisher(sns, topic_arns)
 
 
 store, broker, events = runtime_components()
