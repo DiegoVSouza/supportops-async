@@ -67,3 +67,9 @@ All 34 locked project and development packages were installed into a fresh tempo
 - Added the optional Groq planner for one synthetic policy question; JSON output is validated against the local two-step allowlist before entering SQLite + memory broker + worker.
 - Four numbered credentials passed preflight. The real run completed `triage` and `draft_reply` with one effect each (120 input / 25 output tokens). Cost remains `PENDING` under free-plan billing uncertainty.
 - Offline focused tests passed (7), and full test suite passed (35; 4 external-service tests skipped). Overall service gate is incomplete only because PostgreSQL, LocalStack, Docker, and Terraform are not configured.
+
+## 2026-10-26 — Live evaluation readability cleanup
+
+- Separate model generation from local worker execution and artifact writing; compare the boolean checks directly with all(checks.values()).
+- Full offline gate: INCOMPLETE (35 tests pass, 4 external-service tests skipped; PostgreSQL, LocalStack, Docker and Terraform prerequisites unavailable).
+- Offline helper and static checks passed; no live calls were needed. Evidence: artifacts/evidence/code-cleanup/.
