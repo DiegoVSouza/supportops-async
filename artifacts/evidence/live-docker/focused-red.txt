@@ -1,0 +1,18 @@
+Command: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe -m pytest tests/test_live_service_eval.py -q --basetemp artifacts\evidence\live-docker\red-tmp
+Exit code: 2
+
+=================================== ERRORS ====================================
+______________ ERROR collecting tests/test_live_service_eval.py _______________
+ImportError while importing test module 'C:\estudo\Golpe\lab\projects\p04\tests\test_live_service_eval.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\dvsdi\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_live_service_eval.py:6: in <module>
+    from supportops_async.live_groq import GroqWorkflowRunner
+E   ImportError: cannot import name 'GroqWorkflowRunner' from 'supportops_async.live_groq' (C:\estudo\Golpe\lab\projects\p04\supportops_async\live_groq.py)
+=========================== short test summary info ===========================
+ERROR tests/test_live_service_eval.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.28s

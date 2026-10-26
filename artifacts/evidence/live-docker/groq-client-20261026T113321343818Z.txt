@@ -1,0 +1,3 @@
+Command: LLM_MODE=live C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/run_live_service_eval.py
+Exit code: 1
+{"api_calls": 3, "assertions": {"actual_model": true, "all_steps_real": true, "completed": false, "duplicate_did_not_regenerate": true, "effect_per_step": false, "within_budget": true}, "cost_usd": "PENDING", "effect_count": 1, "estimated_cost_usd": 9.749999999999998e-05, "exit_code": 1, "finished_at_utc": "2026-10-26T11:33:21.171426+00:00", "input_tokens": 488, "model": "openai/gpt-oss-20b", "model_available_key_count": 4, "output_tokens": 203, "provider": "groq", "started_at_utc": "2026-10-26T11:33:16.030033+00:00", "status": "FAIL", "steps": ["triage", "draft_reply"]}

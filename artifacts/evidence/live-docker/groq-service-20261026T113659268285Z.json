@@ -1,0 +1,27 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "status": "PASS",
+  "cost_usd": "PENDING",
+  "started_at_utc": "2026-10-26T11:36:54.122287+00:00",
+  "model_available_key_count": 4,
+  "assertions": {
+    "actual_model": true,
+    "completed": true,
+    "effect_per_step": true,
+    "all_steps_real": true,
+    "duplicate_did_not_regenerate": true,
+    "within_budget": true
+  },
+  "steps": [
+    "triage",
+    "draft_reply"
+  ],
+  "effect_count": 2,
+  "api_calls": 3,
+  "input_tokens": 526,
+  "output_tokens": 195,
+  "estimated_cost_usd": 9.795e-05,
+  "exit_code": 0,
+  "finished_at_utc": "2026-10-26T11:36:59.267864+00:00"
+}

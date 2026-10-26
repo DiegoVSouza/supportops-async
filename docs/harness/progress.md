@@ -73,3 +73,7 @@ All 34 locked project and development packages were installed into a fresh tempo
 - Separate model generation from local worker execution and artifact writing; compare the boolean checks directly with all(checks.values()).
 - Full offline gate: INCOMPLETE (35 tests pass, 4 external-service tests skipped; PostgreSQL, LocalStack, Docker and Terraform prerequisites unavailable).
 - Offline helper and static checks passed; no live calls were needed. Evidence: artifacts/evidence/code-cleanup/.
+
+## 2026-10-26 — Live Docker acceptance
+
+The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workflow reached both provider steps but failed the reply output contract (488 input / 203 output tokens); its evidence is retained. The prompt now states explicit JSON key schemas. One corrective workflow passed with a real plan and two real worker calls (526 input / 195 output tokens), two persisted effects and no regeneration on duplicate delivery. Eight focused tests include rejection of missing, empty and non-object outputs. Evidence: artifacts/evidence/live-docker/.

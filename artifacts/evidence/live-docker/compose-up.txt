@@ -1,0 +1,27 @@
+Command: docker compose -p p04-live-015 -f docker-compose.async.yml -f docker-compose.live-test.yml up -d --wait postgres localstack redis
+Exit code: 0
+time="2026-10-26T08:17:54-03:00" level=warning msg="No services to build"
+ Network p04-live-015_default Creating
+ Network p04-live-015_default Created
+ Volume p04-live-015_redis-data Creating
+ Volume p04-live-015_redis-data Created
+ Volume p04-live-015_postgres-data Creating
+ Volume p04-live-015_postgres-data Created
+ Container p04-live-015-localstack-1 Creating
+ Container p04-live-015-postgres-1 Creating
+ Container p04-live-015-redis-1 Creating
+ Container p04-live-015-redis-1 Created
+ Container p04-live-015-postgres-1 Created
+ Container p04-live-015-localstack-1 Created
+ Container p04-live-015-postgres-1 Starting
+ Container p04-live-015-localstack-1 Starting
+ Container p04-live-015-redis-1 Starting
+ Container p04-live-015-localstack-1 Started
+ Container p04-live-015-postgres-1 Started
+ Container p04-live-015-redis-1 Started
+ Container p04-live-015-localstack-1 Waiting
+ Container p04-live-015-redis-1 Waiting
+ Container p04-live-015-postgres-1 Waiting
+ Container p04-live-015-postgres-1 Healthy
+ Container p04-live-015-localstack-1 Healthy
+ Container p04-live-015-redis-1 Healthy

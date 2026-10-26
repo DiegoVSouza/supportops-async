@@ -9,3 +9,7 @@
 - Budget: no paid LLM spend; phase 013 uses only the explicitly permitted Groq free-plan allowance for one plan. The production worker remains provider-agnostic.
 - Public contracts: `Broker`, `TaskStore`, task status model, and HTTP routes follow the original P04 brief; changes require ADR and versioned consumer updates.
 - Phase 013 decision (2026-10-26): evaluate an opt-in Groq-generated allowlisted task plan using only SQLite and in-memory broker/worker contracts. The production worker stays provider-agnostic; no cloud services or paid LLM calls are enabled. Fake remains the default.
+
+## 2026-10-26 — Live Docker acceptance
+
+Use opt-in Groq live mode with numbered credentials and authenticated model preflight. Preserve deterministic fake defaults and fail closed on provider/contract failures. Only local synthetic acceptance and the designated free allowance are authorized; billed cost remains PENDING. Evidence: artifacts/evidence/live-docker/.

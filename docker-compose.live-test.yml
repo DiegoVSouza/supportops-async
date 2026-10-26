@@ -1,0 +1,9 @@
+services:
+  postgres:
+    ports: !override ["127.0.0.1:57432:5432"]
+  localstack:
+    ports: !override ["127.0.0.1:57566:4566"]
+  redis:
+    ports: !override ["127.0.0.1:57379:6379"]
+  api:
+    ports: !override ["127.0.0.1:58004:8000"]

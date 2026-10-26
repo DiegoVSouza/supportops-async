@@ -1,0 +1,315 @@
+Command: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_full.py
+Exit code: 0
+
+COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 38 packages in 1ms
+artifact=supportops_async-0.1.4-py3-none-any.whl
+artifact_sha256=fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f
+source_commit=f4b5df828b397e7ecbb9fa87c0ef77485d829dca
+dependency_lock_sha256=61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2
+fastapi_requirement=fastapi<0.143.0,>=0.137.1
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
+check-fast: PASS
+
+COMMAND: uv run --locked pytest -q -rs --basetemp artifacts/evidence/.pytest-tmp tests
+EXIT_CODE: 0
+OUTPUT:
+...............................................                          [100%]
+47 passed in 37.19s
+
+COMMAND: docker compose -f docker-compose.async.yml config --quiet
+EXIT_CODE: 0
+OUTPUT:
+(empty)
+STATUS compose-config: PASS
+PostgreSQL TCP probe: 127.0.0.1:57432; reachable=True
+
+COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/service_scenarios.py
+EXIT_CODE: 0
+OUTPUT:
+long_step: PASS elapsed_seconds=31.8 competing_claim=False task_status=done attempts=1 effect_persisted=true
+duplicate_delivery: PASS task_status=done claims=1 one_effect_record=true
+retry_dlq: PASS task_status=failed attempts=3 dlq_messages=1
+
+COMMAND: docker info --format {{.ServerVersion}}
+EXIT_CODE: 0
+OUTPUT:
+29.1.3
+
+COMMAND: docker build --file Dockerfile --tag supportops-async:local-check .
+EXIT_CODE: 0
+OUTPUT:
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 684B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13.12-slim
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.12.7
+#3 DONE 0.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 118B done
+#4 DONE 0.0s
+
+#5 [uv-bin 1/1] FROM ghcr.io/astral-sh/uv:0.12.7@sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945
+#5 resolve ghcr.io/astral-sh/uv:0.12.7@sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945 0.0s done
+#5 DONE 0.0s
+
+#6 [builder 1/6] FROM docker.io/library/python:3.13.12-slim@sha256:f1927c75e81efd1e091dbd64b6c0ecaa5630b38635a3d1c04034ac636e1f94c8
+#6 resolve docker.io/library/python:3.13.12-slim@sha256:f1927c75e81efd1e091dbd64b6c0ecaa5630b38635a3d1c04034ac636e1f94c8 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 16.00kB 0.0s done
+#7 DONE 0.0s
+
+#8 [builder 3/6] WORKDIR /app
+#8 CACHED
+
+#9 [builder 2/6] COPY --from=uv-bin /uv /uvx /bin/
+#9 CACHED
+
+#10 [builder 4/6] COPY pyproject.toml uv.lock README.md ./
+#10 CACHED
+
+#11 [builder 5/6] COPY supportops_async ./supportops_async
+#11 DONE 0.1s
+
+#12 [builder 6/6] RUN uv sync --locked --no-dev
+#12 0.531 Using CPython 3.13.12 interpreter at: /usr/local/bin/python3
+#12 0.531 Creating virtual environment at: .venv
+#12 0.538 Resolved 38 packages in 2ms
+#12 0.557    Building supportops-async @ file:///app
+#12 0.699 Downloading pydantic-core (2.1MiB)
+#12 0.700 Downloading botocore (15.3MiB)
+#12 0.706 Downloading psycopg-binary (4.2MiB)
+#12 1.582  Downloaded pydantic-core
+#12 2.065  Downloaded psycopg-binary
+#12 2.883       Built supportops-async @ file:///app
+#12 3.268  Downloaded botocore
+#12 3.268 Prepared 25 packages in 2.72s
+#12 3.789 Installed 25 packages in 520ms
+#12 3.789  + annotated-doc==0.0.5
+#12 3.789  + annotated-types==0.8.0
+#12 3.789  + anyio==4.15.1
+#12 3.789  + boto3==1.43.114
+#12 3.789  + botocore==1.43.114
+#12 3.789  + click==8.5.0
+#12 3.789  + fastapi==0.142.4
+#12 3.789  + h11==0.16.0
+#12 3.789  + idna==3.20
+#12 3.789  + jmespath==1.1.0
+#12 3.789  + opentelemetry-api==1.45.1
+#12 3.789  + psycopg==3.2.10
+#12 3.789  + psycopg-binary==3.2.10
+#12 3.789  + pydantic==2.14.1
+#12 3.789  + pydantic-core==2.50.1
+#12 3.789  + python-dateutil==2.9.0.post0
+#12 3.789  + redis==6.4.0
+#12 3.789  + s3transfer==0.19.2
+#12 3.789  + six==1.17.0
+#12 3.789  + starlette==1.8.0
+#12 3.789  + supportops-async==0.1.4 (from file:///app)
+#12 3.789  + typing-extensions==4.16.0
+#12 3.790  + typing-inspection==0.4.4
+#12 3.790  + urllib3==2.8.0
+#12 3.790  + uvicorn==0.46.0
+#12 DONE 4.0s
+
+#13 [runtime 2/4] WORKDIR /app
+#13 CACHED
+
+#14 [runtime 3/4] RUN groupadd --system --gid 10001 app && useradd --system --uid 10001 --gid app --home-dir /app app
+#14 CACHED
+
+#15 [runtime 4/4] COPY --from=builder --chown=app:app /app /app
+#15 DONE 1.5s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 2.1s done
+#16 exporting manifest sha256:37e6753c81e468f1bd4a05c3ae68aa55f5c5681bcc978620c7a9a71be7189245 0.0s done
+#16 exporting config sha256:81d468dd1242e62a2ed8f3dd852505b1ed2625a042f6feb20aceb6fde5974387 0.0s done
+#16 exporting attestation manifest sha256:ab7e3e7c3091b8cc3ddd93616f204b4eb13104ca513df482f95d98f2274c3b8f 0.0s done
+#16 exporting manifest list sha256:d7ff4a414ee26f2ba210bca6a59090e969300e54d79affb21bcbaf37c317b5fd 0.0s done
+#16 naming to docker.io/library/supportops-async:local-check
+#16 naming to docker.io/library/supportops-async:local-check done
+#16 unpacking to docker.io/library/supportops-async:local-check
+#16 unpacking to docker.io/library/supportops-async:local-check 1.7s done
+#16 DONE 4.0s
+
+COMMAND: docker run --rm -e AWS_ACCESS_KEY_ID=test -e AWS_SECRET_ACCESS_KEY=test -e AWS_DEFAULT_REGION=us-east-1 -v C:\estudo\Golpe\lab\projects\p04\infra\terraform:/workspace -w /workspace hashicorp/terraform:1.16.6 init -backend=false -input=false
+EXIT_CODE: 0
+OUTPUT:
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v6.62.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+
+COMMAND: docker run --rm -e AWS_ACCESS_KEY_ID=test -e AWS_SECRET_ACCESS_KEY=test -e AWS_DEFAULT_REGION=us-east-1 -v C:\estudo\Golpe\lab\projects\p04\infra\terraform:/workspace -w /workspace hashicorp/terraform:1.16.6 validate
+EXIT_CODE: 0
+OUTPUT:
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+COMMAND: docker run --rm -e AWS_ACCESS_KEY_ID=test -e AWS_SECRET_ACCESS_KEY=test -e AWS_DEFAULT_REGION=us-east-1 -v C:\estudo\Golpe\lab\projects\p04\infra\terraform:/workspace -w /workspace hashicorp/terraform:1.16.6 plan -input=false -var=localstack_endpoint=http://host.docker.internal:57566
+EXIT_CODE: 0
+OUTPUT:
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_policy.worker[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_policy" "worker" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m attachment_count = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m name             = "supportops-worker-minimum"
+      [32m+[0m[0m name_prefix      = (known after apply)
+      [32m+[0m[0m path             = "/"
+      [32m+[0m[0m policy           = (known after apply)
+      [32m+[0m[0m policy_id        = (known after apply)
+      [32m+[0m[0m tags_all         = (known after apply)
+    }
+
+[1m  # aws_sns_topic.completed[0m will be created
+[0m  [32m+[0m[0m resource "aws_sns_topic" "completed" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m beginning_archive_time      = (known after apply)
+      [32m+[0m[0m content_based_deduplication = false
+      [32m+[0m[0m fifo_throughput_scope       = (known after apply)
+      [32m+[0m[0m fifo_topic                  = false
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m name                        = "task-completed"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m owner                       = (known after apply)
+      [32m+[0m[0m policy                      = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m signature_version           = (known after apply)
+      [32m+[0m[0m tags_all                    = (known after apply)
+      [32m+[0m[0m tracing_config              = (known after apply)
+    }
+
+[1m  # aws_sns_topic.created[0m will be created
+[0m  [32m+[0m[0m resource "aws_sns_topic" "created" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m beginning_archive_time      = (known after apply)
+      [32m+[0m[0m content_based_deduplication = false
+      [32m+[0m[0m fifo_throughput_scope       = (known after apply)
+      [32m+[0m[0m fifo_topic                  = false
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m name                        = "task-created"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m owner                       = (known after apply)
+      [32m+[0m[0m policy                      = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m signature_version           = (known after apply)
+      [32m+[0m[0m tags_all                    = (known after apply)
+      [32m+[0m[0m tracing_config              = (known after apply)
+    }
+
+[1m  # aws_sns_topic.failed[0m will be created
+[0m  [32m+[0m[0m resource "aws_sns_topic" "failed" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m beginning_archive_time      = (known after apply)
+      [32m+[0m[0m content_based_deduplication = false
+      [32m+[0m[0m fifo_throughput_scope       = (known after apply)
+      [32m+[0m[0m fifo_topic                  = false
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m name                        = "task-failed"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m owner                       = (known after apply)
+      [32m+[0m[0m policy                      = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m signature_version           = (known after apply)
+      [32m+[0m[0m tags_all                    = (known after apply)
+      [32m+[0m[0m tracing_config              = (known after apply)
+    }
+
+[1m  # aws_sqs_queue.dlq[0m will be created
+[0m  [32m+[0m[0m resource "aws_sqs_queue" "dlq" {
+      [32m+[0m[0m arn                               = (known after apply)
+      [32m+[0m[0m content_based_deduplication       = false
+      [32m+[0m[0m deduplication_scope               = (known after apply)
+      [32m+[0m[0m delay_seconds                     = 0
+      [32m+[0m[0m fifo_queue                        = false
+      [32m+[0m[0m fifo_throughput_limit             = (known after apply)
+      [32m+[0m[0m id                                = (known after apply)
+      [32m+[0m[0m kms_data_key_reuse_period_seconds = (known after apply)
+      [32m+[0m[0m max_message_size                  = 262144
+      [32m+[0m[0m message_retention_seconds         = 1209600
+      [32m+[0m[0m name                              = "supportops-tasks-dlq"
+      [32m+[0m[0m name_prefix                       = (known after apply)
+      [32m+[0m[0m policy                            = (known after apply)
+      [32m+[0m[0m receive_wait_time_seconds         = 0
+      [32m+[0m[0m redrive_allow_policy              = (known after apply)
+      [32m+[0m[0m redrive_policy                    = (known after apply)
+      [32m+[0m[0m region                            = "us-east-1"
+      [32m+[0m[0m sqs_managed_sse_enabled           = (known after apply)
+      [32m+[0m[0m tags_all                          = (known after apply)
+      [32m+[0m[0m url                               = (known after apply)
+      [32m+[0m[0m visibility_timeout_seconds        = 30
+    }
+
+[1m  # aws_sqs_queue.tasks[0m will be created
+[0m  [32m+[0m[0m resource "aws_sqs_queue" "tasks" {
+      [32m+[0m[0m arn                               = (known after apply)
+      [32m+[0m[0m content_based_deduplication       = false
+      [32m+[0m[0m deduplication_scope               = (known after apply)
+      [32m+[0m[0m delay_seconds                     = 0
+      [32m+[0m[0m fifo_queue                        = false
+      [32m+[0m[0m fifo_throughput_limit             = (known after apply)
+      [32m+[0m[0m id                                = (known after apply)
+      [32m+[0m[0m kms_data_key_reuse_period_seconds = (known after apply)
+      [32m+[0m[0m max_message_size                  = 262144
+      [32m+[0m[0m message_retention_seconds         = 345600
+      [32m+[0m[0m name                              = "supportops-tasks"
+      [32m+[0m[0m name_prefix                       = (known after apply)
+      [32m+[0m[0m policy                            = (known after apply)
+      [32m+[0m[0m receive_wait_time_seconds         = 0
+      [32m+[0m[0m redrive_allow_policy              = (known after apply)
+      [32m+[0m[0m redrive_policy                    = (known after apply)
+      [32m+[0m[0m region                            = "us-east-1"
+      [32m+[0m[0m sqs_managed_sse_enabled           = (known after apply)
+      [32m+[0m[0m tags_all                          = (known after apply)
+      [32m+[0m[0m url                               = (known after apply)
+      [32m+[0m[0m visibility_timeout_seconds        = 30
+    }
+
+[1mPlan:[0m [0m6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  [32m+[0m[0m dead_letter_queue_url = (known after apply)
+  [32m+[0m[0m queue_url             = (known after apply)
+  [32m+[0m[0m topic_arns            = {
+      [32m+[0m[0m completed = (known after apply)
+      [32m+[0m[0m created   = (known after apply)
+      [32m+[0m[0m failed    = (known after apply)
+    }
+[90m
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+check-full: PASS
