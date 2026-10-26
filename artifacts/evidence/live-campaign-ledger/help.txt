@@ -1,0 +1,13 @@
+usage: run_live_campaign.py [-h] [--config CONFIG]
+                            (--stage {pilot,development,holdout} |
+                            --resume CAMPAIGN_ID) [--dry-run]
+
+Offline preparation and reservation dry-run for P04 durable workflow
+evaluation.
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --stage {pilot,development,holdout}
+  --resume CAMPAIGN_ID
+  --dry-run

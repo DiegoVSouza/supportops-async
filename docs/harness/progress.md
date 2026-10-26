@@ -77,3 +77,8 @@ All 34 locked project and development packages were installed into a fresh tempo
 ## 2026-10-26 — Live Docker acceptance
 
 The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workflow reached both provider steps but failed the reply output contract (488 input / 203 output tokens); its evidence is retained. The prompt now states explicit JSON key schemas. One corrective workflow passed with a real plan and two real worker calls (526 input / 195 output tokens), two persisted effects and no regeneration on duplicate delivery. Eight focused tests include rejection of missing, empty and non-object outputs. Evidence: artifacts/evidence/live-docker/.
+## 2026-10-26 — Phase 012 bounded campaign ledger
+
+- Added P04-local append-only reservations, atomic cumulative caps, a process lease, and read-only resume inspection. Unknown usage remains fully reserved and cannot be replayed.
+- Focused tests passed: 6 ledger and 11 preparation tests. Full gate passed 60 tests with 4 service skips and returned `INCOMPLETE` because PostgreSQL/LocalStack/Redis/Docker build/Terraform validation were isolated. Compose config passed.
+- Dispatcher, service recovery validation, authorized quota/caps, reviewer approval, live-path lease integration, canary, and rollback remain pending. No provider call or workflow effect occurred. Evidence: `artifacts/evidence/live-campaign-ledger/`.

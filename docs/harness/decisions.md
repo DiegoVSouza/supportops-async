@@ -17,3 +17,7 @@ Use opt-in Groq live mode with numbered credentials and authenticated model pref
 ## 2026-10-26 — Broad durable-workflow campaign preparation
 
 Prepare 60 synthetic P04 task/worker scenarios with an 18/42 development/holdout split and 36/24 English/Portuguese coverage. The future live target must use the actual local API/worker backed by PostgreSQL, LocalStack SQS and Redis Streams. SQLite/in-memory demos do not establish service acceptance. Paid budget remains USD 0; the prior single-plan allowance does not authorize campaign or confirmation usage.
+
+## 2026-10-26 — Bounded workflow campaign ledger
+
+Phase 012 adds P04-local reservations, cumulative accounting, process exclusion, and read-only resume inspection. It does not implement provider dispatch or production-worker recovery. Paid spend remains USD 0; free-tier quota, cumulative caps, confirmation capacity, reviewer sign-off, service identity/ports, pacing, wall-clock ceiling, and model preflight remain `PENDING`. Service acceptance still requires the real PostgreSQL/SQS/Redis API-worker path.
