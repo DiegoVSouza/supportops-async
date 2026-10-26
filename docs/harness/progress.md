@@ -61,3 +61,9 @@ The phase 010 regression fixed early SQS redelivery during an active PostgreSQL 
 ## 2026-10-22 - phase 011 offline dependency recreation
 
 All 34 locked project and development packages were installed into a fresh temporary Python 3.13 environment with `uv sync --offline --locked --all-groups`; the P04 fast gate passed from that environment with offline/no-sync mode. Evidence: `artifacts/evidence/phase-011-offline-dependencies.txt`. This verifies the current machine's populated uv cache, not a cold-cache or arbitrary-machine install. The earlier phase 010 failure was a service-availability failure (missing PostgreSQL DSN), not an offline resolver failure.
+
+## 2026-10-26 — Phase 013 live workflow planning
+
+- Added the optional Groq planner for one synthetic policy question; JSON output is validated against the local two-step allowlist before entering SQLite + memory broker + worker.
+- Four numbered credentials passed preflight. The real run completed `triage` and `draft_reply` with one effect each (120 input / 25 output tokens). Cost remains `PENDING` under free-plan billing uncertainty.
+- Offline focused tests passed (7), and full test suite passed (35; 4 external-service tests skipped). Overall service gate is incomplete only because PostgreSQL, LocalStack, Docker, and Terraform are not configured.

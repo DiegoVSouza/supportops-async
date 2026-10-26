@@ -6,5 +6,6 @@
 - Runtime: Python 3.13; local Postgres + LocalStack SQS/SNS; no cloud credentials required. Kafka is excluded unless a separate ADR justifies it.
 - Risk: side effects are simulated locally and idempotent. No real refunds, deployment, or external service calls in checks. No sensitive data or multi-tenant behavior in this project.
 - Dependencies: P00/P01 are optional adapters behind local protocols during parallel development. No sibling-source imports. P05 may install a versioned package only after approval and artifact hash recording.
-- Budget: no LLM spend; external provider calls disabled.
+- Budget: no paid LLM spend; phase 013 uses only the explicitly permitted Groq free-plan allowance for one plan. The production worker remains provider-agnostic.
 - Public contracts: `Broker`, `TaskStore`, task status model, and HTTP routes follow the original P04 brief; changes require ADR and versioned consumer updates.
+- Phase 013 decision (2026-10-26): evaluate an opt-in Groq-generated allowlisted task plan using only SQLite and in-memory broker/worker contracts. The production worker stays provider-agnostic; no cloud services or paid LLM calls are enabled. Fake remains the default.

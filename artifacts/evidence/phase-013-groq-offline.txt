@@ -1,0 +1,3 @@
+Command: uv run --group dev python scripts/check_full.py
+Exit code: 2 (INCOMPLETE)
+Output: 35 tests passed; 4 external-service tests skipped because PostgreSQL, LocalStack, or Redis configuration was unavailable. Compose config passed. Docker and Terraform gates were unavailable.

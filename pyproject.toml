@@ -18,6 +18,11 @@ dependencies = [
 [project.scripts]
 supportops-worker = "supportops_async.worker.cli:main"
 
+[project.optional-dependencies]
+live = [
+    "groq==1.7.0",
+]
+
 [dependency-groups]
 dev = ["httpx==0.28.1", "pytest==9.1.1"]
 
