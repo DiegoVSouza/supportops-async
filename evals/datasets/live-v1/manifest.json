@@ -1,0 +1,24 @@
+{
+  "dataset": "p04-live-v1",
+  "case_count": 60,
+  "development": 18,
+  "holdout": "fixed in version control; not access controlled",
+  "languages": {
+    "en": 36,
+    "pt-BR": 24
+  },
+  "families": [
+    "plan_validity_order",
+    "step_quality",
+    "cancellation",
+    "duplicate_delivery",
+    "transient_failure",
+    "permanent_failure",
+    "lease_expiry",
+    "crash_recovery"
+  ],
+  "minimum_per_family": 7,
+  "sha256_cases_jsonl": "64e835a0ce1e9faa7b4435b4362e0a821bb70b6850adb4a74ba3d2edabe433c6",
+  "authorship": "synthetic; independent review pending",
+  "provider_calls": 0
+}

@@ -1,0 +1,71 @@
+{
+  "campaign": "p04-live-v1",
+  "dataset_manifest": "evals/datasets/live-v1/manifest.json",
+  "cases_path": "evals/datasets/live-v1/cases.jsonl",
+  "runner_scope": "real local P04 API and worker service; PostgreSQL, LocalStack SQS, Redis Streams",
+  "provider": "Groq",
+  "preferred_model": "openai/gpt-oss-20b",
+  "model_catalog_preflight": "required before any separately authorized run; not performed in preparation",
+  "trials_per_case": 3,
+  "pilot_trials_per_case": 1,
+  "per_case_caps": {
+    "provider_calls_per_trial": 3,
+    "input_tokens_per_trial": 12288,
+    "output_tokens_per_trial": 1536,
+    "provider_calls_per_step": 1,
+    "input_tokens_per_call": 4096,
+    "output_tokens_per_call": 512,
+    "task_timeout_seconds": 120,
+    "provider_call_timeout_seconds": 30
+  },
+  "planned_reservations": {
+    "pilot_cases": 6,
+    "pilot_max_calls": 18,
+    "development_max_calls": 162,
+    "holdout_max_calls": 378,
+    "primary_campaign_max_calls": 540,
+    "primary_campaign_max_input_tokens": 2211840,
+    "primary_campaign_max_output_tokens": 276480,
+    "confirmation_fresh_cases": 20,
+    "confirmation_max_calls": 180,
+    "confirmation_max_input_tokens": 737280,
+    "confirmation_max_output_tokens": 92160,
+    "all_stages_max_calls_if_additive": 738,
+    "all_stages_max_input_tokens_if_additive": 3022848,
+    "all_stages_max_output_tokens_if_additive": 377856
+  },
+  "cumulative_caps": {
+    "authorized_paid_spend_usd": 0,
+    "requests": "PENDING",
+    "input_tokens": "PENDING",
+    "output_tokens": "PENDING",
+    "provider_account_quota": "PENDING",
+    "confirmation_funding": "PENDING"
+  },
+  "approval": {
+    "expanded_campaign_approval": "PENDING",
+    "budget_source": "harness.yaml USD 0 and decisions.md; no expanded authorization",
+    "independent_dataset_and_rubric_review": "PENDING",
+    "clean_context_phase_verification": "PENDING",
+    "service_identity_and_ports": "PENDING"
+  },
+  "execution": {
+    "timeout_seconds_per_call": 30,
+    "task_timeout_seconds": 120,
+    "max_retries": 0,
+    "semantic_failure_retry": false,
+    "chunk_cases": 5,
+    "min_seconds_between_calls": "PENDING",
+    "max_wall_clock_minutes": "PENDING",
+    "persistent_cumulative_ledger": "NOT_IMPLEMENTED",
+    "serialized_campaign_lease": "NOT_IMPLEMENTED",
+    "real_refund_adapter": "forbidden",
+    "external_effects": "forbidden",
+    "provider_max_retries": 0,
+    "worker_max_attempts": 3
+  },
+  "generation_enabled": false,
+  "sqlite_demo_counts_as_service_evidence": false,
+  "provider_response_implies_effect_commit": false,
+  "exactly_once_provider_billing_claim": false
+}

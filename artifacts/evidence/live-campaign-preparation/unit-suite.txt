@@ -1,0 +1,3 @@
+COMMAND: uv run --locked python -m pytest tests
+EXIT_CODE: 1
+SANITIZED_RESULT: 50 tests passed, 4 service-dependent tests skipped, and 3 tests errored because pytest could not scan its default Windows temporary directory (PermissionError / access denied). The full suite passed when rerun with a project-local temporary base; see unit-suite-isolated-temp.txt.

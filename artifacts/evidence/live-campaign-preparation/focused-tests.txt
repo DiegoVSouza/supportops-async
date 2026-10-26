@@ -1,0 +1,20 @@
+COMMAND: uv run --locked python -m unittest discover -s tests -p test_live_campaign_preparation.py -v
+EXIT_CODE: 0
+STDOUT:
+
+STDERR:
+test_cancellation_and_expiry_effects_are_rejected (test_live_campaign_preparation.CampaignPreparationTests.test_cancellation_and_expiry_effects_are_rejected) ... ok
+test_crash_boundary_distinguishes_response_and_effect_commit (test_live_campaign_preparation.CampaignPreparationTests.test_crash_boundary_distinguishes_response_and_effect_commit) ... ok
+test_dataset_counts_and_family_contracts (test_live_campaign_preparation.CampaignPreparationTests.test_dataset_counts_and_family_contracts) ... ok
+test_duplicate_effect_and_exact_once_billing_claim_are_rejected (test_live_campaign_preparation.CampaignPreparationTests.test_duplicate_effect_and_exact_once_billing_claim_are_rejected) ... ok
+test_fixture_does_not_count_as_real_service_or_provider (test_live_campaign_preparation.CampaignPreparationTests.test_fixture_does_not_count_as_real_service_or_provider) ... ok
+test_invalid_step_cannot_commit_effect (test_live_campaign_preparation.CampaignPreparationTests.test_invalid_step_cannot_commit_effect) ... ok
+test_offline_dry_run_and_fail_closed_generation (test_live_campaign_preparation.CampaignPreparationTests.test_offline_dry_run_and_fail_closed_generation) ... ok
+test_plan_order_and_invalid_plan_effect_are_rejected (test_live_campaign_preparation.CampaignPreparationTests.test_plan_order_and_invalid_plan_effect_are_rejected) ... ok
+test_related_source_cannot_cross_splits (test_live_campaign_preparation.CampaignPreparationTests.test_related_source_cannot_cross_splits) ... ok
+test_transient_and_permanent_failure_contracts (test_live_campaign_preparation.CampaignPreparationTests.test_transient_and_permanent_failure_contracts) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.291s
+
+OK

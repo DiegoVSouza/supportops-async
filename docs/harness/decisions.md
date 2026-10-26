@@ -13,3 +13,7 @@
 ## 2026-10-26 — Live Docker acceptance
 
 Use opt-in Groq live mode with numbered credentials and authenticated model preflight. Preserve deterministic fake defaults and fail closed on provider/contract failures. Only local synthetic acceptance and the designated free allowance are authorized; billed cost remains PENDING. Evidence: artifacts/evidence/live-docker/.
+
+## 2026-10-26 — Broad durable-workflow campaign preparation
+
+Prepare 60 synthetic P04 task/worker scenarios with an 18/42 development/holdout split and 36/24 English/Portuguese coverage. The future live target must use the actual local API/worker backed by PostgreSQL, LocalStack SQS and Redis Streams. SQLite/in-memory demos do not establish service acceptance. Paid budget remains USD 0; the prior single-plan allowance does not authorize campaign or confirmation usage.

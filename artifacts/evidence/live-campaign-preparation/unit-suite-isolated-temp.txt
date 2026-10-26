@@ -1,0 +1,12 @@
+COMMAND: uv run --locked python -m pytest tests --basetemp artifacts\evidence\live-campaign-preparation\pytest-final-temp-20261026T170008Z -q -rs
+EXIT_CODE: 0
+STDOUT:
+..........sss..s.........................................                [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_service_crash_recovery.py:25: local PostgreSQL and LocalStack configuration required
+SKIPPED [1] tests\integration\test_services.py:15: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:27: P04_LOCALSTACK_ENDPOINT is not configured
+SKIPPED [1] tests\queue\test_redis_broker.py:15: P04_TEST_REDIS_URL is not configured
+53 passed, 4 skipped in 2.35s
+
+STDERR:
