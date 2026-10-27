@@ -1,0 +1,2 @@
+COMMAND: uv run --locked pytest -q -rs --basetemp artifacts/evidence/service-scenarios-017/pytest-tmp tests (PYTHONPATH=.)
+EXIT_CODE: 0

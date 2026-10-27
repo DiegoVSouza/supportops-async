@@ -16,6 +16,11 @@ The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workf
 ## 2026-10-26 — Phase 012 campaign ledger
 
 - Unknown provider usage must retain the original pre-dispatch request/token/cost reservation. P04 tests this after both a crash-like reservation and an error completion.
+
+## 2026-10-27 — Phase 017 isolated service invocation
+
+- The initial isolated scenario invocation used guessed ports 16432/16566 although the checked-in Compose file binds 15432/14566. The command remained blocked on the unreachable endpoint and was interrupted before any application-level database or SQS request; phase-owned containers were then removed. The plan was corrected to the actual Compose bindings, availability rechecked, and the scenario completed successfully. Future isolated service plans must inspect Compose port mappings instead of assuming overrides.
+- A direct pytest invocation without the repository root on `PYTHONPATH` failed collection for two `scripts.*` imports. Setting `PYTHONPATH=.` and running the configured `tests` path passed; this was an invocation issue, not a code/test failure.
 - The full check can build the service image and run Terraform via Docker when the daemon is available. Validation set `DOCKER_HOST` to an unreachable loopback endpoint and omitted service variables; service/build gates are recorded as `INCOMPLETE`, and historical outputs were restored.
 
 ## 2026-10-27 — Phase 016 offline verification

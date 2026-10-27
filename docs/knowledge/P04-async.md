@@ -73,3 +73,9 @@ A real PostgreSQL lease/SQS visibility flow now proves early redelivery deferral
 ## 2026-10-23 — Redis Streams service verification
 
 The Compose runtime now uses Redis Streams for task delivery, with AOF persistence, consumer-group reclaim after the visibility timeout, delayed retry, and a separate DLQ stream. The SQS adapter remains available for AWS. The phase 012 gate passed Redis broker recovery/retry/DLQ plus the existing PostgreSQL and LocalStack SQS scenarios; evidence is `artifacts/evidence/phase-012-full-gate.txt`. Redis transport does not change PostgreSQL task state or make arbitrary external effects exactly once.
+
+## 2026-10-27 — Phase 017 isolated PostgreSQL/SQS recheck
+
+The phase-016 source candidate (`0d427e3e9b509fec19450d52f45e35aab9bbed33`) passed the service scenario against a fresh, phase-owned PostgreSQL 17.11 and LocalStack 4.14.0 stack. The long task completed in 31.8 seconds without a competing lease claim and persisted its effect. Duplicate delivery led to one task claim/effect record. Retry exhaustion reached three attempts and exactly one DLQ message. The Compose mapping is fixed to loopback ports 15432 and 14566; inspect the file rather than assuming custom ports. All phase resources were removed and pre-existing Docker identities/states were preserved.
+
+This scoped service evidence does not prove API-to-exporter trace delivery, RAG behavior, Docker image build, Terraform, provider quality, or promotion. Trace-export and RAG acceptance remain INCOMPLETE; human and independent review remain pending. Evidence: `artifacts/evidence/service-scenarios-017/report.md`.

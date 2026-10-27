@@ -1,0 +1,8 @@
+{
+  "allowed_write_paths": true,
+  "forbidden_changes": true,
+  "tasks": true,
+  "validation_commands": true,
+  "budget": true,
+  "stop_conditions": true
+}

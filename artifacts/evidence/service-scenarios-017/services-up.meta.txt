@@ -1,0 +1,2 @@
+COMMAND: docker compose -p p04-phase017-isolated-service -f docker-compose.async.yml up --pull never --no-build -d --wait postgres localstack
+EXIT_CODE: 0

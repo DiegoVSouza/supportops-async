@@ -1,0 +1,20 @@
+{
+  "timestamp_utc": "2026-10-27T22:44:11.7834883Z",
+  "ports_free": true,
+  "ports_checked": [
+    15432,
+    14566
+  ],
+  "docker_phase_namespace_empty": true,
+  "cached_images": [
+    {
+      "image": "postgres:17.11-alpine3.24",
+      "image_id": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+    },
+    {
+      "image": "localstack/localstack:4.14.0",
+      "image_id": "sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a"
+    }
+  ],
+  "compose_config": "COMMAND: docker compose -p p04-phase017-isolated-service -f docker-compose.async.yml config --quiet\nEXIT_CODE: 0\n"
+}

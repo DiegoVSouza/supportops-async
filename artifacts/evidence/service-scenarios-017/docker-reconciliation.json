@@ -1,0 +1,12 @@
+{
+  "preexisting_containers_unchanged": true,
+  "networks_unchanged": true,
+  "volumes_unchanged": true,
+  "phase_namespace_empty": true,
+  "pre_container_count": 102,
+  "post_container_count": 102,
+  "pre_network_count": 21,
+  "post_network_count": 21,
+  "pre_volume_count": 89,
+  "post_volume_count": 89
+}

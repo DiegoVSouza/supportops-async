@@ -1,0 +1,5 @@
+COMMAND: uv run --locked python scripts/service_scenarios.py
+CONFIGURED ENDPOINT: http://127.0.0.1:16566; configured DSN port 16432
+COMPOSE ACTUAL BINDINGS: PostgreSQL 127.0.0.1:15432; LocalStack 127.0.0.1:14566
+OUTCOME: Process was interrupted while waiting on the incorrect endpoint. Exact exit code was not captured. LocalStack logs after its initialization contained no SQS requests from the scenario; PostgreSQL showed no application connection. Phase-only containers/network/volume were removed with the phase-scoped Compose down command.
+FOLLOW-UP: SDD ports corrected and availability checked. Successful run at actual ports is recorded in service-scenarios.meta.txt and service-scenarios.txt.

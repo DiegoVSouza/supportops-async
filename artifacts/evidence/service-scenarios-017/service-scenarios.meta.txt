@@ -1,0 +1,3 @@
+COMMAND: uv run --locked python scripts/service_scenarios.py
+EXIT_CODE: 0
+ENV: local-only test credentials; runtime uses fake mode; no provider calls

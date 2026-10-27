@@ -1,0 +1,4 @@
+COMMAND: uv run --locked pytest -q --basetemp artifacts/evidence/service-scenarios-017/pytest-tmp
+EXIT_CODE: 2
+OUTPUT: Collection failed in tests/test_campaign_ledger.py and tests/test_live_campaign_preparation.py because direct pytest entrypoint did not put the repository root on sys.path: ModuleNotFoundError: No module named 'scripts'.
+FOLLOW-UP: Set PYTHONPATH=. and invoke configured tests path; see pytest.meta.txt and pytest.txt (67 passed, 4 expected service skips).
