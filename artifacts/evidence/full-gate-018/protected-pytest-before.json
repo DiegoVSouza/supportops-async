@@ -1,0 +1,17 @@
+[
+  {
+    "path": "artifacts\\evidence\\.pytest-tmp\\test_effect_and_checkpoint_are0\\tasks.db",
+    "length": 45056,
+    "sha256": "9e9c94b0094f2ec9ab5d867d0db6df9f56c10d5b39ba11895a8c50b3b6b5db71"
+  },
+  {
+    "path": "artifacts\\evidence\\.pytest-tmp\\test_process_exit_after_commit0\\recovery.db",
+    "length": 45056,
+    "sha256": "fee692a220cc7195d6afa906248f13bb400da2094a0ae001b442a2f9135436c0"
+  },
+  {
+    "path": "artifacts\\evidence\\.pytest-tmp\\test_two_connections_racing_sa0\\race.db",
+    "length": 45056,
+    "sha256": "886089e69aa697fec99e8f42c330ae67587c55de14a3ca17921da96785ca14a4"
+  }
+]

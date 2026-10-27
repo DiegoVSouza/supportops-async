@@ -1,0 +1,4 @@
+SOURCE_CANDIDATE: ee8c867b824b7727f547dd01b07275b179687add
+DOCKER_COMPOSE_NAMESPACE: p04-phase018-full-gate
+PORTS: 15432,14566 free
+PYTEST_SCRATCH: existing artifacts/evidence/.pytest-tmp preserved; new base is phase-owned

@@ -1,0 +1,3 @@
+COMMAND: P04_PYTEST_BASETEMP=artifacts/evidence/full-gate-018/full-gate-pytest P04_POSTGRES_DSN=<phase-local> P04_LOCALSTACK_ENDPOINT=<phase-local> LLM_MODE=fake PYTHONPATH=. uv run --locked python scripts/check_full.py
+EXIT_CODE: 0
+SOURCE_CANDIDATE: ee8c867b824b7727f547dd01b07275b179687add

@@ -1,0 +1,2 @@
+COMMAND: docker compose -p p04-phase018-full-gate -f docker-compose.async.yml down --volumes --remove-orphans
+EXIT_CODE: 0

@@ -1,0 +1,19 @@
+{
+  "container_id_name_state_image_unchanged": true,
+  "network_id_name_unchanged": true,
+  "volume_names_unchanged": true,
+  "phase_namespace_empty": true,
+  "old_scratch_hashes_unchanged": true,
+  "container_count_before": 102,
+  "container_count_after": 102,
+  "network_count_before": 21,
+  "network_count_after": 21,
+  "volume_count_before": 89,
+  "volume_count_after": 89,
+  "added_image_ids": [
+    "5cc87bb6e992"
+  ],
+  "removed_image_ids": [
+    "d7ff4a414ee2"
+  ]
+}

@@ -1,0 +1,1 @@
+check-full: FAIL unsafe pytest base directory: pytest base directory already exists; refusing to clear it: C:\estudo\Golpe\lab\projects\p04\artifacts\evidence\.pytest-tmp

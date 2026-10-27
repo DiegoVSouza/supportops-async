@@ -1,0 +1,3 @@
+COMMAND: P04_PYTEST_BASETEMP=../outside-evidence uv run --locked python scripts/check_full.py
+EXIT_CODE: 1
+EXPECTED: 1; rejected before checks

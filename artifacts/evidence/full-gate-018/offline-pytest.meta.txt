@@ -1,0 +1,2 @@
+COMMAND: PYTHONPATH=. uv run --locked pytest -q -rs --basetemp artifacts/evidence/full-gate-018/offline-pytest tests
+EXIT_CODE: 0
