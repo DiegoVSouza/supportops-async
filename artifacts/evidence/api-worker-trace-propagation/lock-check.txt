@@ -1,0 +1,4 @@
+COMMAND: uv lock --check
+EXIT_CODE: 0
+OUTPUT:
+Resolved 38 packages in 1ms

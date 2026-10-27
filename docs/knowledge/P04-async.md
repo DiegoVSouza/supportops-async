@@ -12,6 +12,18 @@ O PostgreSQL mantém o lease da tarefa e Redis controla a posse temporária da m
 
 Falhas transitórias são tentadas novamente com atraso exponencial limitado. Falhas permanentes e tentativas esgotadas vão para uma dead-letter queue (DLQ), onde ficam para investigação e reprocessamento consciente. Retry sem limite pode ocupar workers e aumentar a carga durante uma indisponibilidade; um limite baixo demais pode descartar trabalho recuperável.
 
+## Correlação de traces e falhas privadas
+
+O P04 propaga somente `traceparent` W3C da requisição HTTP pela mensagem do broker, retry, redelivery e thread de execução do worker. Baggage e outros headers não são copiados. Novos erros persistidos e logs do worker usam categorias fixas, sem texto de exceção. Isso reduz vazamento acidental, mas não substitui revisão dos campos de domínio nem a política de retenção.
+
+O contrato offline foi testado entre FastAPI, envelopes SQS/Redis e thread local do worker. O projeto ainda não configura SDK/exporter ou collector; entrega de traces a um backend permanece INCOMPLETE. O P04 também não possui fonte RAG própria ou protocolo de autorização de retrieval.
+
+## Trace correlation and private failures
+
+P04 propagates only W3C `traceparent` from the HTTP request through the broker message, retry, redelivery, and worker execution thread. It does not copy baggage or other headers. Newly persisted worker failures and CLI logs use fixed categories without exception text. This reduces accidental leakage but does not replace review of domain fields or retention policy.
+
+The offline contract was tested across FastAPI, SQS/Redis envelopes, and the local worker thread. The project does not configure an SDK/exporter or collector, so delivery to a trace backend remains INCOMPLETE. P04 also lacks an owned RAG source and retrieval authorization protocol.
+
 ## Outbox e saga
 
 Uma outbox grava a intenção de publicar um evento na mesma transação que altera o estado de domínio. Um publicador separado envia os eventos e marca os entregues. O envio pode duplicar se o processo cair entre publicar e marcar; consumidores continuam precisando deduplicar pelo `event_id`.

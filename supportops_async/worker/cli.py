@@ -5,6 +5,7 @@ import time
 
 from supportops_async.api.runtime import runtime_components
 from supportops_async.worker import Worker
+from supportops_async.tracing import safe_error_code
 
 
 def main() -> None:
@@ -16,8 +17,8 @@ def main() -> None:
             worked = worker.run_once()
             if not worked:
                 worker.flush_events()
-        except Exception:
-            logging.exception("worker iteration failed; message visibility or durable outbox will permit retry")
+        except Exception as exc:
+            logging.error("worker iteration failed; category=%s; durable queue state permits retry", safe_error_code(exc))
             time.sleep(1)
 
 

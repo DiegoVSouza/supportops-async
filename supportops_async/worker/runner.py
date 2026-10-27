@@ -3,10 +3,14 @@ from __future__ import annotations
 from typing import Any, Callable
 import time
 import threading
+from contextvars import copy_context
+from opentelemetry import trace
+from opentelemetry.trace import Status, StatusCode
 
 from supportops_async.queue.contracts import Broker, MessageHandle
 from supportops_async.store.models import TaskStore
 from supportops_async.events.events import EventPublisher, drain_outbox
+from supportops_async.tracing import TRACER, extract_trace_context, safe_error_code
 
 
 class TransientFailure(RuntimeError):
@@ -62,7 +66,8 @@ class Worker:
             finally:
                 done.set()
 
-        execution = threading.Thread(target=execute, name=f"task-step-{task_id}", daemon=True)
+        task_context = copy_context()
+        execution = threading.Thread(target=lambda: task_context.run(execute), name=f"task-step-{task_id}", daemon=True)
         execution.start()
         renewal_error: Exception | None = None
         while not done.wait(self.heartbeat_interval_seconds):
@@ -100,6 +105,17 @@ class Worker:
         return drain_outbox(self.store, self.event_publisher)
 
     def process(self, handle: MessageHandle) -> None:
+        parent = extract_trace_context({"traceparent": handle.message.traceparent} if handle.message.traceparent else None)
+        with TRACER.start_as_current_span("supportops.worker.process", context=parent, record_exception=False) as span:
+            span.set_attribute("supportops.worker.attempt", handle.attempts)
+            try:
+                self._process(handle)
+            except Exception as exc:
+                span.set_attribute("supportops.error.category", safe_error_code(exc))
+                span.set_status(Status(StatusCode.ERROR))
+                raise
+
+    def _process(self, handle: MessageHandle) -> None:
         task = self.store.get(handle.message.task_id)
         if task is None or task.status.value in {"done", "failed", "cancelled"}:
             self.broker.ack(handle)
@@ -132,12 +148,18 @@ class Worker:
             self.store.complete(task.task_id, {"steps": results})
             self.broker.ack(handle)
         except TransientFailure as exc:
+            span = trace.get_current_span()
+            span.set_attribute("supportops.error.category", "transient_failure")
+            span.set_status(Status(StatusCode.ERROR))
             if execution_attempts >= self.max_attempts:
-                self.store.fail(task.task_id, str(exc))
+                self.store.fail(task.task_id, "transient_failure")
                 self.broker.dead_letter(handle)
             else:
                 self.store.retry(task.task_id)
                 self.broker.nack(handle, self.base_delay * (2 ** (execution_attempts - 1)))
         except Exception as exc:
-            self.store.fail(task.task_id, str(exc))
+            span = trace.get_current_span()
+            span.set_attribute("supportops.error.category", safe_error_code(exc))
+            span.set_status(Status(StatusCode.ERROR))
+            self.store.fail(task.task_id, safe_error_code(exc))
             self.broker.dead_letter(handle)

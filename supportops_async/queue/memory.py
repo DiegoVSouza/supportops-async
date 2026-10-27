@@ -74,7 +74,10 @@ class SqsBroker:
         self.dlq_url = dlq_url
 
     def publish(self, msg: BrokerMessage) -> None:
-        self.client.send_message(QueueUrl=self.queue_url, MessageBody=json.dumps({"task_id": msg.task_id}))
+        payload = {"task_id": msg.task_id}
+        if msg.traceparent:
+            payload["traceparent"] = msg.traceparent
+        self.client.send_message(QueueUrl=self.queue_url, MessageBody=json.dumps(payload))
 
     def consume(self) -> MessageHandle | None:
         response = self.client.receive_message(QueueUrl=self.queue_url, MaxNumberOfMessages=1, WaitTimeSeconds=1, AttributeNames=["ApproximateReceiveCount"])
@@ -82,7 +85,8 @@ class SqsBroker:
         if not messages:
             return None
         raw = messages[0]
-        return MessageHandle(raw["ReceiptHandle"], BrokerMessage(json.loads(raw["Body"])["task_id"]), int(raw.get("Attributes", {}).get("ApproximateReceiveCount", "1")))
+        body = json.loads(raw["Body"])
+        return MessageHandle(raw["ReceiptHandle"], BrokerMessage(body["task_id"], body.get("traceparent")), int(raw.get("Attributes", {}).get("ApproximateReceiveCount", "1")))
 
     def ack(self, handle: MessageHandle) -> None:
         self.client.delete_message(QueueUrl=self.queue_url, ReceiptHandle=handle.receipt)
@@ -94,7 +98,10 @@ class SqsBroker:
         self.client.change_message_visibility(QueueUrl=self.queue_url, ReceiptHandle=handle.receipt, VisibilityTimeout=max(1, min(seconds, 43200)))
 
     def dead_letter(self, handle: MessageHandle) -> None:
-        self.client.send_message(QueueUrl=self.dlq_url, MessageBody=json.dumps({"task_id": handle.message.task_id, "attempts": handle.attempts}))
+        payload = {"task_id": handle.message.task_id, "attempts": handle.attempts}
+        if handle.message.traceparent:
+            payload["traceparent"] = handle.message.traceparent
+        self.client.send_message(QueueUrl=self.dlq_url, MessageBody=json.dumps(payload))
         self.ack(handle)
 
 
@@ -120,7 +127,10 @@ class RedisStreamBroker:
                 raise
 
     def publish(self, msg: BrokerMessage) -> None:
-        self.client.xadd(self.queue_name, {"task_id": msg.task_id, "attempts": 0})
+        values = {"task_id": msg.task_id, "attempts": 0}
+        if msg.traceparent:
+            values["traceparent"] = msg.traceparent
+        self.client.xadd(self.queue_name, values)
 
     def _promote_due(self) -> None:
         self.client.eval(
@@ -128,7 +138,8 @@ class RedisStreamBroker:
             "for _,item in ipairs(due) do "
             "if redis.call('ZREM',KEYS[1],item)==1 then "
             "local message=cjson.decode(item); "
-            "redis.call('XADD',KEYS[2],'*','task_id',message.task_id,'attempts',message.attempts); "
+            "if message.traceparent then redis.call('XADD',KEYS[2],'*','task_id',message.task_id,'attempts',message.attempts,'traceparent',message.traceparent) "
+            "else redis.call('XADD',KEYS[2],'*','task_id',message.task_id,'attempts',message.attempts) end; "
             "end; end; return #due",
             2, self.delayed_key, self.queue_name, int(time.time() * 1000),
         )
@@ -151,7 +162,7 @@ class RedisStreamBroker:
         message_id, values = messages[0]
         deliveries = self.client.hincrby(self.attempts_key, message_id, 1)
         attempts = int(values.get("attempts", 0)) + deliveries
-        return MessageHandle(message_id, BrokerMessage(values["task_id"]), attempts)
+        return MessageHandle(message_id, BrokerMessage(values["task_id"], values.get("traceparent")), attempts)
 
     def ack(self, handle: MessageHandle) -> None:
         with self.client.pipeline(transaction=True) as pipe:
@@ -163,7 +174,10 @@ class RedisStreamBroker:
     def nack(self, handle: MessageHandle, delay: int) -> None:
         if delay < 0:
             raise ValueError("delay must be non-negative")
-        delayed = json.dumps({"task_id": handle.message.task_id, "attempts": handle.attempts})
+        delayed_payload = {"task_id": handle.message.task_id, "attempts": handle.attempts}
+        if handle.message.traceparent:
+            delayed_payload["traceparent"] = handle.message.traceparent
+        delayed = json.dumps(delayed_payload)
         with self.client.pipeline(transaction=True) as pipe:
             pipe.zadd(self.delayed_key, {delayed: int(time.time() * 1000) + delay * 1000})
             pipe.xack(self.queue_name, self.group, handle.receipt)
@@ -182,11 +196,14 @@ class RedisStreamBroker:
 
     def dead_letter(self, handle: MessageHandle) -> None:
         with self.client.pipeline(transaction=True) as pipe:
-            pipe.xadd(self.dlq_name, {
+            payload = {
                 "task_id": handle.message.task_id,
                 "attempts": handle.attempts,
                 "source_id": handle.receipt,
-            })
+            }
+            if handle.message.traceparent:
+                payload["traceparent"] = handle.message.traceparent
+            pipe.xadd(self.dlq_name, payload)
             pipe.xack(self.queue_name, self.group, handle.receipt)
             pipe.xdel(self.queue_name, handle.receipt)
             pipe.hdel(self.attempts_key, handle.receipt)

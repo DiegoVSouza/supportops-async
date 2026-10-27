@@ -113,3 +113,65 @@ def test_competing_worker_cannot_claim_during_long_running_step():
     Worker(store, broker, runner=slow_runner, heartbeat_interval_seconds=0.02, visibility_timeout_seconds=1).run_once()
     assert claim_results == [False]
     assert store.get(task.task_id).status.value == "done"
+
+
+def test_trace_context_reaches_step_thread_and_failure_text_is_not_persisted():
+    import asyncio
+    import httpx
+    from opentelemetry import trace
+    from supportops_async.api import create_app
+    from supportops_async.tracing import extract_trace_context
+
+    traceparent = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+    parent = extract_trace_context({"traceparent": traceparent})
+    store, broker = SQLiteTaskStore(), InMemoryBroker()
+    task, _ = store.create({"steps": ["triage"]}, "safe-error")
+    broker.publish(BrokerMessage(task.task_id, traceparent))
+    observed = []
+
+    def fail(payload, step):
+        observed.append(trace.get_current_span().get_span_context().trace_id)
+        raise RuntimeError("PRIVATE PROVIDER RESPONSE")
+
+    with trace.use_span(trace.get_tracer("test").start_span("parent", context=parent), end_on_exit=True):
+        Worker(store, broker, runner=fail).run_once()
+    assert observed == [int("4bf92f3577b34da6a3ce929d0e0e4736", 16)]
+    assert store.get(task.task_id).error == "worker_failure"
+    assert "PRIVATE PROVIDER RESPONSE" not in repr(store.pending_events())
+
+    async def read_task():
+        app = create_app(store, broker)
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+            response = await client.get(f"/tasks/{task.task_id}")
+            assert response.json()["error"] == "worker_failure"
+            assert "PRIVATE PROVIDER RESPONSE" not in response.text
+
+    asyncio.run(read_task())
+
+
+def test_worker_cli_logs_only_allowlisted_failure_category(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+    import pytest
+    monkeypatch.setitem(sys.modules, "supportops_async.api.runtime", SimpleNamespace(runtime_components=lambda: (object(), object(), None)))
+    from supportops_async.worker import cli
+
+    class StopAfterFailure:
+        calls = 0
+        def __init__(self, *args, **kwargs): pass
+        def run_once(self):
+            self.calls += 1
+            if self.calls == 1:
+                raise RuntimeError("PRIVATE DATABASE DETAIL")
+            raise KeyboardInterrupt
+        def flush_events(self): return 0
+
+    output = []
+    monkeypatch.setattr(cli, "Worker", StopAfterFailure)
+    monkeypatch.setattr(cli.time, "sleep", lambda _: None)
+    monkeypatch.setattr(cli.logging, "error", lambda *args, **kwargs: output.append((args, kwargs)))
+    with pytest.raises(KeyboardInterrupt):
+        cli.main()
+    assert len(output) == 1
+    assert output[0][0][1] == "worker_failure"
+    assert "PRIVATE DATABASE DETAIL" not in repr(output)

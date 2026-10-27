@@ -1,0 +1,6 @@
+COMMAND: uv run --locked python - (Python hash manifest check)
+EXIT_CODE: 0
+OUTPUT: SHA-256 compared 157 tracked files under artifacts/, evals/, datasets/, rubrics/, campaigns/, plus harness.yaml and docker-compose.async.yml, against their clean phase-base HEAD contents. Differences after validation: 0.
+COMMAND: compare restored artifacts/evidence/.pytest-tmp files against a private phase-local byte snapshot
+EXIT_CODE: 0
+OUTPUT: 3 files; 0 byte differences after restoring the directory following full-gate runs.

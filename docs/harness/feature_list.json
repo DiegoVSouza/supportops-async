@@ -65,6 +65,24 @@
       "description": "Real model quality and cost metrics",
       "status": "PENDING",
       "evidence": "No live model run is authorized or required"
+    },
+    {
+      "id": "P04-TRACE-CONTEXT",
+      "description": "W3C traceparent propagation across the actual HTTP API, broker retries and worker thread with fixed safe failure categories",
+      "status": "PASS_UNIT",
+      "evidence": "artifacts/evidence/api-worker-trace-propagation/focused-tests.txt"
+    },
+    {
+      "id": "P04-TRACE-EXPORT",
+      "description": "Export traces to a configured private backend or collector",
+      "status": "INCOMPLETE",
+      "evidence": "No SDK exporter, endpoint or collector is configured"
+    },
+    {
+      "id": "P04-RAG",
+      "description": "Retrieve attributable, authorized knowledge from a P04-owned source",
+      "status": "INCOMPLETE",
+      "evidence": "No P04-owned retrieval source, corpus or tenant protocol exists"
     }
   ]
 }

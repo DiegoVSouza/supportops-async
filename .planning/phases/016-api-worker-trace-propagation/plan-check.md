@@ -8,4 +8,4 @@ Result: PASS for offline API/worker context propagation and failure-sanitization
 - Confirmed broker messages do not currently carry trace context and Redis retry JSON/SQS body must be extended compatibly; the task thread needs explicit `contextvars.copy_context()`.
 - Confirmed worker exception strings are persisted and returned by GET `/tasks/{id}`, while the CLI logs stack traces. Fixed error codes are a concrete scoped privacy improvement.
 - Confirmed `rag: false`, no retrieval runtime or owned knowledge source; RAG cannot be implemented honestly in this phase.
-- Validation hides Docker/Terraform and clears all service endpoints; no scripts that start containers or execute Terraform are run. Historical artifacts will be restored byte-for-byte.
+- Validation clears all service endpoints and disables daemon access with a deliberately nonexistent named pipe; the Docker CLI is needed only for side-effect-free Compose config parsing. Terraform is absent. No container lifecycle, build, or Terraform command is run. Historical artifacts will be restored byte-for-byte.

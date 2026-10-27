@@ -7,6 +7,13 @@ from typing import Any, Protocol
 @dataclass(frozen=True)
 class BrokerMessage:
     task_id: str
+    traceparent: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.traceparent is not None:
+            from supportops_async.tracing import extract_trace_context, inject_traceparent
+
+            object.__setattr__(self, "traceparent", inject_traceparent(extract_trace_context({"traceparent": self.traceparent})))
 
 
 @dataclass(frozen=True)

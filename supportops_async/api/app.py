@@ -3,11 +3,13 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import FastAPI, Header, HTTPException, Response, status
+from opentelemetry import trace
 from pydantic import BaseModel, ConfigDict, Field
 
 from supportops_async.queue.contracts import Broker, BrokerMessage
 from supportops_async.store.models import TaskStore
 from supportops_async.events.events import EventPublisher, drain_outbox
+from supportops_async.tracing import TRACER, extract_trace_context, inject_traceparent, safe_error_code
 
 
 class CreateTask(BaseModel):
@@ -18,6 +20,23 @@ class CreateTask(BaseModel):
 
 def create_app(store: TaskStore, broker: Broker, events: EventPublisher | None = None) -> FastAPI:
     app = FastAPI(title="SupportOps Async API", version="0.1.0")
+
+    @app.middleware("http")
+    async def trace_request(request, call_next):
+        parent = extract_trace_context(request.headers)
+        with TRACER.start_as_current_span("supportops.api.request", context=parent, record_exception=False) as span:
+            method = request.method if request.method in {"GET", "POST", "PUT", "DELETE", "PATCH"} else "OTHER"
+            span.set_attribute("supportops.http.method", method)
+            try:
+                response = await call_next(request)
+            except Exception as exc:
+                span.set_attribute("supportops.error.category", safe_error_code(exc))
+                span.set_status(trace.Status(trace.StatusCode.ERROR))
+                raise
+            span.set_attribute("supportops.http.status_code", response.status_code)
+            if response.status_code >= 500:
+                span.set_status(trace.Status(trace.StatusCode.ERROR))
+            return response
 
     @app.post("/tasks", status_code=status.HTTP_202_ACCEPTED)
     def create_task(body: CreateTask, response: Response, idempotency_key: str | None = Header(default=None, alias="Idempotency-Key")) -> dict[str, str]:
@@ -31,7 +50,7 @@ def create_app(store: TaskStore, broker: Broker, events: EventPublisher | None =
         # Publish on every retry; duplicate messages are safe by task/effect idempotency.
         try:
             if task.status.value in {"queued", "retrying"}:
-                broker.publish(BrokerMessage(task.task_id))
+                broker.publish(BrokerMessage(task.task_id, inject_traceparent()))
         except Exception as exc:
             raise HTTPException(503, "task persisted but enqueue failed; retry with the same key") from exc
         if events is not None:

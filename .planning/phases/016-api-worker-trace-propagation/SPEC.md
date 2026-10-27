@@ -1,6 +1,6 @@
 # Phase 016 — API-to-worker trace propagation and safe failures
 
-Status: PLANNED. Offline control implementation only; service trace export and RAG remain INCOMPLETE.
+Status: IMPLEMENTED — OFFLINE CONTROL PASS. Service trace export and RAG remain INCOMPLETE; human and independent review remain PENDING.
 
 ## Goal
 
@@ -22,7 +22,7 @@ Propagate W3C `traceparent` from the actual FastAPI task request through P04-own
 2. SQS and Redis message serialization, retry/defer, redelivery, and dead-letter paths preserve trace context; old messages without context remain compatible.
 3. Worker spans use the extracted parent context and pass it into the real threaded step runner. Tests cover API → broker → worker thread and retry/recovery after an interrupted/committed step without reapplying an effect.
 4. Exception payload text does not enter newly persisted worker failure state, API task errors, outbox payloads, worker logs, or span exception events. Fixed operational error codes/status remain available.
-5. Locked offline unit/fake gates pass. Full gate runs with Docker and Terraform absent from the child process PATH and no service endpoints configured; skipped service/build gates remain INCOMPLETE.
+5. Locked offline unit/fake gates pass. Full gate ran with service endpoints unset, Docker daemon unreachable through a deliberately nonexistent named pipe, and Terraform unavailable; skipped service/build gates remain INCOMPLETE.
 6. Historical artifacts, eval datasets/rubrics, campaign ledger, service configuration, and all pre-existing artifacts are byte-identical after validation.
 7. RAG source integration and exported service traces remain clearly INCOMPLETE; this phase does not claim production trace delivery or live quality.
 

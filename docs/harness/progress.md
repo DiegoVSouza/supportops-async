@@ -82,3 +82,10 @@ The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workf
 - Added P04-local append-only reservations, atomic cumulative caps, a process lease, and read-only resume inspection. Unknown usage remains fully reserved and cannot be replayed.
 - Focused tests passed: 6 ledger and 11 preparation tests. Full gate passed 60 tests with 4 service skips and returned `INCOMPLETE` because PostgreSQL/LocalStack/Redis/Docker build/Terraform validation were isolated. Compose config passed.
 - Dispatcher, service recovery validation, authorized quota/caps, reviewer approval, live-path lease integration, canary, and rollback remain pending. No provider call or workflow effect occurred. Evidence: `artifacts/evidence/live-campaign-ledger/`.
+
+## 2026-10-27 — Phase 016 API and worker trace propagation
+
+- Added W3C trace context propagation from the real FastAPI request into SQS/Redis/in-memory broker envelopes, retry/defer and DLQ fields, worker processing spans, and the step execution thread. Legacy messages without `traceparent` remain accepted.
+- Worker failure state, outbox error fields, and CLI iteration logs now use fixed error categories and omit exception text. Trace spans disable exception recording and carry only bounded method/status/attempt/category attributes.
+- Focused locked tests: 20 passed, including API-to-broker propagation, legacy and retry/DLQ queue messages, worker thread context, private exception text exclusion, and crash recovery without repeating a committed effect.
+- Fast gate passed. Offline full gate: 67 passed and 4 service tests skipped; overall INCOMPLETE because PostgreSQL, LocalStack, Docker build, and Terraform were unavailable. Compose config passed. No SDK exporter, collector, RAG source, provider, Docker daemon, or external service was configured or accessed. Service trace delivery and RAG stay INCOMPLETE. Protected artifact/eval/config hash comparison reported zero changes.

@@ -34,3 +34,27 @@ def test_process_exit_after_committed_effect_recovers_without_duplicate(tmp_path
     assert restarted_store.effect(task_id, "1:authorize") == {"effect": "once"}
     assert runner_calls == ["complete"]
 
+
+def test_recovery_preserves_traceparent_for_remaining_step(tmp_path):
+    from opentelemetry import trace
+
+    traceparent = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+    store = SQLiteTaskStore(tmp_path / "trace-recovery.db", lease_seconds=0.01)
+    task, _ = store.create({"steps": ["authorize", "complete"]}, "trace-recovery")
+    task_id = task.task_id
+    store.apply_effect(task_id, "1:authorize", {"effect": "once"})
+    store.close()
+    time.sleep(0.03)
+    restarted_store = SQLiteTaskStore(tmp_path / "trace-recovery.db", lease_seconds=0.01)
+    broker = InMemoryBroker()
+    broker.publish(BrokerMessage(task_id, traceparent))
+    seen = []
+
+    def runner(payload, step):
+        seen.append((step, trace.get_current_span().get_span_context().trace_id))
+        return {"step": step}
+
+    Worker(restarted_store, broker, runner=runner).run_once()
+    assert seen == [("complete", int("4bf92f3577b34da6a3ce929d0e0e4736", 16))]
+    assert restarted_store.effect(task_id, "1:authorize") == {"effect": "once"}
+

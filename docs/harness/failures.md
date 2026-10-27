@@ -17,3 +17,9 @@ The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workf
 
 - Unknown provider usage must retain the original pre-dispatch request/token/cost reservation. P04 tests this after both a crash-like reservation and an error completion.
 - The full check can build the service image and run Terraform via Docker when the daemon is available. Validation set `DOCKER_HOST` to an unreachable loopback endpoint and omitted service variables; service/build gates are recorded as `INCOMPLETE`, and historical outputs were restored.
+
+## 2026-10-27 — Phase 016 offline verification
+
+- The managed Windows account cannot enumerate its default `pytest-of-dvsdi` temp directory (`PermissionError: WinError 5`). Phase 016 directs pytest `--basetemp` to its own ignored evidence subdirectory; focused tests then pass.
+- `scripts/check_full.py` invokes Docker Compose configuration before checking daemon availability and does not catch a missing CLI executable. The full gate retained the installed CLI only for `docker compose ... config --quiet`, pointed daemon access at a nonexistent named pipe, and left Terraform unavailable. No build or service lifecycle command ran.
+- The first isolated full-gate attempt also exposed that the child `pytest` entrypoint did not include the project root on `sys.path`; collection failed for two `scripts.*` imports. Re-running with `PYTHONPATH` set to the P04 root produced 67 passing tests and four expected service skips. The full gate reused `artifacts/evidence/.pytest-tmp`; its three pre-existing files were snapshotted and restored byte-for-byte.

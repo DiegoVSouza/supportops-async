@@ -1,0 +1,5 @@
+COMMAND: uv run --locked pytest --basetemp artifacts/evidence/api-worker-trace-propagation/pytest-tmp tests/api/test_tasks_api.py tests/queue/test_broker.py tests/worker/test_worker.py tests/recovery/test_process_recovery.py -q
+EXIT_CODE: 0
+OUTPUT:
+....................                                                     [100%]
+20 passed in 0.99s
