@@ -1,0 +1,14 @@
+{
+  "phase": "020-existing-tracer-provider",
+  "plan_check": "PASS",
+  "checked_candidate_base": "e0a5576",
+  "phase_ids_inspected": ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011", "012", "016", "017", "018", "019"],
+  "next_id": "020",
+  "allowed_paths_concrete": true,
+  "forbidden_changes_defined": true,
+  "tasks": 3,
+  "budget_usd": 0,
+  "provider_model_requests": 0,
+  "human_or_independent_approval": "PENDING",
+  "reviewer": "implementer self-check; independent review not performed"
+}
