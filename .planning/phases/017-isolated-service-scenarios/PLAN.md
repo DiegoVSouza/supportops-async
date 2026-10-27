@@ -34,6 +34,6 @@ Forbidden changes:
 ## Budget and stop conditions
 
 - Budget: USD 0; zero provider calls; cached local images only; no image build/pull.
-- Stop before startup if either port is occupied, image digest differs/is absent, project namespace is nonempty, or Compose would build/pull or target shared resources.
+- Stop before startup if either configured port (15432 or 14566) is occupied, image digest differs/is absent, project namespace is nonempty, or Compose would build/pull or target shared resources.
 - Stop on any unexpected container/network/volume identity change, scenario failure, provider/credential discovery, or uncertain cleanup. Preserve evidence and report INCOMPLETE; do not rerun a failed semantic case to obtain a pass.
 - Required personal, independent, dataset/rubric, and promotion reviews remain PENDING.

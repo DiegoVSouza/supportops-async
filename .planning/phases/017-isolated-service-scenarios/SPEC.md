@@ -14,7 +14,7 @@ Revalidate the existing PostgreSQL and LocalStack SQS long-step, duplicate-deliv
 ## Constraints
 
 - No provider calls, credentials, paid usage, build, image pull, Terraform, deploy, or external effects.
-- Start only the PostgreSQL and LocalStack services from `docker-compose.async.yml` under project `p04-phase017-isolated-service`, on verified-free loopback ports 16432 and 16566.
+- Start only the PostgreSQL and LocalStack services from `docker-compose.async.yml` under project `p04-phase017-isolated-service`, using their configured loopback ports 15432 and 14566 after verifying they are free.
 - Never target or alter another Compose project, its containers, networks, or volumes. Clean up only this phase's Compose project.
 - The scenario may create/delete uniquely named queues only inside its isolated LocalStack instance and writes test data only to the phase-owned database.
 - User, independent, dataset/rubric, and promotion reviews remain PENDING.
