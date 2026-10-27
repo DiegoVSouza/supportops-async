@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import logging
+import os
+from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI, Header, HTTPException, Response, status
@@ -10,6 +13,9 @@ from supportops_async.queue.contracts import Broker, BrokerMessage
 from supportops_async.store.models import TaskStore
 from supportops_async.events.events import EventPublisher, drain_outbox
 from supportops_async.tracing import TRACER, extract_trace_context, inject_traceparent, safe_error_code
+from supportops_async.telemetry import configure_telemetry, shutdown_telemetry
+
+logger = logging.getLogger(__name__)
 
 
 class CreateTask(BaseModel):
@@ -19,7 +25,17 @@ class CreateTask(BaseModel):
 
 
 def create_app(store: TaskStore, broker: Broker, events: EventPublisher | None = None) -> FastAPI:
-    app = FastAPI(title="SupportOps Async API", version="0.1.0")
+    @asynccontextmanager
+    async def lifespan(_app: FastAPI):
+        provider = configure_telemetry(os.getenv("OTEL_SERVICE_NAME", "supportops-async-api"))
+        try:
+            yield
+        finally:
+            if not shutdown_telemetry(provider):
+                # Deliberately omit exporter exception content and endpoint details.
+                logger.warning("telemetry shutdown incomplete")
+
+    app = FastAPI(title="SupportOps Async API", version="0.1.0", lifespan=lifespan)
 
     @app.middleware("http")
     async def trace_request(request, call_next):

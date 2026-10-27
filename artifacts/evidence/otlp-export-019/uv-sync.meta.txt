@@ -1,0 +1,3 @@
+COMMAND: uv sync --locked
+EXIT_CODE: 0
+ADDED: OpenTelemetry SDK/OTLP HTTP 1.45.1 and locked transitive packages

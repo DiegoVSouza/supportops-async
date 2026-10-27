@@ -1,0 +1,3 @@
+COMMAND: P04_CHECK_IMAGE_TAG=bad:tag:extra uv run --locked python scripts/check_full.py
+EXIT_CODE: 1
+EXPECTED: 1, rejected before check or Docker build

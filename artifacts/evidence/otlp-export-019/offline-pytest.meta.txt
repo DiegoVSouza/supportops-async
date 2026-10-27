@@ -1,0 +1,2 @@
+COMMAND: PYTHONPATH=. uv run --locked pytest -v --basetemp artifacts/evidence/otlp-export-019/offline-pytest tests
+EXIT_CODE: 0

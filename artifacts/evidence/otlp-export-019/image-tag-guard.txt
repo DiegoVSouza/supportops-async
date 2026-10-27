@@ -1,0 +1,1 @@
+check-full: FAIL invalid image tag

@@ -3,6 +3,7 @@
 
 import os
 import pathlib
+import re
 import shutil
 import socket
 import subprocess
@@ -12,6 +13,10 @@ from urllib.parse import urlsplit
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 INCOMPLETE = []
 FAILED = []
+IMAGE_TAG = os.getenv("P04_CHECK_IMAGE_TAG", "supportops-async:local-check")
+if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*:[A-Za-z0-9][A-Za-z0-9_.-]*", IMAGE_TAG):
+    print("check-full: FAIL invalid image tag")
+    sys.exit(1)
 
 
 def prepare_pytest_basetemp() -> pathlib.Path:
@@ -78,7 +83,7 @@ docker_info = subprocess.run(["docker", "info", "--format", "{{.ServerVersion}}"
 print("\nCOMMAND: docker info --format {{.ServerVersion}}")
 print(f"EXIT_CODE: {docker_info.returncode}\nOUTPUT:\n{docker_info.stdout.rstrip() or '(empty)'}")
 if docker_info.returncode == 0:
-    run("docker-image-build", ["docker", "build", "--file", "Dockerfile", "--tag", "supportops-async:local-check", "."])
+    run("docker-image-build", ["docker", "build", "--file", "Dockerfile", "--tag", IMAGE_TAG, "."])
 else:
     INCOMPLETE.append("Docker image build: Docker daemon unavailable")
 
