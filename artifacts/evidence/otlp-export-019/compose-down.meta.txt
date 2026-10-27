@@ -1,0 +1,2 @@
+COMMAND: docker compose -p p04-phase019-otlp -f docker-compose.async.yml -f artifacts/evidence/otlp-export-019/compose.override.yml down --volumes --remove-orphans
+EXIT_CODE: 0

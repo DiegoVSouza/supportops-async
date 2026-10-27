@@ -1,0 +1,2 @@
+COMMAND: uv run --locked python artifacts/evidence/otlp-export-019/service-probe.py
+EXIT_CODE: 1
