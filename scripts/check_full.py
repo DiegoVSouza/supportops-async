@@ -14,6 +14,25 @@ INCOMPLETE = []
 FAILED = []
 
 
+def prepare_pytest_basetemp() -> pathlib.Path:
+    configured = os.getenv("P04_PYTEST_BASETEMP", "artifacts/evidence/.pytest-tmp")
+    evidence_root = (ROOT / "artifacts" / "evidence").resolve()
+    candidate = (ROOT / configured).resolve()
+    if not candidate.is_relative_to(evidence_root):
+        raise ValueError("pytest base directory must be inside artifacts/evidence")
+    if candidate.is_symlink() or candidate.exists():
+        raise FileExistsError(f"pytest base directory already exists; refusing to clear it: {candidate}")
+    candidate.mkdir(parents=True)
+    return candidate
+
+
+try:
+    PYTEST_BASETEMP = prepare_pytest_basetemp()
+except (OSError, ValueError) as error:
+    print(f"check-full: FAIL unsafe pytest base directory: {error}")
+    sys.exit(1)
+
+
 def run(name: str, command: list[str], *, cwd: pathlib.Path = ROOT) -> int:
     print(f"\nCOMMAND: {' '.join(command)}")
     result = subprocess.run(command, cwd=cwd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -26,7 +45,9 @@ def run(name: str, command: list[str], *, cwd: pathlib.Path = ROOT) -> int:
 
 
 run("fast", [sys.executable, "scripts/check_fast.py"])
-run("unit-and-subprocess-tests", ["uv", "run", "--locked", "pytest", "-q", "-rs", "--basetemp", "artifacts/evidence/.pytest-tmp", "tests"])
+pytest_basetemp_arg = str(PYTEST_BASETEMP.relative_to(ROOT))
+print(f"pytest base directory: {pytest_basetemp_arg}")
+run("unit-and-subprocess-tests", ["uv", "run", "--locked", "pytest", "-q", "-rs", "--basetemp", pytest_basetemp_arg, "tests"])
 compose_rc = run("compose-config", ["docker", "compose", "-f", "docker-compose.async.yml", "config", "--quiet"])
 if compose_rc == 0:
     print("STATUS compose-config: PASS")
