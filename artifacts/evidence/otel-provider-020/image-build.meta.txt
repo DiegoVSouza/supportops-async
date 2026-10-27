@@ -1,0 +1,2 @@
+COMMAND: docker build --file Dockerfile --tag supportops-async:phase020 .
+EXIT_CODE: 0

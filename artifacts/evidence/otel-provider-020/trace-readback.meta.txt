@@ -1,0 +1,2 @@
+COMMAND: uv run --locked python artifacts/evidence/otel-provider-020/trace-readback.py (GET only; no task submission)
+EXIT_CODE: 0

@@ -1,0 +1,2 @@
+COMMAND: uv run --locked pytest -q --basetemp artifacts/evidence/otel-provider-020/offline-pytest-final tests/test_telemetry.py
+EXIT_CODE: 0

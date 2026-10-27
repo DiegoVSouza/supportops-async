@@ -1,0 +1,25 @@
+services:
+  postgres:
+    ports: !override ["127.0.0.1:16432:5432"]
+  localstack:
+    ports: !override ["127.0.0.1:16566:4566"]
+  redis:
+    ports: !override ["127.0.0.1:16380:6379"]
+  api:
+    image: supportops-async:phase020
+    ports: !override ["127.0.0.1:18002:8000"]
+    environment:
+      P04_TEST_REDIS_URL: redis://redis:6379/1
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://jaeger:4318/v1/traces
+      OTEL_SERVICE_NAME: supportops-async-api
+  worker:
+    image: supportops-async:phase020
+    environment:
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://jaeger:4318/v1/traces
+      OTEL_SERVICE_NAME: supportops-async-worker
+    depends_on:
+      jaeger:
+        condition: service_started
+  jaeger:
+    image: jaegertracing/jaeger:2.18.0
+    ports: !override ["127.0.0.1:24191:16686"]

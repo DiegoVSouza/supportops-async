@@ -1,0 +1,2 @@
+COMMAND: PYTHONPATH=. uv run --locked pytest -q -rs --basetemp artifacts/evidence/otel-provider-020/offline-pytest-final-suite tests
+EXIT_CODE: 0

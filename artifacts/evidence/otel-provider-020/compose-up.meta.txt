@@ -1,0 +1,2 @@
+COMMAND: docker compose -p p04-phase020-otel -f docker-compose.async.yml -f artifacts/evidence/otel-provider-020/compose.override.yml up --pull never --no-build -d --wait
+EXIT_CODE: 0

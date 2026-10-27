@@ -38,3 +38,8 @@ The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workf
 
 - Real API startup reported `Overriding of current TracerProvider is not allowed`; OTLP exporter setup created a provider that could not become global. The task still completed and Jaeger received the worker span only; API span was absent. Preserve task `ac52c679-8226-4658-9eca-6739e4caf906`, trace `4bf92f3577b34da6a3ce929d0e0e4736`, and the one failed synthetic probe. No semantic replay is allowed.
 - Offline/fast checks cannot expose the provider collision. Correct the setup by inspecting/adopting an existing SDK provider or locating who sets it before app lifespan, then test idempotence and service/resource attribution in a new phase before another service probe.
+
+## 2026-10-27 — Phase 020 probe verifier failure and reconciliation
+
+- The one-shot service task completed, but its first verifier raised `TypeError` while hashing Jaeger tag dictionaries. The task and trace are preserved; the task was not replayed. A GET-only query of that same trace passed the API+worker correlation, service identity, scalar bounded attribute, allowlist, and UUID-free checks. A subsequent GET after intentional stack teardown failed with connection refused and made no submission.
+- Phase 019's global-provider collision is fixed in candidate `beff749202805b138d820daaddb80a4468afc7c9`: existing SDK providers are adopted only when `service.name` matches; global state is not replaced. The full local gate and exact Docker inventory reconciliation passed. Keep phase-019 failure evidence immutable.

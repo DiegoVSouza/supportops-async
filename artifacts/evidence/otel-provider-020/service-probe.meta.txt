@@ -1,0 +1,2 @@
+COMMAND: uv run --locked python artifacts/evidence/otel-provider-020/service-probe.py
+EXIT_CODE: 1

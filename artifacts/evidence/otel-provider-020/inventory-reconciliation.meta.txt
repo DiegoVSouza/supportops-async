@@ -1,0 +1,2 @@
+COMMAND: compare phase-020 pre/post container, network, and volume inventories
+EXIT_CODE: 0

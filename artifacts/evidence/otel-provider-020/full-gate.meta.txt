@@ -1,0 +1,2 @@
+COMMAND: P04_CHECK_IMAGE_TAG=supportops-async:phase020 P04_PYTEST_BASETEMP=artifacts/evidence/otel-provider-020/full-gate-pytest P04_POSTGRES_DSN=postgresql://supportops:supportops@127.0.0.1:16432/supportops P04_LOCALSTACK_ENDPOINT=http://127.0.0.1:16566 P04_TEST_REDIS_URL=redis://127.0.0.1:16380/1 PYTHONPATH=. uv run --locked python scripts/check_full.py
+EXIT_CODE: 0

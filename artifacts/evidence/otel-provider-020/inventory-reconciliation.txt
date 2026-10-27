@@ -1,0 +1,3 @@
+containers: before=102 after=102 removed=0 added=0
+networks: before=21 after=21 removed=0 added=0
+volumes: before=89 after=89 removed=0 added=0

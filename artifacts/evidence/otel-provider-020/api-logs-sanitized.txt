@@ -1,0 +1,7 @@
+INFO:     Started server process [1]
+INFO:     192.168.80.1:54596 - "POST /tasks HTTP/1.1" 202 Accepted
+INFO:     192.168.80.1:54600 - "GET /tasks/d05d93a4-22a7-4d5d-a773-89b854cc0d7e HTTP/1.1" 200 OK
+INFO:     192.168.80.1:54614 - "GET /tasks/d05d93a4-22a7-4d5d-a773-89b854cc0d7e HTTP/1.1" 200 OK
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
