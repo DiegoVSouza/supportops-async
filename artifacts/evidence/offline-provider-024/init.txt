@@ -1,0 +1,18 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: docker run --rm --network none TF_CLI_CONFIG_FILE=/terraform.rc <phase config, cached mirror and workspace mounts> hashicorp/terraform:1.16.6 init -backend=false -input=false -lockfile=readonly -no-color
+exit_code: 0
+output:
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Installing hashicorp/aws v6.62.0...
+- Installed hashicorp/aws v6.62.0 (unauthenticated)
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.

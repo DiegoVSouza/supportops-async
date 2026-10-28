@@ -1,0 +1,5 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: docker run --rm --network none <same mirror/config/workspace> hashicorp/terraform:1.16.6 validate -no-color
+exit_code: 0
+output:
+Success! The configuration is valid.
