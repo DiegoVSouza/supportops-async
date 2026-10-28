@@ -1,0 +1,4 @@
+command: docker rm -f p04-phase023-localstack
+exit_code: 0
+output:
+p04-phase023-localstack

@@ -1,0 +1,20 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: docker run --rm --network p04-phase023-internal <fixture env and phase-owned mount> hashicorp/terraform:1.16.6 init -backend=false -input=false -lockfile=readonly
+exit_code: 1
+output:
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mFailed to query available provider packages[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mCould not retrieve the list of available versions for provider
+[31m│[0m [0mhashicorp/aws: could not connect to registry.terraform.io: failed to
+[31m│[0m [0mrequest discovery document: GET
+[31m│[0m [0mhttps://registry.terraform.io/.well-known/terraform.json giving up after 4
+[31m│[0m [0mattempt(s): Get "https://registry.terraform.io/.well-known/terraform.json":
+[31m│[0m [0mdial tcp: lookup registry.terraform.io on 127.0.0.11:53: server misbehaving
+[31m│[0m [0m
+[31m│[0m [0mTo see which modules are currently depending on hashicorp/aws and what
+[31m│[0m [0mversions are specified, run the following command:
+[31m│[0m [0m    terraform providers
+[31m╵[0m[0m

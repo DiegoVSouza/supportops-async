@@ -1,0 +1,4 @@
+command: docker network rm p04-phase023-internal
+exit_code: 0
+output:
+p04-phase023-internal

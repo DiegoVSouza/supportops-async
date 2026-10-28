@@ -1,0 +1,4 @@
+command: docker network create --internal p04-phase023-internal
+exit_code: 0
+output:
+494fa345f6c03eaa2ffda1756810674e0d3555ab1697370b9e0cb4d6165dccb4

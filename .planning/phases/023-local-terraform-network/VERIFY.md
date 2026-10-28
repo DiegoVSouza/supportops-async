@@ -1,3 +1,3 @@
 # Verification
 
-INCOMPLETE pending execution.
+INCOMPLETE: the isolated `terraform init -backend=false -input=false -lockfile=readonly` exited 1 because it tried to reach the Terraform registry and the internal network could not resolve it. No plan or apply ran. See `artifacts/evidence/local-terraform-network-023/init.txt`. The phase container and network were removed successfully. Container and network inventories matched, but one new anonymous volume appeared after the attempt. The image declares an anonymous volume; the container was removed before its mount identity was captured, so its ownership is not proven. It was preserved and the volume inventory remains unreconciled. No provider model calls or paid spend occurred. Do not claim the full gate passed.

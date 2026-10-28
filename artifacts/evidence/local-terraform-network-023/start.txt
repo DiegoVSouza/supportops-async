@@ -1,0 +1,4 @@
+command: docker run -d --name p04-phase023-localstack --network p04-phase023-internal --network-alias localstack -e SERVICES=sqs,sns,iam,sts -e AWS_DEFAULT_REGION=us-east-1 localstack/localstack:4.14.0
+exit_code: 0
+output:
+6932a5970b06df006d246f1a5cca73e5987a9a814d09506771cc4f6c0a1ca8ac
