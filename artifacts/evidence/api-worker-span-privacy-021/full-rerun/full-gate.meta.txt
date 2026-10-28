@@ -1,0 +1,4 @@
+COMMAND: P04_CHECK_EVIDENCE_DIR=artifacts/evidence/api-worker-span-privacy-021/full-rerun P04_PYTEST_BASETEMP=artifacts/evidence/api-worker-span-privacy-021/full-pytest-rerun DOCKER_HOST=tcp://127.0.0.1:1 PYTHONPATH=. (services unset) uv run --locked --offline python scripts/check_full.py
+EXIT_CODE: 2
+DOCKER_POLICY: daemon pointed at unreachable loopback port; no container lifecycle/build possible
+SERVICE_POLICY: PostgreSQL and LocalStack environment unset

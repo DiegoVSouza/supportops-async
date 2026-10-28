@@ -43,3 +43,7 @@ The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workf
 
 - The one-shot service task completed, but its first verifier raised `TypeError` while hashing Jaeger tag dictionaries. The task and trace are preserved; the task was not replayed. A GET-only query of that same trace passed the API+worker correlation, service identity, scalar bounded attribute, allowlist, and UUID-free checks. A subsequent GET after intentional stack teardown failed with connection refused and made no submission.
 - Phase 019's global-provider collision is fixed in candidate `beff749202805b138d820daaddb80a4468afc7c9`: existing SDK providers are adopted only when `service.name` matches; global state is not replaced. The full local gate and exact Docker inventory reconciliation passed. Keep phase-019 failure evidence immutable.
+
+## 2026-10-27 — Phase 021 automatic API/worker span status description
+
+- In P04's locked OpenTelemetry SDK, `record_exception=False` alone did not suppress automatic `span.status.description` population. Red-first tests on the real API middleware and worker process spans captured synthetic exception messages despite empty exception events. Both outer spans now also set `set_status_on_exception=False`; explicit fixed error categories and generic ERROR status remain, and the original exceptions still propagate. Production collector behavior remains unverified.

@@ -1,0 +1,6 @@
+Implementation diff: only two outer start_as_current_span calls now pass set_status_on_exception=False.
+Test diff: in-memory SDK tests cover actual FastAPI request middleware and Worker.process; each asserts generic ERROR, fixed error category, no description/events/sentinel, and original exception propagation.
+Baseline: clean HEAD regression failed both tests with the unique sentinel in status.description.
+Post-fix: focused 15 tests passed; fast gate passed; offline full gate 82 passed / 4 service skips and returned INCOMPLETE due unavailable services/build/Terraform.
+The first full-gate invocation failed test collection because PYTHONPATH was not exported; it is preserved separately. Corrected invocation passed all tests.
+No provider, credentials, external network, Docker lifecycle, or paid use.

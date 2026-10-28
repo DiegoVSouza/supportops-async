@@ -1,0 +1,4 @@
+COMMAND: uv run --locked --offline pytest -q --basetemp artifacts/evidence/api-worker-span-privacy-021/red-pytest tests/test_span_status_privacy.py
+EXIT_CODE: 0
+The initial red-tests.txt artifact was collected after the source fix had already been applied; its exit 0 is a preliminary post-fix run, not baseline evidence.
+The authoritative test against clean HEAD is red-baseline-tests.txt (exit 1; both sync API and worker spans contained their unique synthetic sentinel in status.description).

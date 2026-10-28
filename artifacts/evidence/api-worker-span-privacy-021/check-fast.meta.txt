@@ -1,0 +1,2 @@
+COMMAND: uv run --locked --offline python scripts/check_fast.py
+EXIT_CODE: 0

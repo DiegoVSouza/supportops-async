@@ -40,7 +40,12 @@ def create_app(store: TaskStore, broker: Broker, events: EventPublisher | None =
     @app.middleware("http")
     async def trace_request(request, call_next):
         parent = extract_trace_context(request.headers)
-        with TRACER.start_as_current_span("supportops.api.request", context=parent, record_exception=False) as span:
+        with TRACER.start_as_current_span(
+            "supportops.api.request",
+            context=parent,
+            record_exception=False,
+            set_status_on_exception=False,
+        ) as span:
             method = request.method if request.method in {"GET", "POST", "PUT", "DELETE", "PATCH"} else "OTHER"
             span.set_attribute("supportops.http.method", method)
             try:

@@ -1,0 +1,46 @@
+
+COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 49 packages in 0.58ms
+artifact=supportops_async-0.1.4-py3-none-any.whl
+artifact_sha256=fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f
+source_commit=f4b5df828b397e7ecbb9fa87c0ef77485d829dca
+dependency_lock_sha256=61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2
+fastapi_requirement=fastapi<0.143.0,>=0.137.1
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
+check-fast: PASS
+pytest base directory: artifacts\evidence\api-worker-span-privacy-021\full-pytest-rerun
+
+COMMAND: uv run --locked pytest -q -rs --basetemp artifacts\evidence\api-worker-span-privacy-021\full-pytest-rerun tests
+EXIT_CODE: 0
+OUTPUT:
+...........sss.....s.................................................... [ 83%]
+..............                                                           [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_service_crash_recovery.py:25: local PostgreSQL and LocalStack configuration required
+SKIPPED [1] tests\integration\test_services.py:15: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:27: P04_LOCALSTACK_ENDPOINT is not configured
+SKIPPED [1] tests\queue\test_redis_broker.py:15: P04_TEST_REDIS_URL is not configured
+82 passed, 4 skipped in 3.71s
+
+COMMAND: docker compose -f docker-compose.async.yml config --quiet
+EXIT_CODE: 0
+OUTPUT:
+(empty)
+STATUS compose-config: PASS
+PostgreSQL TCP probe: not configured; reachable=False
+
+COMMAND: docker info --format {{.ServerVersion}}
+EXIT_CODE: 1
+OUTPUT:
+
+error during connect: Get "http://127.0.0.1:1/v1.52/info": dial tcp 127.0.0.1:1: connectex: Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente.
+STATUS INCOMPLETE: PostgreSQL integration: P04_POSTGRES_DSN and reachable local server required
+STATUS INCOMPLETE: LocalStack integration: P04_LOCALSTACK_ENDPOINT required
+STATUS INCOMPLETE: Docker image build: Docker daemon unavailable
+STATUS INCOMPLETE: Terraform validate/plan/provider lock: Terraform CLI and Docker unavailable
+check-full: INCOMPLETE

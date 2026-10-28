@@ -80,6 +80,10 @@ The phase-016 source candidate (`0d427e3e9b509fec19450d52f45e35aab9bbed33`) pass
 
 This scoped service evidence does not prove API-to-exporter trace delivery, RAG behavior, Docker image build, Terraform, provider quality, or promotion. Trace-export and RAG acceptance remain INCOMPLETE; human and independent review remain pending. Evidence: `artifacts/evidence/service-scenarios-017/report.md`.
 
+### Phase 021 — API/worker span privacy
+
+Disabling exception events does not necessarily stop OpenTelemetry from putting an exception message in `span.status.description`. P04's API middleware and worker outer spans now also set `set_status_on_exception=False`, then retain their explicit generic ERROR code and fixed category. In-memory tests verify that the exception still reaches its caller and the span has no description, exception event or sentinel attribute. Production exporter privacy remains unverified.
+
 ## 2026-10-27 — Phase 018 safe full local gate
 
 The full local gate passed on candidate `ee8c867b824b7727f547dd01b07275b179687add`: 70 tests passed, one Redis broker test skipped because no Redis service endpoint was configured, PostgreSQL/SQS scenarios passed, the image built, and Terraform init/validate plus LocalStack plan passed with 6 additions, zero changes, and zero destroys. No Terraform apply ran. `scripts/check_full.py` now requires a fresh evidence-owned pytest temp directory and refuses to clear an existing one; all three historical scratch database hashes remained unchanged.

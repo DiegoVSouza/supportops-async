@@ -1,0 +1,3 @@
+COMMAND: uv run --locked --offline pytest -q --basetemp artifacts/evidence/api-worker-span-privacy-021/red-baseline-pytest tests/test_span_status_privacy.py
+EXIT_CODE: 1
+SOURCE: P04 clean HEAD before implementation

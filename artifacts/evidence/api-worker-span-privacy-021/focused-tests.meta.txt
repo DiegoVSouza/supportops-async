@@ -1,0 +1,2 @@
+COMMAND: uv run --locked --offline pytest -q --basetemp artifacts/evidence/api-worker-span-privacy-021/pytest tests/test_span_status_privacy.py tests/api/test_tasks_api.py tests/worker/test_worker.py
+EXIT_CODE: 0

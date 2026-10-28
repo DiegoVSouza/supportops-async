@@ -9,6 +9,7 @@
   - `supportops_async/worker/runner.py`
   - `tests/api/test_tasks_api.py`
   - `tests/worker/test_worker.py`
+  - `tests/test_span_status_privacy.py`
   - `docs/harness/progress.md`
   - `docs/harness/failures.md`
   - `docs/harness/feature_list.json`

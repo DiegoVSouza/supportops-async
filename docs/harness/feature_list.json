@@ -79,6 +79,13 @@
       "evidence": "No SDK exporter, endpoint or collector is configured"
     },
     {
+      "id": "P04-API-WORKER-SPAN-PRIVACY",
+      "description": "Sync API middleware and worker exception spans omit exception messages, status descriptions, events and attributes",
+      "status": "PASS_UNIT",
+      "evidence": "artifacts/evidence/api-worker-span-privacy-021/focused-tests.txt",
+      "detail": "Verified with an in-memory SDK exporter on actual API and worker span call paths; exceptions still propagate and errors retain fixed categories. Production exporter privacy and delivery remain unverified."
+    },
+    {
       "id": "P04-RAG",
       "description": "Retrieve attributable, authorized knowledge from a P04-owned source",
       "status": "INCOMPLETE",

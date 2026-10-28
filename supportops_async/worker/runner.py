@@ -106,7 +106,12 @@ class Worker:
 
     def process(self, handle: MessageHandle) -> None:
         parent = extract_trace_context({"traceparent": handle.message.traceparent} if handle.message.traceparent else None)
-        with TRACER.start_as_current_span("supportops.worker.process", context=parent, record_exception=False) as span:
+        with TRACER.start_as_current_span(
+            "supportops.worker.process",
+            context=parent,
+            record_exception=False,
+            set_status_on_exception=False,
+        ) as span:
             span.set_attribute("supportops.worker.attempt", handle.attempts)
             try:
                 self._process(handle)

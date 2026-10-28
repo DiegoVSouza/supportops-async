@@ -1,0 +1,4 @@
+COMMAND: P04_CHECK_EVIDENCE_DIR=artifacts/evidence/api-worker-span-privacy-021/full P04_PYTEST_BASETEMP=artifacts/evidence/api-worker-span-privacy-021/full-pytest DOCKER_HOST=tcp://127.0.0.1:1 (no service env) PYTHONPATH=. uv run --locked --offline python scripts/check_full.py
+EXIT_CODE: 1
+DOCKER_POLICY: unreachable loopback endpoint prevents daemon/build/lifecycle access; compose config is static only
+SERVICE_POLICY: PostgreSQL and LocalStack environment unset

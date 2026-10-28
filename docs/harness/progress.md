@@ -77,6 +77,13 @@ All 34 locked project and development packages were installed into a fresh tempo
 ## 2026-10-26 — Live Docker acceptance
 
 The full Docker/PostgreSQL/SQS/Redis/Terraform gate passed. The first real workflow reached both provider steps but failed the reply output contract (488 input / 203 output tokens); its evidence is retained. The prompt now states explicit JSON key schemas. One corrective workflow passed with a real plan and two real worker calls (526 input / 195 output tokens), two persisted effects and no regeneration on duplicate delivery. Eight focused tests include rejection of missing, empty and non-object outputs. Evidence: artifacts/evidence/live-docker/.
+
+## 2026-10-27 — Phase 021 API/worker span status privacy
+
+- Red-first in-memory exporter tests on the actual API middleware and worker process spans reproduced automatic exception-message insertion into ERROR status descriptions, despite `record_exception=False`.
+- Both outer spans now pass `set_status_on_exception=False`; the existing fixed category and generic ERROR status remain, and the original exception reaches the caller. Focused suite passed 15 tests; fast check passed.
+- Full offline gate passed 82 tests with four expected service integration skips, Compose config passed, and returned INCOMPLETE because PostgreSQL, LocalStack, Docker build and Terraform prerequisites were unavailable/explicitly disabled. No provider, credentials, network or Docker lifecycle was used.
+- This closes only the local SDK/in-memory privacy contract. Production OTLP privacy/delivery, quality, billing, human/independent review and promotion remain INCOMPLETE/PENDING. Evidence: `artifacts/evidence/api-worker-span-privacy-021/`.
 ## 2026-10-26 — Phase 012 bounded campaign ledger
 
 - Added P04-local append-only reservations, atomic cumulative caps, a process lease, and read-only resume inspection. Unknown usage remains fully reserved and cannot be replayed.
