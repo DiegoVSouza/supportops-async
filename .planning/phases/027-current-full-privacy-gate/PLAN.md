@@ -5,6 +5,7 @@
 3. Capture owned container mount identities, clean only exact phase resources, reconcile baseline identities and record results.
 
 allowed_write_paths: `.planning/phases/027-current-full-privacy-gate/**`, `artifacts/evidence/current-full-privacy-027/**`.
+Documentation amendment: `docs/harness/progress.md` and `docs/harness/feature_list.json` may reconcile completed local exporter/privacy gates and exact remaining production/RAG prerequisites without changing product sources or historical results.
 allowed_resources: compose project p04-phase027; network p04-phase027-local; its labeled volumes and containers; image supportops-async:phase027; read-only existing cached images/provider mirror. Never delete unrelated or unattributed volumes or alter existing stacks.
 forbidden_changes: product source, prior evidence, actual secrets, model calls, public ports, Terraform apply, root policy, sibling code, new gateway/connectivity, approvals.
 

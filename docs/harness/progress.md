@@ -1,5 +1,11 @@
 # Progress
 
+## 2026-10-28 — Current phase 027 full privacy/service gate
+
+- The complete locked fake gate passed 87 tests, PostgreSQL/Redis/LocalStack recovery scenarios, actual API/worker OTLP HTTP wire privacy, unique image build and Terraform init/validate/plan (6 add, 0 change, 0 destroy; no apply). Product source remains phase-026 candidate 5e08bd6; evidence commit 89bce09d8a47e428bf7795cd27221db2b9002960.
+- Preflight/first-gate failures remain preserved. The corrected gate uses explicit project PYTHONPATH, loopback ports and the already validated dedicated Docker bridge pattern, without inferred host gateway. Cleanup preserved all 102 containers, 21 networks and 90 volumes, including the unattributed historical volume. Only the phase-owned image tag changed during its authorized rebuild; every unrelated image matched.
+- Local configured exporter delivery and serialized failure privacy now have evidence; production exporter/backend acceptance, owned RAG corpus/tenant/source contract, model quality, human/independent review and promotion remain INCOMPLETE/PENDING. See .planning/phases/027-current-full-privacy-gate/VERIFY.md and artifacts/evidence/current-full-privacy-027/.
+
 - Kit initialization and intake completed; the project profile and module lock are recorded.
 
 ## 2026-10-15 — Intake and plan review

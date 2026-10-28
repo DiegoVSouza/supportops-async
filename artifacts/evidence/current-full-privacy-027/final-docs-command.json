@@ -1,0 +1,6 @@
+{
+  "reason": "docs-only reconciliation; 87-test gate/source unchanged",
+  "command": "uv run --locked --offline python scripts/check_fast.py",
+  "exit_code": 0,
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04"
+}

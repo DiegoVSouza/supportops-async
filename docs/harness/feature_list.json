@@ -75,15 +75,15 @@
     {
       "id": "P04-TRACE-EXPORT",
       "description": "Export traces to a configured private backend or collector",
-      "status": "INCOMPLETE",
-      "evidence": "No SDK exporter, endpoint or collector is configured"
+      "status": "PASS_LOCAL_CONFIGURED_EXPORT; PRODUCTION_ACCEPTANCE_PENDING",
+      "evidence": ".planning/phases/020-existing-tracer-provider/VERIFY.md; .planning/phases/027-current-full-privacy-gate/VERIFY.md"
     },
     {
       "id": "P04-API-WORKER-SPAN-PRIVACY",
       "description": "Sync API middleware and worker exception spans omit exception messages, status descriptions, events and attributes",
-      "status": "PASS_UNIT",
-      "evidence": "artifacts/evidence/api-worker-span-privacy-021/focused-tests.txt",
-      "detail": "Verified with an in-memory SDK exporter on actual API and worker span call paths; exceptions still propagate and errors retain fixed categories. Production exporter privacy and delivery remain unverified."
+      "status": "PASS_LOCAL_OTLP_WIRE_AND_FULL_FAKE_GATE; PRODUCTION_PENDING",
+      "evidence": "artifacts/evidence/api-worker-span-privacy-021/focused-tests.txt; artifacts/evidence/current-full-privacy-027/full-attempt2-run4.txt",
+      "detail": "Actual API/worker failure spans pass a loopback OTLP HTTP protobuf privacy test and the 87-test full local fake/service gate. Production exporter/backend reliability remains unverified."
     },
     {
       "id": "P04-RAG",
