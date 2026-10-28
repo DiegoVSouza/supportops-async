@@ -1,7 +1,7 @@
 # Plan
 
-1. Record Docker identities/states/images/volumes/networks, verify cached images, empty namespace p04-phase027 and free loopback ports 25432/24566/26379. Create a dedicated Compose stack and phase-owned Terraform copy/config.
-2. Run the locked fake full gate including the OTLP wire test and service recovery, unique image supportops-async:phase027, Terraform init/validate/plan only through explicit internal network p04-phase027-local.
+1. Record Docker identities/states/images/volumes/networks, verify cached images, empty namespace p04-phase027 and free loopback ports 35432/34566/36379 (initial 24566/26379 were occupied; no service started). Create a dedicated Compose stack and phase-owned Terraform copy/config.
+2. Run the locked fake full gate including the OTLP wire test and service recovery, unique image supportops-async:phase027, Terraform init/validate/plan only through explicit network p04-phase027-local. Reuse phase025's bridge/loopback pattern: the first internal-network attempt prevented Windows host access; no gateway is added. Set project PYTHONPATH for the existing pytest CLI import contract.
 3. Capture owned container mount identities, clean only exact phase resources, reconcile baseline identities and record results.
 
 allowed_write_paths: `.planning/phases/027-current-full-privacy-gate/**`, `artifacts/evidence/current-full-privacy-027/**`.

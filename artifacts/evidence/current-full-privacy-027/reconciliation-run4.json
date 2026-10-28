@@ -1,0 +1,9 @@
+{
+  "containers_preserved": true,
+  "networks_preserved": true,
+  "volumes_preserved": true,
+  "old_images_preserved": false,
+  "new_images": [
+    "supportops-async:phase027 sha256:b717ef637a4cd1902c61a04daa7612b21be8a3a1d62a90835f99a5112a9fcfaf"
+  ]
+}

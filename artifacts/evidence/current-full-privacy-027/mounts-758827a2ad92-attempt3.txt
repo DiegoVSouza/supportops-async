@@ -1,0 +1,1 @@
+[{"Type":"volume","Name":"p04-phase027_redis","Source":"p04-phase027_redis","Destination":"/data","Driver":"local","Mode":"rw","RW":true,"Propagation":""}]

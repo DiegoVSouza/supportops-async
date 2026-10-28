@@ -1,0 +1,102 @@
+604b0ade2e35b71f7c5d519a8e40235c2135185fb36ec235109feb03818ebe15|/p05-live-020-api-1|sha256:0af6c40c175c5fa2f5278c01dac843b3978635ab36b9ee947071c75649203f30|running|healthy|p05-live-020
+f9c0fce7b93d806c5020682b6899f58de3a3e5bd076c713a0d1597d7c1923a7b|/p05-live-020-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|running|healthy|p05-live-020
+c0142aa616f8007b5c8a824123b4f7f2d0412bfef210a950fdccf803a3cd234c|/p05-live-020-postgres-1|sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a|running|healthy|p05-live-020
+dda501dedb939277af4266f91908999887594e47efd0df6a9289e020a7688a45|/p04-live-015-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|exited|starting|p04-live-015
+8832ec678155ad7b79b80b69ac2badac41663962148803f497591ddd79239f45|/p04-live-015-postgres-1|sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24|exited|starting|p04-live-015
+83b58403d59add7c3d838f735db0ff9c15356ebf53db1ad2d4ffdacc5a69110b|/p04-live-015-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|exited|starting|p04-live-015
+5190d14b6486709b31f064d400b5f4d6ec42d322327a9ca2b68ae4cdc204215f|/p03-live-012-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|exited|starting|p03-live-012
+f59ac4742beffb406f6e96cf4231e7cab4441ff2e8b50ef555e449a2d5b3e37e|/p03-live-012-postgres-1|sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24|exited|starting|p03-live-012
+af901a274027cd3f604002bf447dcac8332d27a436318c3dea8aef0a828f2643|/supportops-lab-worker-1|sha256:cf908c5e517e63a2da8834a08da826bb63fc158204f11aa4a55f5b01f847fb82|running|healthy|supportops-lab
+29aa81650c2005558502206bb34607571e7cbc34ad6c014e442343d438c0fb43|/supportops-lab-p04-api-1|sha256:5106b7fa5fb686a890574e2e79dd4055110fdb06d5952de5f16423ca328bd7d5|running|healthy|supportops-lab
+963d6468e998a401b209cc11a0855b278092b61d6677f9854c699aa828c5d50f|/supportops-lab-api-1|sha256:cf908c5e517e63a2da8834a08da826bb63fc158204f11aa4a55f5b01f847fb82|running|healthy|supportops-lab
+2401e8c300bf890b07f9a675c04d7abd7251fc9d7e4b7c669de8380b10c56788|/supportops-lab-mcp-1|sha256:cf908c5e517e63a2da8834a08da826bb63fc158204f11aa4a55f5b01f847fb82|running|healthy|supportops-lab
+2e2cd76f06deea2b99f180e6ead6830fd981a9922a67f67fa927008d496491f4|/supportops-lab-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|running|healthy|supportops-lab
+0d72f497de5aefc6677ea2a5393364f5a80c4f6cfc1b65ce9990fb91e009eb64|/supportops-lab-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|running|healthy|supportops-lab
+ddce1f3021db21fff9a6e8f94b02e6255457802bca06b26d47957b14152231f2|/p04-phase012-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|exited|starting|p04-phase012
+f1cca2e55a55b3eeab88bc09ba12f0783492def4124231a3ae823f5f24e966be|/p04-phase012-postgres-1|sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24|exited|starting|p04-phase012
+311d519f4308db891669583be76258fe8c8bb261120e6d69008ab738f1cf3d29|/p04-phase012-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|exited|starting|p04-phase012
+f892ee28e3d52cb0a84e05a18627026b8e20559f3db762a2db644dac57e78ec4|/supportops-lab-keycloak-1|sha256:79c623a22abacf3fe6c00a5fb30f5b7843d717b234033b80995891c06116d244|running|healthy|supportops-lab
+14fb46ab3bd3039f788919b91d1e352716fd33e325ca92d78834a69075a8c38a|/supportops-lab-postgres-1|sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a|running|healthy|supportops-lab
+3172aaec7e0de6346b3727614b2ecc610f8aaa37aaa8e0b922aac0c197d64837|/p05-remediation-009-api-1|sha256:76b3ac725d9aa61531be9cfc0121d562bf1ca6bc929b68b9155b202d22676c5a|running|healthy|p05-remediation-009
+705051b27de7ce38bc52a44660adc91908bcf51c2ba991a54d6c9d752648b4cb|/p05-remediation-009-postgres-1|sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a|running|healthy|p05-remediation-009
+f5072c4418b8d4e8b47199ad86237dea470ded0be1163077a6a7398832d82f68|/p05-remediation-009-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|running|healthy|p05-remediation-009
+51530c00049274f538a3c73bacac335b32d98ac7c6d008e65e06dc2c2c74f7e5|/p05-remediation-009-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|running|healthy|p05-remediation-009
+44cafadc1e86b4162cdd94583b052956ffdacdbcc5f511d0055d16ed59116f9d|/p03-remediation-postgres-1|sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24|exited|starting|p03-remediation
+3ee26c4c45b0a88aa30324f9f10671c05bff6130344160862dc387b244ebb5ae|/p03-remediation-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|exited|starting|p03-remediation
+ca7d53a387954fb0a2487132ea468ffc6fbfdc324cfed9a57fab2c5bbe13fd5f|/p04-remediation-postgres-1|sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24|exited|starting|p04-remediation
+0f0567afc89355bb600c3ecafeaf8ae715fd124ba995bc4ef16abbf5c9c55b3c|/p04-remediation-localstack-1|sha256:3ebc37595918b8accb852f8048fef2aff047d465167edd655528065b07bc364a|exited|starting|p04-remediation
+2b6551ac517bef5063b0fd9cb9c2c1811009c5d526f89dd06e18257a21d603f5|/gossett_backend|sha256:0dba0b0390e2fa3c7481061ac92c992cf01e940101abd49f7dc6bc7106fbc0d4|restarting|unhealthy|gosset
+d48bcee1f8c55825d540965de28a396a7b29b69a64953586a85d5e5ddba03ba8|/gossett_legal_brain_adapter|sha256:13f94a44bcb85a5b708eedf8b058d240ac5a794540b5b6278052803bf083a016|running|healthy|gosset
+10a670df969948c2f1c2e87a5b7fb07c9f14ae5de5c569c44890a0fd55c5be43|/gossett_cognee|sha256:f86d8653a725ad4acccc8fb3e1e795b8b4b70ee584beea375cde9078c763c93d|running|healthy|gosset
+910fb419edc8548b8dd466ba17b0613fc8792c2fcd532f3709e9b1d1ec46417e|/gossett_postgres|sha256:df7bca0066e6f60cc3dd32faa70caddec20e2c22b58932f79498e5704b23854a|running|healthy|gosset
+6f8812381363a9f6d3aaeb5283b1f13127effbdf53af2f8b97aafb55ac86455a|/gossett_redis|sha256:8b81dd37ff027bec4e516d41acfbe9fe2460070dc6d4a4570a2ac5b9d59df065|running|healthy|gosset
+747d79d17f55c8efe54316892a127884dbab1207d82742d93140ceb098f7c40a|/big_step_01-postgres-1|sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416|exited|starting|big_step_01
+79110949610abf59dcb021c814cc3527a6338a7c320e752f3a66f4a478278d84|/enferpro-legado-db|sha256:be981e4113326ada8d6004174dd09eeaefc03094037f811182a52d4f2e737350|running|healthy|migration
+3583117603ea2c3d74552c131257a9ee21bd20a61d45a129aa84544d0359040c|/mvp-redis-1|sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576|exited|starting|mvp
+ed26250a7775b4f82ad3dfeaac5934e86b53cf537fb394e0a8839b12b573b94a|/mvp-postgres-1|sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73|exited|starting|mvp
+12dc14020e7a21990aae193ffdc739b92696be0bf734c5470aa36301d388338d|/jarvis_fit_api|sha256:f6158534318f0abdeed63254841b9f97b3d6ff43e16835b5733c351ea060c783|running|healthy|jarvis-fit-api
+2d1dd98c4f3b5b87f51a9ce04eeeb7a3e1c37a3221ec35edfff48bfb90c3a838|/jarvis_fit_db|sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416|running|healthy|jarvis-fit-api
+f21037a104b01f3f9ae711276be64f59e44f09243ad22123fc771a91c8e9d62c|/jarvis_fit_localstack|sha256:f1db6c829fd3ab8db21007e91f62b6f76396722fcbaf6d223a8110f42482fd7e|running|healthy|jarvis-fit-api
+760c87d0eead85f8b37a304c430ca230059bab54c39eddee9b4435d8c85faaed|/enferpro-db|sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416|running|healthy|pro-back
+721347dd1413740db005a8f1f13677152c6adba26b0ad243b55940d3b7a97704|/desafio-frontend-1|sha256:2accf18e9a9cef7332161d473e938484f8d64156682c87b258f3d1bb21cc60ea|exited|unhealthy|desafio
+3b2b82f0b81079ad51fbb2bde4d7f17462e19f249dbb31f0bb42d36fcb7fea7c|/desafio-backend-1|sha256:d2bde4fed00dc668630ad85b66bcb20324ed7bc1232beadd644139c805484ba4|exited|unhealthy|desafio
+6fdee5428fe1fd363cded029ebb5c8b42966fcd86c4246b4c7012741f184dbb4|/desafio-postgres-1|sha256:1d533553fefe4f12e5d80c7b80622ba0c382abb5758856f52983d8789179f0fb|exited|unhealthy|desafio
+df1098a3eb31b907cdbabb89c9f793528624a5807e9cec8809b3fea6e014cd99|/nebula-redis|sha256:8b81dd37ff027bec4e516d41acfbe9fe2460070dc6d4a4570a2ac5b9d59df065|exited|unhealthy|deus_e_bom_demais
+2135e2ac77229509fe633b6710c3d19aec26016883be8df7f9c6019cb4fdadbe|/nebula-mongo|sha256:f2b40853c0f796b105e672e04045d2b3e127bd54782dfe7e9b08aebbd9f602ce|exited|unhealthy|deus_e_bom_demais
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"
+template parsing error: template: :1:58: executing "" at <.State.Health>: map has no entry for key "Health"

@@ -1,0 +1,5 @@
+{
+  "command": "uv run --locked --offline python artifacts/evidence/current-full-privacy-027/reconcile_saved.py",
+  "exit_code": 0,
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04"
+}

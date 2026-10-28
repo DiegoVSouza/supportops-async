@@ -1,0 +1,1 @@
+[{"Type":"volume","Name":"p04-phase027_localstack","Source":"p04-phase027_localstack","Destination":"/var/lib/localstack","Driver":"local","Mode":"rw","RW":true,"Propagation":""}]

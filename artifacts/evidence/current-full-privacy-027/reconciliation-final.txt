@@ -1,0 +1,15 @@
+{
+  "status": "PASS_SCOPED_RECONCILIATION",
+  "containers": 102,
+  "networks": 21,
+  "volumes": 90,
+  "unrelated_images_unchanged": true,
+  "owned_image_before": [
+    "supportops-async:phase027 sha256:63c566347f7a2f631a1b6a2598e784ef1c4f34c24fc57b524b89f9846da83866"
+  ],
+  "owned_image_after": [
+    "supportops-async:phase027 sha256:b717ef637a4cd1902c61a04daa7612b21be8a3a1d62a90835f99a5112a9fcfaf"
+  ],
+  "original_wrapper_exit": 1,
+  "original_wrapper_reason": "overbroad image preservation assertion after full gate exit 0"
+}
