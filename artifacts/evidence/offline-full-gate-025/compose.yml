@@ -1,0 +1,7 @@
+services:
+  localstack:
+    environment:
+      SERVICES: sqs,sns,iam,sts
+networks:
+  default:
+    name: p04-phase025-local

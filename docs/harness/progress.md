@@ -122,3 +122,7 @@ Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry
 ## 2026-10-28 - Phase 022 current service scenarios
 
 - Isolated PostgreSQL, LocalStack and Redis integration tests and long-step, duplicate and retry/DLQ scenarios passed. Docker inventories reconciled. The complete Terraform gate and current exporter privacy remain incomplete; evidence: artifacts/evidence/current-service-scenarios-022/.
+
+## 2026-10-28 - Phase 025 offline full gate
+
+- Full local fake gate passed: 86 tests, service recovery, image build and offline Terraform plan (6 add / 0 change / 0 destroy; no apply). Explicit mirror/network/endpoint replace inferred host gateway. Docker inventories reconciled at 102/21/90; the historical unattributed volume remains preserved. See phase025 evidence.

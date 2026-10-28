@@ -1,5 +1,7 @@
 # Plan
 
+Execution amendment: internal Docker networking prevented loopback published-port access on this host. The first attempt was interrupted and its phase resources removed. Use a dedicated ordinary Docker network with existing loopback-only published ports; Terraform uses service DNS directly. No host gateway is inferred. Preserve this failed attempt.
+
 1. Add explicit offline Terraform mirror, workspace, network and endpoint settings to the gate, rejecting incomplete settings and removing automatic host gateway rewriting.
 2. Run locked fast and full fake checks against a uniquely owned PostgreSQL/Redis/LocalStack stack and internal Terraform network; record commands, exits and output, no apply.
 3. Capture mounts before cleanup and reconcile containers, networks and volumes. Preserve the historical unattributed volume; document that attribution cannot be reconstructed from existing evidence.

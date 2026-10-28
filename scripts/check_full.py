@@ -94,9 +94,28 @@ if terraform:
     terraform_prefix = [terraform, "-chdir=infra/terraform"]
 elif docker_info.returncode == 0:
     terraform_image = "hashicorp/terraform:1.16.6"
-    terraform_mount = f"{terraform_dir.resolve()}:/workspace"
+    workspace = os.getenv("P04_TERRAFORM_WORKSPACE")
+    mirror = os.getenv("P04_TERRAFORM_MIRROR")
+    cli_config = os.getenv("P04_TERRAFORM_CLI_CONFIG")
+    network = os.getenv("P04_TERRAFORM_NETWORK")
+    endpoint = os.getenv("P04_TERRAFORM_ENDPOINT")
+    if not all((workspace, mirror, cli_config, network, endpoint)):
+        print("check-full: INCOMPLETE explicit Terraform workspace/mirror/config/network/endpoint required")
+        sys.exit(2)
+    if not re.fullmatch(r"p04-[a-z0-9-]+", network) or endpoint != "http://localstack:4566":
+        print("check-full: FAIL unsafe Terraform network or endpoint")
+        sys.exit(1)
+    workspace_path = (ROOT / workspace).resolve()
+    if not workspace_path.is_relative_to((ROOT / "artifacts/evidence").resolve()):
+        print("check-full: FAIL Terraform workspace must be phase-owned evidence")
+        sys.exit(1)
+    terraform_mount = f"{workspace_path}:/workspace"
+    localstack_endpoint = endpoint
     terraform_prefix = [
-        "docker", "run", "--rm",
+        "docker", "run", "--rm", "--pull=never", "--network", network,
+        "-e", "TF_CLI_CONFIG_FILE=/terraform.rc",
+        "-v", f"{pathlib.Path(mirror).resolve()}:/mirror:ro",
+        "-v", f"{pathlib.Path(cli_config).resolve()}:/terraform.rc:ro",
         "-e", "AWS_ACCESS_KEY_ID=test",
         "-e", "AWS_SECRET_ACCESS_KEY=test",
         "-e", "AWS_DEFAULT_REGION=us-east-1",
@@ -110,18 +129,11 @@ else:
 if terraform_prefix:
     init_rc = run(
         "terraform-init",
-        terraform_prefix + ["init", "-backend=false", "-input=false"],
+        terraform_prefix + ["init", "-backend=false", "-input=false", "-lockfile=readonly"],
     )
     if init_rc == 0:
         run("terraform-validate", terraform_prefix + ["validate"])
         if localstack_endpoint:
-            if not terraform:
-                parsed_endpoint = urlsplit(localstack_endpoint)
-                if parsed_endpoint.hostname in {"localhost", "127.0.0.1"}:
-                    endpoint_host = f"host.docker.internal:{parsed_endpoint.port or 4566}"
-                    localstack_endpoint = parsed_endpoint._replace(
-                        netloc=endpoint_host
-                    ).geturl()
             run(
                 "terraform-plan",
                 terraform_prefix

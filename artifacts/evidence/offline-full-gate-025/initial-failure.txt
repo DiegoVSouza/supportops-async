@@ -1,0 +1,4 @@
+attempt: initial full gate interrupted
+reason: internal network blocked host loopback TCP access to 16432 and 16566
+exit_code: 1
+phase containers/network/named volumes removed; product tests not accepted

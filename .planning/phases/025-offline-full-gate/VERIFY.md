@@ -1,3 +1,5 @@
 # Verification
 
-INCOMPLETE pending execution.
+PASS for the complete local fake gate: 86 tests, service lease/duplicate/retry-DLQ scenarios, Docker image build with unique phase025 tag, offline locked Terraform init/validate and plan (6 add, 0 change, 0 destroy); exit 0. No apply. The first attempt was interrupted after the internal network blocked host loopback access; its failure is preserved. The repeated gate used the dedicated local Docker network and explicit LocalStack service DNS, without host gateway rewriting.
+
+Mount identities were captured before successful cleanup. Container/network/volume inventories returned exactly to 102/21/90, with zero differences in compared fields. The pre-existing unattributed anonymous volume remains preserved; its historical ownership cannot be reconstructed from the available container evidence. This does not block the scoped current cleanup reconciliation, but historical phase023 remains INCOMPLETE. No model provider calls, real credentials or paid spend. Current OTLP privacy, real RAG, model quality, independent/human review and promotion are separate pending gates. Evidence: `artifacts/evidence/offline-full-gate-025/full-retry.txt`, `mounts.txt`, `cleanup.txt`, and `reconciliation.txt`.
