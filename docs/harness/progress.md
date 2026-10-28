@@ -118,3 +118,7 @@ Candidate `d6cf5c9039e5dfd746331fda3f192e66e6e67184` passed the fast gate and 75
 ## 2026-10-27 — Phase 020 existing-provider OTLP fix
 
 Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry tests, the fast gate, and the full offline suite (80 passed, 4 expected service skips). One new synthetic local request completed; Jaeger GET-only readback found six same-trace spans including API request and worker processing, correct API/worker service names, scalar allowlisted keys, and no UUID-shaped attribute values. The submit verifier itself exited 1 on a Python dict/set bug after task completion; no request replay occurred and the GET-only readback passed. Full gate passed with 84 tests, real service lease/duplicate/retry-DLQ scenarios, Docker image build, Terraform init/validate and a LocalStack plan (6 add, 0 change, 0 destroy; no apply). Exit 0. Phase namespace teardown returned exact Docker baseline: 102 containers, 21 networks, 89 volumes. No model/provider request. Phase 019's failed event remains historical; current OTLP export gate passes on phase 020. Evidence: `artifacts/evidence/otel-provider-020/`.
+
+## 2026-10-28 - Phase 022 current service scenarios
+
+- Isolated PostgreSQL, LocalStack and Redis integration tests and long-step, duplicate and retry/DLQ scenarios passed. Docker inventories reconciled. The complete Terraform gate and current exporter privacy remain incomplete; evidence: artifacts/evidence/current-service-scenarios-022/.

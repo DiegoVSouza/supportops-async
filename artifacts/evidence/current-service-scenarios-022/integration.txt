@@ -1,0 +1,6 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: P04_POSTGRES_DSN=<local fixture> P04_LOCALSTACK_ENDPOINT=<loopback> P04_TEST_REDIS_URL=<loopback> LLM_MODE=fake uv run --locked --offline pytest -q -rs --basetemp <phase-owned> tests/integration
+exit_code: 0
+output:
+...                                                                      [100%]
+3 passed in 32.81s

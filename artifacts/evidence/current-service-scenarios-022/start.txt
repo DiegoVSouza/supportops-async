@@ -1,0 +1,34 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: docker compose -p p04-phase022-current -f docker-compose.async.yml -f artifacts/evidence/otel-provider-020/compose.override.yml up -d --wait --pull never postgres localstack redis
+exit_code: 0
+output:
+ Volume p04-phase022-current_redis-data Creating
+ Network p04-phase022-current_default Creating
+ Volume p04-phase022-current_postgres-data Creating
+ Volume p04-phase022-current_redis-data Creating
+ Network p04-phase022-current_default Creating
+ Volume p04-phase022-current_postgres-data Creating
+ Volume p04-phase022-current_redis-data Created
+ Volume p04-phase022-current_redis-data Created
+ Volume p04-phase022-current_postgres-data Created
+ Volume p04-phase022-current_postgres-data Created
+ Network p04-phase022-current_default Created
+ Network p04-phase022-current_default Created
+ Container p04-phase022-current-redis-1 Creating
+ Container p04-phase022-current-postgres-1 Creating
+ Container p04-phase022-current-localstack-1 Creating
+ Container p04-phase022-current-redis-1 Created
+ Container p04-phase022-current-localstack-1 Created
+ Container p04-phase022-current-postgres-1 Created
+ Container p04-phase022-current-localstack-1 Starting
+ Container p04-phase022-current-redis-1 Starting
+ Container p04-phase022-current-postgres-1 Starting
+ Container p04-phase022-current-localstack-1 Started
+ Container p04-phase022-current-redis-1 Started
+ Container p04-phase022-current-postgres-1 Started
+ Container p04-phase022-current-postgres-1 Waiting
+ Container p04-phase022-current-localstack-1 Waiting
+ Container p04-phase022-current-redis-1 Waiting
+ Container p04-phase022-current-localstack-1 Healthy
+ Container p04-phase022-current-redis-1 Healthy
+ Container p04-phase022-current-postgres-1 Healthy

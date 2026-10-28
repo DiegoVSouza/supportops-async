@@ -1,0 +1,7 @@
+containers before=102 after=102 differences=0
+
+networks before=21 after=21 differences=0
+
+volumes before=89 after=89 differences=0
+
+namespace_remaining=0
