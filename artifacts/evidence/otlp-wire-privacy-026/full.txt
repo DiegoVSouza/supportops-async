@@ -1,0 +1,110 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: LLM_MODE=fake P04_PYTEST_BASETEMP=<phase-owned> P04_CHECK_IMAGE_TAG=supportops-async:phase026 uv run --locked --offline python scripts/check_full.py
+exit_code: 2
+output:
+
+COMMAND: C:\estudo\Golpe\lab\projects\p04\.venv\Scripts\python.exe scripts/check_fast.py
+EXIT_CODE: 0
+OUTPUT:
+Resolved 49 packages in 0.81ms
+artifact=supportops_async-0.1.4-py3-none-any.whl
+artifact_sha256=fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f
+source_commit=f4b5df828b397e7ecbb9fa87c0ef77485d829dca
+dependency_lock_sha256=61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2
+fastapi_requirement=fastapi<0.143.0,>=0.137.1
+artifact-lock: PASS
+python -m compileall -q supportops_async scripts: exit=0
+uv lock --check: exit=0
+python scripts/verify_artifact_lock.py: exit=0
+check-fast: PASS
+pytest base directory: artifacts\evidence\otlp-wire-privacy-026\gate-tmp
+
+COMMAND: uv run --locked pytest -q -rs --basetemp artifacts\evidence\otlp-wire-privacy-026\gate-tmp tests
+EXIT_CODE: 0
+OUTPUT:
+...........sss.....s.................................................... [ 82%]
+...............                                                          [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_service_crash_recovery.py:25: local PostgreSQL and LocalStack configuration required
+SKIPPED [1] tests\integration\test_services.py:15: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:27: P04_LOCALSTACK_ENDPOINT is not configured
+SKIPPED [1] tests\queue\test_redis_broker.py:15: P04_TEST_REDIS_URL is not configured
+83 passed, 4 skipped in 4.09s
+
+COMMAND: docker compose -f docker-compose.async.yml config --quiet
+EXIT_CODE: 0
+OUTPUT:
+(empty)
+STATUS compose-config: PASS
+PostgreSQL TCP probe: not configured; reachable=False
+
+COMMAND: docker info --format {{.ServerVersion}}
+EXIT_CODE: 0
+OUTPUT:
+29.9.2
+
+COMMAND: docker build --file Dockerfile --tag supportops-async:phase026 .
+EXIT_CODE: 0
+OUTPUT:
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 684B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13.12-slim
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.12.7
+#3 DONE 0.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 118B done
+#4 DONE 0.0s
+
+#5 [builder 1/6] FROM docker.io/library/python:3.13.12-slim@sha256:f1927c75e81efd1e091dbd64b6c0ecaa5630b38635a3d1c04034ac636e1f94c8
+#5 resolve docker.io/library/python:3.13.12-slim@sha256:f1927c75e81efd1e091dbd64b6c0ecaa5630b38635a3d1c04034ac636e1f94c8 0.0s done
+#5 DONE 0.0s
+
+#6 [uv-bin 1/1] FROM ghcr.io/astral-sh/uv:0.12.7@sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945
+#6 resolve ghcr.io/astral-sh/uv:0.12.7@sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 3.35kB done
+#7 DONE 0.0s
+
+#8 [builder 2/6] COPY --from=uv-bin /uv /uvx /bin/
+#8 CACHED
+
+#9 [builder 3/6] WORKDIR /app
+#9 CACHED
+
+#10 [builder 4/6] COPY pyproject.toml uv.lock README.md ./
+#10 CACHED
+
+#11 [builder 5/6] COPY supportops_async ./supportops_async
+#11 CACHED
+
+#12 [runtime 2/4] WORKDIR /app
+#12 CACHED
+
+#13 [runtime 3/4] RUN groupadd --system --gid 10001 app && useradd --system --uid 10001 --gid app --home-dir /app app
+#13 CACHED
+
+#14 [builder 6/6] RUN uv sync --locked --no-dev
+#14 CACHED
+
+#15 [runtime 4/4] COPY --from=builder --chown=app:app /app /app
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:ee60bc3366cbf2db5f7527144ba3d9e632229d1cbef75260be8878cd2e042a79 done
+#16 exporting config sha256:ff0b5950138ffd148dda8f35a1d38bedea9957af1094cba3d368c005416e051b done
+#16 exporting attestation manifest sha256:834f0bd79afb0fc2719b1099f416f797811e4e1b79fd45911767985c7958cf45 0.0s done
+#16 exporting manifest list sha256:8f2bae4f7332cb3ee60e454c5cd498c264ea98161748e83a9b24a96e7da53511 0.0s done
+#16 naming to docker.io/library/supportops-async:phase026 done
+#16 unpacking to docker.io/library/supportops-async:phase026 done
+#16 DONE 0.1s
+check-full: INCOMPLETE explicit Terraform workspace/mirror/config/network/endpoint required

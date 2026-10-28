@@ -1,0 +1,12 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: uv run --locked --offline pytest -q -rs --basetemp <phase-owned> tests
+exit_code: 0
+output:
+...........sss.....s.................................................... [ 82%]
+...............                                                          [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\integration\test_service_crash_recovery.py:25: local PostgreSQL and LocalStack configuration required
+SKIPPED [1] tests\integration\test_services.py:15: P04_POSTGRES_DSN is not configured
+SKIPPED [1] tests\integration\test_services.py:27: P04_LOCALSTACK_ENDPOINT is not configured
+SKIPPED [1] tests\queue\test_redis_broker.py:15: P04_TEST_REDIS_URL is not configured
+83 passed, 4 skipped in 4.17s

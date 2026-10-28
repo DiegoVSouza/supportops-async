@@ -1,3 +1,3 @@
 # Verification
 
-INCOMPLETE pending execution.
+PASS for local OTLP HTTP wire privacy: one focused test exported actual API and worker failure spans to a loopback fixture collector and verified both protobuf payloads contain no synthetic exception text, events or status descriptions. Offline suite passed 83 tests with four service-dependent skips. Fast check passed. The full gate returned INCOMPLETE (exit 2): no phase-owned PostgreSQL/LocalStack/Redis or explicit Terraform mirror/network settings were configured. It built the unique `supportops-async:phase026` image; this image remains present. Commands and sanitized outputs are in `artifacts/evidence/otlp-wire-privacy-026/`. No provider/model call occurred. Production exporter, independent review and live quality remain PENDING.

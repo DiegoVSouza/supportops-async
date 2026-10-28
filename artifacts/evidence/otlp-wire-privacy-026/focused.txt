@@ -1,0 +1,6 @@
+cwd: C:\estudo\Golpe\lab\projects\p04
+command: uv run --locked --offline pytest -q tests/test_otlp_wire_privacy.py --basetemp <phase-owned>
+exit_code: 0
+output:
+.                                                                        [100%]
+1 passed in 1.09s
