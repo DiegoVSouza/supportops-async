@@ -1,0 +1,11 @@
+# Disabled reviewed diagnostic proposal
+
+Original workflow `local-operation-v1/fixture-local-01/1` remains INCOMPLETE. Candidate `a40e3c64d83b9941af5a9750615da690b20687eb`, fingerprint `fb1133e560be4c643968f41816e47d84ddd3ebc53f5d7f7b3e8e9a14cf1efaef`, original manifest and provider receipt `196cae46b57b4312afeee02aa89d813e` remain immutable. The provider completed one call with 105 input/51 output tokens; the original worker failure category/response and task/trace identifier were not retained. They cannot be reconstructed from current evidence.
+
+The full three-call logical reservation remains charged: 12288 input/1536 output and USD 0.0013824 economic estimate, incomplete/unknown. The per-step reservation remains unresolved; no replay, ID substitution, release or automatic retry is allowed.
+
+Offline correction now requires JSON output and explicit categories and preserves allowlisted failure categories; it does not prove the cause of the original response failure. Focused controls pass. Current-source full fake service regression is required separately from historical candidate acceptance.
+
+Proposed decision: accept the irrecoverable original diagnostic gap and authorize exactly one separately reviewed diagnostic workflow on a fresh frozen corrected candidate, after implementing and testing a single-use exception bound to this exact original receipt/history/reserve. Retain the original record and all three calls. A new diagnostic reservation of at most three calls would bring conservative total logical charge to six, equal to the already migrated envelope; at most four actual provider calls including the original one. No new funding, holdout or confirmation use is needed; paid USD 0, actual billing unknown.
+
+Before any new dispatch: approved structured exception, wrong-history/identity/authority and duplicate/crash tests, current full fake/service gate, committed candidate/manifest, full workflow reservation before provider startup, preserved task/trace identifiers and categorical diagnostics, one invocation only with stop on every error. This is a disabled proposal, not executable permission or substitution of the original result. Quality, human review and promotion remain pending.
