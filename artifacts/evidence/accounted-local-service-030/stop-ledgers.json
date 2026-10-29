@@ -1,0 +1,71 @@
+{
+  "ledger.sqlite": [
+    {
+      "sequence": 1,
+      "campaign_id": "local-operation-v1",
+      "case_id": "fixture-local-01",
+      "trial": 1,
+      "event": "reserved",
+      "reserved_calls": 3,
+      "reserved_input_tokens": 12288,
+      "reserved_output_tokens": 1536,
+      "reserved_cost_usd": "0.0013824",
+      "actual_input_tokens": null,
+      "actual_output_tokens": null,
+      "actual_cost_usd": null,
+      "outcome": null,
+      "error_class": null,
+      "created_at_utc": "2026-10-29T22:10:39.437279+00:00"
+    }
+  ],
+  "operations.sqlite": [
+    {
+      "operation": "fixture-local-01",
+      "step": "triage",
+      "status": "reserved",
+      "receipt": null,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ],
+  "provider-usage.sqlite": [
+    {
+      "sequence": 1,
+      "attempt_id": "196cae46b57b4312afeee02aa89d813e",
+      "event": "reserved",
+      "ordinal": 72,
+      "campaign": "local-operation-v1",
+      "case_id": "fixture-local-01",
+      "trial": 1,
+      "call_index": 1,
+      "reserved_at": 1793311843.1334472,
+      "reserved_input": 753,
+      "reserved_output": 512,
+      "reserved_cost": "0.000210075",
+      "actual_input": null,
+      "actual_output": null,
+      "actual_cost": null,
+      "status": null,
+      "feedback": "{\"credential_slot\": 1}"
+    },
+    {
+      "sequence": 2,
+      "attempt_id": "196cae46b57b4312afeee02aa89d813e",
+      "event": "completed",
+      "ordinal": 72,
+      "campaign": "local-operation-v1",
+      "case_id": "fixture-local-01",
+      "trial": 1,
+      "call_index": 1,
+      "reserved_at": 1793311843.1334472,
+      "reserved_input": 753,
+      "reserved_output": 512,
+      "reserved_cost": "0.000210075",
+      "actual_input": 105,
+      "actual_output": 51,
+      "actual_cost": "0.000023175",
+      "status": "ok",
+      "feedback": "{\"account_ordinal\": 72, \"observed_at\": 1793311843.6426961, \"remaining_requests\": 999, \"remaining_tokens\": 7766, \"request_limit\": 1000, \"request_reset_seconds\": 86.4, \"token_limit\": 8000, \"token_reset_seconds\": 1.755}"
+    }
+  ]
+}

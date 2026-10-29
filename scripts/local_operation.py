@@ -139,7 +139,7 @@ def execute():
                     raise OperationBlocked("queue_delivery_missing")
                 state=client.get("/tasks/"+task_id).json()
                 if state["status"]!="done":
-                    raise OperationBlocked("worker_operation_incomplete")
+                    raise OperationBlocked(runner.last_diagnostic or "worker_operation_incomplete")
                 # Same idempotency key must never cause another provider dispatch.
                 replay=client.post("/tasks",headers={"Idempotency-Key":CASE},json={"payload":{"operation_id":CASE},"steps":list(STEPS)})
                 if replay.status_code!=202 or replay.json()["task_id"]!=task_id:
@@ -168,6 +168,15 @@ if __name__=="__main__":
         result=execute()
         print(json.dumps(result))
         raise SystemExit(0 if result["telemetry_flushed"] else 2)
+    except OperationBlocked as error:
+        allowed={"explicit_live_required","source_provenance","manifest_missing","manifest_mismatch",
+                 "candidate_missing","allocation_not_migrated","prior_operation_no_replay","local_api_startup",
+                 "local_api_submission","queue_delivery_missing","worker_operation_incomplete","duplicate_task_mismatch",
+                 "receipt_count","synthetic_contract","prior_work_requires_review","already_reserved",
+                 "fixture_allocation_exhausted","uncertain_accounted_attempt","invalid_accounted_receipt",
+                 "step_contract","duplicate_receipt","accounted_failure"}
+        print(json.dumps({"status":"INCOMPLETE","reason":str(error) if str(error) in allowed else "operation_stopped_no_replay"}))
+        raise SystemExit(2)
     except Exception:
         print(json.dumps({"status":"INCOMPLETE","reason":"operation_stopped_no_replay"}))
         raise SystemExit(2)

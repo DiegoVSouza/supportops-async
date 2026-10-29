@@ -91,3 +91,19 @@ def test_live_session_and_unknown_payload_are_denied(tmp_path):
     with pytest.raises(PermanentFailure, match="synthetic_contract"):
         runner({"operation_id": "fixture-one", "steps": list(STEPS), "customer_data": "PRIVATE"}, "triage")
     assert not session.path.exists()
+
+
+def test_invalid_output_preserves_categorical_diagnostic_without_content(tmp_path):
+    path=tmp_path/"op.sqlite"
+    session=Session(path)
+    def invalid(envelope):
+        assert envelope["payload"]["response_format"]=={"type":"json_object"}
+        return {"status":"ok","model":MODEL,"attempt_id":"a"*32,
+                "usage":{"input_tokens":100,"output_tokens":20},"content":"PRIVATE malformed output"}
+    session.complete=invalid
+    runner=AccountedWorkflowRunner(path,session)
+    with pytest.raises(PermanentFailure,match="step_contract"):
+        runner({"operation_id":"fixture-one","steps":list(STEPS)},"triage")
+    assert runner.last_diagnostic=="step_contract"
+    with pytest.raises(PermanentFailure,match="prior_work"):
+        runner({"operation_id":"fixture-new","steps":list(STEPS)},"triage")

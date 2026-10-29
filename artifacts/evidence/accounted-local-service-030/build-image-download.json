@@ -1,0 +1,6 @@
+{
+  "command": "docker pull ghcr.io/astral-sh/uv:0.12.7",
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 0,
+  "output": "0.12.7: Pulling from astral-sh/uv\r\nDigest: sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945\r\nStatus: Downloaded newer image for ghcr.io/astral-sh/uv:0.12.7\r\nghcr.io/astral-sh/uv:0.12.7\r\n"
+}

@@ -17,8 +17,22 @@ class AccountedWorkflowRunner:
                 and not (allow_live is True and getattr(session, "provenance", None) == "live")):
             raise PermanentFailure("fixture_session_required")
         self.path, self.session = path, session
+        self.last_diagnostic = None
 
     def __call__(self, payload, step):
+        try:
+            return self._call(payload, step)
+        except PermanentFailure as error:
+            allowed = {"synthetic_contract", "prior_work_requires_review", "already_reserved",
+                       "fixture_allocation_exhausted", "uncertain_accounted_attempt",
+                       "invalid_accounted_receipt", "step_contract", "duplicate_receipt"}
+            self.last_diagnostic = str(error) if str(error) in allowed else "accounted_failure"
+            raise PermanentFailure(self.last_diagnostic) from None
+        except Exception:
+            self.last_diagnostic = "accounted_failure"
+            raise PermanentFailure(self.last_diagnostic) from None
+
+    def _call(self, payload, step):
         operation = payload.get("operation_id") if isinstance(payload, dict) else None
         if (not isinstance(operation, str) or not re.fullmatch(r"fixture-[A-Za-z0-9_-]{1,48}", operation)
                 or step not in STEPS or set(payload) - {"operation_id", "steps"}
@@ -28,10 +42,12 @@ class AccountedWorkflowRunner:
         envelope = {"campaign_id": "fixture-worker-v1", "case_id": operation, "trial": 1,
                     "call_index": STEPS.index(step) + 1, "timeout_seconds": 20,
                     "payload": {"model": MODEL, "messages": [
-                        {"role": "system", "content": "Return only a JSON object with a nonempty string field: " + field},
+                        {"role": "system", "content": "Return exactly one JSON object with only a nonempty string field: " + field
+                         + (". Category must be shipping, billing, technical or other." if step == "triage" else ". Use only the supplied synthetic facts.")},
                         {"role": "user", "content": "Synthetic shipping ticket: where can I find the tracking link? No real action is authorized."}],
                         "max_completion_tokens": 512, "temperature": 0,
-                        "reasoning_effort": "low", "include_reasoning": False}}
+                        "reasoning_effort": "low", "include_reasoning": False,
+                        "response_format": {"type":"json_object"}}}
         with closing(sqlite3.connect(self.path, timeout=5)) as db:
             db.execute("PRAGMA synchronous=FULL")
             db.execute("CREATE TABLE IF NOT EXISTS attempts(operation TEXT, step TEXT,status TEXT NOT NULL,receipt TEXT,input_tokens INTEGER,output_tokens INTEGER,PRIMARY KEY(operation,step))")

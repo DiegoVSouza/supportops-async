@@ -1,0 +1,14 @@
+{
+  "status": "PASS_CONSERVATIVE_RECONCILIATION",
+  "workflow_result": "INCOMPLETE",
+  "provider_calls": 1,
+  "observed_input_tokens": 105,
+  "observed_output_tokens": 51,
+  "logical_calls_retained": 3,
+  "logical_input_tokens_retained": 12288,
+  "logical_output_tokens_retained": 1536,
+  "actual_billed_usd": null,
+  "provider_accessed": false,
+  "replay_allowed": false,
+  "cause": "original_failure_category_not_preserved"
+}
