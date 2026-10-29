@@ -43,9 +43,7 @@ class GroqWorkflowRunner:
 
     @staticmethod
     def _new_client(key):
-        from groq import Groq
-
-        return Groq(api_key=key, max_retries=0, timeout=20)
+        raise RuntimeError("accounted_guard_required")
 
     def __call__(self, payload, step):
         if step not in ALLOWED_STEPS:
