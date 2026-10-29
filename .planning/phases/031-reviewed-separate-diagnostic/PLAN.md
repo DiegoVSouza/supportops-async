@@ -1,0 +1,8 @@
+# Plan
+
+1. Implement fixed greeting diagnostic controller and trusted runner scenario, exact authority/history preflight, source provenance, three-call append-only reservation and failure metadata; test unchanged original/duplicate/closed/cross-scope controls.
+2. Run locked focused/fast/full fake services in inventoried exclusive Docker namespace; build distinct image and Terraform plan only with cached mirror.
+3. Freeze committed candidate/new manifest, invoke exactly once, reconcile provider/logical/step receipts and actual private correlated OTLP trace, clean only owned resources, commit evidence.
+
+allowed_write_paths: .planning/phases/031-reviewed-separate-diagnostic/**; scripts/diagnostic_operation.py; supportops_async/accounted.py; tests/test_diagnostic_operation.py; artifacts/evals/live/local-diagnostic-v1/manifest.json; artifacts/evals/live/diagnostic-operations.sqlite*; artifacts/evals/live/ledger.sqlite* (append only diagnostic); artifacts/evals/live/provider-usage.sqlite* (shared guard only); artifacts/evidence/reviewed-diagnostic-031/**; docs/harness/progress.md.
+forbidden_changes: original operation/controller/manifests/results/reservations, original step ledger, sibling imports, policy caps, holdout/confirmation, paid use/fallback, customer data/refunds, unrelated Docker, Terraform apply, fabricated human reviews. Fake default, single live diagnostic max3 calls of total6,4096/512 per call,20s timeout,USD0 paid. max_tries3 local failures; no live replay. Stop on any changed authority/history/source/provider/output/receipt/cleanup failure. Plan-check: implementer self-assessment.
