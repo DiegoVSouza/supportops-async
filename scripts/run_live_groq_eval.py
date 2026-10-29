@@ -134,45 +134,9 @@ def write_result(result: dict[str, object], code: int) -> None:
     )
 
 
-def main() -> int:
-    result = {
-        "provider": "groq",
-        "model": MODEL,
-        "status": "INCOMPLETE",
-        "exit_code": 1,
-        "started_at_utc": datetime.now(UTC).isoformat(),
-        "cost_usd": "PENDING",
-    }
-    code = 1
-    try:
-        if os.getenv("LLM_MODE", "").lower() != "live":
-            raise RuntimeError("explicit LLM_MODE=live required")
-        credentials = load_credentials()
-        result["credential_count"] = len(credentials)
-        available = available_model_keys(credentials)
-        result["model_available_key_count"] = len(available)
-        if not available:
-            raise RuntimeError("requested model unavailable in authenticated catalog")
-        response = request_plan(available)
-        plan = validate_plan(response.choices[0].message.content or "")
-        checks = run_plan(plan)
-        code = 0 if all(checks.values()) else 1
-        usage = response.usage
-        result.update(
-            status="PASS" if code == 0 else "FAIL",
-            assertions=checks,
-            step_count=len(plan),
-            input_tokens=usage.prompt_tokens,
-            output_tokens=usage.completion_tokens,
-            actual_model=response.model,
-        )
-    except Exception as exc:
-        result["error"] = {"class": type(exc).__name__}
-        code = 1
-    result.update(exit_code=code, finished_at_utc=datetime.now(UTC).isoformat())
-    write_result(result, code)
-    print(json.dumps(result, sort_keys=True))
-    return code
+def main():
+    print(json.dumps({"status": "INCOMPLETE", "reason": "accounted_guard_required", "provider_accessed": False, "credentials_read": False}))
+    return 2
 
 
 if __name__ == "__main__":
