@@ -5,14 +5,16 @@ import sqlite3
 from contextlib import closing
 
 from supportops_async.worker.runner import PermanentFailure
+from supportops_async.tracing import TRACER
 
 MODEL = "openai/gpt-oss-20b"
 STEPS = ("triage", "draft_reply")
 
 
 class AccountedWorkflowRunner:
-    def __init__(self, path, session):
-        if getattr(session, "provenance", None) != "fixture":
+    def __init__(self, path, session, *, allow_live=False):
+        if (getattr(session, "provenance", None) != "fixture"
+                and not (allow_live is True and getattr(session, "provenance", None) == "live")):
             raise PermanentFailure("fixture_session_required")
         self.path, self.session = path, session
 
@@ -43,8 +45,16 @@ class AccountedWorkflowRunner:
             db.execute("INSERT INTO attempts(operation,step,status) VALUES (?,?,'reserved')", (operation, step))
             db.commit()
         try:
-            self.session.preview(envelope)
-            result = self.session.complete(envelope)
+            with TRACER.start_as_current_span("supportops.llm.accounted",record_exception=False,set_status_on_exception=False) as span:
+                span.set_attribute("supportops.llm.provider","groq")
+                span.set_attribute("supportops.llm.model",MODEL)
+                self.session.preview(envelope)
+                result = self.session.complete(envelope)
+                if isinstance(result,dict) and isinstance(result.get("usage"),dict):
+                    for key,cap in (("input_tokens",4096),("output_tokens",512)):
+                        value=result["usage"].get(key)
+                        if type(value) is int and 0 <= value <= cap:
+                            span.set_attribute("supportops.llm."+key,value)
         except Exception:
             raise PermanentFailure("uncertain_accounted_attempt") from None
         usage = result.get("usage") if isinstance(result, dict) else None
