@@ -132,3 +132,9 @@ Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry
 ## 2026-10-28 - Phase 025 offline full gate
 
 - Full local fake gate passed: 86 tests, service recovery, image build and offline Terraform plan (6 add / 0 change / 0 destroy; no apply). Explicit mirror/network/endpoint replace inferred host gateway. Docker inventories reconciled at 102/21/90; the historical unattributed volume remains preserved. See phase025 evidence.
+
+## 2026-10-29 — Phase 029 accounted worker boundary
+
+- Added P04-owned fixture-accounted callable to the actual API/Worker path, with durable step reservations, shared protocol/receipt validation, output contracts and permanent uncertainty classification to prevent queue replay.
+- Four focused tests pass; full offline gate has 89 passes, four service skips and exit 2 INCOMPLETE. Docker access was intentionally disabled for the offline scope, not diagnosed unavailable. See artifacts/evidence/accounted-worker-029/.
+- Live activation/allocation/manifest, PostgreSQL/SQS/Redis/service export on the changed candidate, quality and reviews remain pending. No real provider call or effect occurred.
