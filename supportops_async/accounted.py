@@ -12,10 +12,13 @@ STEPS = ("triage", "draft_reply")
 
 
 class AccountedWorkflowRunner:
-    def __init__(self, path, session, *, allow_live=False):
+    def __init__(self, path, session, *, allow_live=False, scenario="tracking"):
         if (getattr(session, "provenance", None) != "fixture"
                 and not (allow_live is True and getattr(session, "provenance", None) == "live")):
             raise PermanentFailure("fixture_session_required")
+        if scenario not in {"tracking", "greeting"}:
+            raise PermanentFailure("synthetic_contract")
+        self.scenario = scenario
         self.path, self.session = path, session
         self.last_diagnostic = None
 
@@ -44,7 +47,7 @@ class AccountedWorkflowRunner:
                     "payload": {"model": MODEL, "messages": [
                         {"role": "system", "content": "Return exactly one JSON object with only a nonempty string field: " + field
                          + (". Category must be shipping, billing, technical or other." if step == "triage" else ". Use only the supplied synthetic facts.")},
-                        {"role": "user", "content": "Synthetic shipping ticket: where can I find the tracking link? No real action is authorized."}],
+                        {"role": "user", "content": ("Synthetic greeting: hello, please acknowledge this local diagnostic. No customer facts or real action are authorized." if self.scenario == "greeting" else "Synthetic shipping ticket: where can I find the tracking link? No real action is authorized.")}],
                         "max_completion_tokens": 512, "temperature": 0,
                         "reasoning_effort": "low", "include_reasoning": False,
                         "response_format": {"type":"json_object"}}}
