@@ -7,11 +7,18 @@
   "approved_campaigns": [
     "local-operation-v1",
     "local-revalidation-v1",
-    "local-reviewed-operation-038-v1"
+    "local-reviewed-operation-038-v1",
+    "local-reviewed-operation-040-v1"
   ],
   "authorized_paid_spend_usd": "0.00",
   "human_review_status": "PENDING",
   "allocations": {
+    "local-reviewed-operation-040-v1": {
+      "stage": "operation",
+      "case_ids": ["fixture-reviewed-operation-040"],
+      "trials_per_case": 1,
+      "max_trials": 1
+    },
     "local-reviewed-operation-038-v1": {
       "stage": "operation",
       "case_ids": ["fixture-reviewed-operation-038"],
