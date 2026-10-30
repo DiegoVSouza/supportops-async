@@ -1,0 +1,10 @@
+{
+  "command": [
+    "C:\\estudo\\Golpe\\lab\\projects\\p04\\.venv\\Scripts\\python.exe",
+    "scripts/check_fast.py"
+  ],
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 0,
+  "output": "artifact=supportops_async-0.1.4-py3-none-any.whl\nartifact_sha256=fefb871993591cabe7f9baba132e9f430ddbd65dd730c6789e22dc86d4d87c3f\nsource_commit=f4b5df828b397e7ecbb9fa87c0ef77485d829dca\ndependency_lock_sha256=61eafa0524fe91863f71c9b234f8acb992f7483b2c46af20f340f49311fa0cc2\nfastapi_requirement=fastapi<0.143.0,>=0.137.1\nartifact-lock: PASS\npython -m compileall -q supportops_async scripts: exit=0\nuv lock --check: exit=0\npython scripts/verify_artifact_lock.py: exit=0\ncheck-fast: PASS\nResolved 49 packages in 0.92ms\n",
+  "provider_accessed": false
+}
