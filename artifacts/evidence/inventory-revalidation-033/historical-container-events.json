@@ -1,0 +1,21 @@
+{
+  "command": [
+    "docker",
+    "events",
+    "--since",
+    "2026-10-30T03:00:00Z",
+    "--until",
+    "2026-10-30T03:30:00Z",
+    "--filter",
+    "type=container",
+    "--filter",
+    "container=2b6551ac517bef5063b0fd9cb9c2c1811009c5d526f89dd06e18257a21d603f5",
+    "--format",
+    "{{.Time}}|{{.Action}}|{{.ID}}"
+  ],
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 64,
+  "output": "Error parsing format: template: :1:24: executing \"\" at <.ID>: can't evaluate field ID in type *events.Message\n",
+  "event_history_completeness": "UNKNOWN",
+  "provider_accessed": false
+}

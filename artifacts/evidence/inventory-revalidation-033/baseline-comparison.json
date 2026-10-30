@@ -1,0 +1,165 @@
+{
+  "command": "compare all phase032 inventory container identities and full before/after sets",
+  "cwd": "C:\\estudo\\Golpe\\lab",
+  "exit_code": 0,
+  "container_comparisons": {
+    "docker-inventory.json": {
+      "missing": [],
+      "added": []
+    },
+    "docker-inventory-attempt3.json": {
+      "missing": [],
+      "added": []
+    },
+    "service-inventory-before.json": {
+      "missing": [],
+      "added": []
+    },
+    "service-inventory-before-attempt1.json": {
+      "missing": [],
+      "added": []
+    },
+    "service-inventory-before-attempt3.json": {
+      "missing": [],
+      "added": []
+    },
+    "service-inventory-after.json": {
+      "missing": [],
+      "added": [
+        [
+          "92ccd13e4454a790039673f2cc952dbed8b3f6828c8a6c433775394311198396",
+          "p04-root-revalidation-032-localstack-1",
+          "localstack/localstack:4.14.0",
+          "127.0.0.1:35566->4566/tcp",
+          "p04-root-revalidation-032"
+        ],
+        [
+          "97dcf488e3aba998d08e807641993a8f8ddbc1bc210a5d56ebe2956e8036bebf",
+          "p04-root-revalidation-032-redis-1",
+          "redis@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
+          "127.0.0.1:35579->6379/tcp",
+          "p04-root-revalidation-032"
+        ],
+        [
+          "a29777951d2506bb57ff126e6487a3b7e24d725398fd420ce6e114c8232524f3",
+          "p04-root-revalidation-032-postgres-1",
+          "postgres:17.11-alpine3.24",
+          "127.0.0.1:35532->5432/tcp",
+          "p04-root-revalidation-032"
+        ],
+        [
+          "e02b47e3cc460d9b14da7e9d44fa293df4f45dc95762133e4278a50357954bb6",
+          "p04-root-revalidation-032-jaeger-1",
+          "jaegertracing/jaeger:2.18.0",
+          "127.0.0.1:35518->4318/tcp, 127.0.0.1:35586->16686/tcp",
+          "p04-root-revalidation-032"
+        ]
+      ]
+    },
+    "service-inventory-after-attempt3.json": {
+      "missing": [],
+      "added": [
+        [
+          "0e9ccd7cbf8fb4e0dca157cc3a7bf0a419d824d5c2dcf2263521710ded477044",
+          "p04-root-revalidation-032-attempt3-localstack-1",
+          "localstack/localstack:4.14.0",
+          "127.0.0.1:35566->4566/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "d072fcf3b5e6fabe9255d53ac9cc9989c17b9d1e84260166397a6973d669bd9d",
+          "p04-root-revalidation-032-attempt3-postgres-1",
+          "postgres:17.11-alpine3.24",
+          "127.0.0.1:35532->5432/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "d5e28e1e3e26ed7727837954b3bf49cda0e751df46391c55868f8b0d5b8e1db1",
+          "p04-root-revalidation-032-attempt3-redis-1",
+          "redis@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
+          "127.0.0.1:35579->6379/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "ffa2bc4aa6bb0104d1ea22c5b9de8b00c90b756e787ea0b558cf61e3028013df",
+          "p04-root-revalidation-032-attempt3-jaeger-1",
+          "jaegertracing/jaeger:2.18.0",
+          "127.0.0.1:35518->4318/tcp, 127.0.0.1:35586->16686/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ]
+      ]
+    }
+  },
+  "attempt3_all_resources": {
+    "containers": {
+      "missing": [],
+      "added": [
+        [
+          "0e9ccd7cbf8fb4e0dca157cc3a7bf0a419d824d5c2dcf2263521710ded477044",
+          "p04-root-revalidation-032-attempt3-localstack-1",
+          "localstack/localstack:4.14.0",
+          "127.0.0.1:35566->4566/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "d072fcf3b5e6fabe9255d53ac9cc9989c17b9d1e84260166397a6973d669bd9d",
+          "p04-root-revalidation-032-attempt3-postgres-1",
+          "postgres:17.11-alpine3.24",
+          "127.0.0.1:35532->5432/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "d5e28e1e3e26ed7727837954b3bf49cda0e751df46391c55868f8b0d5b8e1db1",
+          "p04-root-revalidation-032-attempt3-redis-1",
+          "redis@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
+          "127.0.0.1:35579->6379/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ],
+        [
+          "ffa2bc4aa6bb0104d1ea22c5b9de8b00c90b756e787ea0b558cf61e3028013df",
+          "p04-root-revalidation-032-attempt3-jaeger-1",
+          "jaegertracing/jaeger:2.18.0",
+          "127.0.0.1:35518->4318/tcp, 127.0.0.1:35586->16686/tcp",
+          "p04-root-revalidation-032-attempt3"
+        ]
+      ]
+    },
+    "networks": {
+      "missing": [],
+      "added": [
+        [
+          "bd04d378717f23b8de61384b93499815dad54adf84e564bc4c5ff25ada294302",
+          "p04-root-revalidation-032-attempt3-local",
+          "p04-root-revalidation-032-attempt3"
+        ]
+      ]
+    },
+    "volumes": {
+      "missing": [],
+      "added": [
+        [
+          "a94e5f8231ec53ea800f4bc9778977b91db8735862d120fec64fa8cc2c049dab",
+          ""
+        ],
+        [
+          "abd114cae8f748692a85e9913e463464d54a057bea4f7ad9819c7e8d9156ac8b",
+          ""
+        ],
+        [
+          "p04-root-revalidation-032-attempt3_pg",
+          "p04-root-revalidation-032-attempt3"
+        ]
+      ]
+    },
+    "images": {
+      "missing": [],
+      "added": [
+        [
+          "sha256:e55c99c95397eed7c72be416766188c37d751d55060ca80ac4258eccff576230",
+          "supportops-async:revalidation032-attempt3"
+        ]
+      ]
+    }
+  },
+  "provider_accessed": false
+}

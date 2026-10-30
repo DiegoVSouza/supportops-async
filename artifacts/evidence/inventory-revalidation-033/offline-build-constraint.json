@@ -1,0 +1,8 @@
+{
+  "command": "Configure one snapshot scripts/check_full.py Docker build invocation with --network=none; inspect docker build --help",
+  "cwd": "C:\\estudo\\Golpe\\lab",
+  "exit_code": 0,
+  "output": "one snapshot build command constrained; Docker CLI advertises --network",
+  "provider_accessed": false,
+  "gate_executed": false
+}

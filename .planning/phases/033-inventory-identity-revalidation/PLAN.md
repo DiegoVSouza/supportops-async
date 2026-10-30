@@ -4,7 +4,7 @@
 2. Implement and test stable identity comparison in phase-owned validation tooling, retaining meaningful detection of replacement, removal and foreign-resource changes. Prepare a fresh snapshot, unique namespace/image/ports and explicit inventories. Preserve the protected existing check-full output.
 3. Execute exactly one additional full fake service gate in the fresh snapshot after readiness passes, persist the attempt before execution and preserve historical3/3. Reconcile only owned resources and record the result; never dispatch live P04 automatically. Inspect the distinct operation032 authority and frozen bindings separately before any live dispatch.
 
-allowed_write_paths: `.planning/phases/033-inventory-identity-revalidation/**`, `scripts/docker_inventory_identity.py`, `tests/test_docker_inventory_identity.py`, `artifacts/evidence/inventory-revalidation-033/**`, `docs/harness/progress.md`.
+allowed_write_paths: `.planning/phases/033-inventory-identity-revalidation/**`, `scripts/docker_inventory_identity.py`, `tests/test_docker_inventory_identity.py`, `scripts/credential_presence.py`, `tests/test_credential_presence.py`, `artifacts/evidence/inventory-revalidation-033/**`, `docs/harness/progress.md`.
 
 forbidden_changes: phase032 reports/attempts, `gossett_backend` and all unrelated containers, images, networks and volumes; policy/ledgers/reservations; user-modified outputs; provider calls, live operation, customer data, fallback, paid use, Terraform apply, external effects, holdout or human-review claims.
 
