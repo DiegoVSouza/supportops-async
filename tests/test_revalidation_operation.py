@@ -12,9 +12,30 @@ from scripts.revalidation_operation import (
     CAPS, CASE, CAMPAIGN, RESERVATION, LazySession, OperationBlocked, execute, live_preconditions,
     owner_allocation, reserve, verify_authority, write_once, INVOCATION,
 )
+from scripts.revalidation_operation import require_applied_migration_under_campaign_lease
 
 
 class RevalidationOperationTests(unittest.TestCase):
+    def test_applied_migration_rechecks_without_reacquiring_campaign_lease(self):
+        import scripts.revalidation_operation as operation
+        sys.path.insert(0, str(operation.LAB / "scripts/harness"))
+        from live_free_account import machine_lease
+        with machine_lease(operation.LAB / ".runtime/llm-live-readiness/campaign.lock"):
+            self.assertIsNone(require_applied_migration_under_campaign_lease(operation.LAB))
+
+    def test_reentrant_check_rejects_missing_or_invalid_audit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(OperationBlocked, "root_migration_unverified"):
+                require_applied_migration_under_campaign_lease(Path(directory))
+
+    def test_reentrant_check_rejects_changed_history_prefix(self):
+        import scripts.revalidation_operation as operation
+        sys.path.insert(0, str(operation.LAB / "scripts/harness"))
+        import migrate_p01_p04_revalidation as migration
+        with patch.object(migration, "verify_prefixes", side_effect=migration.MigrationBlocked("changed")):
+            with self.assertRaisesRegex(OperationBlocked, "root_migration_unverified"):
+                require_applied_migration_under_campaign_lease(operation.LAB)
+
     def test_owner_scope_and_paid_budget_are_exact(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

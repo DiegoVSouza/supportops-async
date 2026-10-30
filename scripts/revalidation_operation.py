@@ -72,6 +72,28 @@ def require_applied_migration(lab=LAB):
     return report
 
 
+def require_applied_migration_under_campaign_lease(lab=LAB):
+    """Recheck migration under the already-held campaign lease without reacquiring it."""
+    sys.path.insert(0, str(lab / "scripts/harness"))
+    import migrate_p01_p04_revalidation as migration
+    from live_free_account import machine_lease
+
+    try:
+        policy = json.loads((lab / migration.POLICY).read_text(encoding="utf-8"))
+        with machine_lease(lab / ".runtime/llm-live-readiness/account.lock"):
+            records = migration.read_audit(lab)
+            registry = migration.read_json(lab, lab / ".runtime/llm-live-readiness/ledger-references.json")
+            if (migration.digest(policy) != migration.NEW_SHA
+                    or registry.get("policy_sha256") != migration.NEW_SHA
+                    or [event for event, _ in records] != ["prepared", "applied"]
+                    or migration.marker_path(lab).exists()):
+                raise OperationBlocked("root_migration_unverified")
+            current = migration.snapshot(lab, policy)
+            migration.verify_prefixes(records[0][1], current)
+    except Exception:
+        raise OperationBlocked("root_migration_unverified") from None
+
+
 def owner_allocation(project=PROJECT):
     try:
         owner=json.loads((project/"evals/live-execution.json").read_text(encoding="utf-8"))
@@ -113,8 +135,11 @@ def freeze_manifest(project=PROJECT,lab=LAB):
     return value
 
 
-def validate(project=PROJECT,lab=LAB):
-    require_applied_migration(lab)
+def validate(project=PROJECT,lab=LAB, *, campaign_lease_held=False):
+    if campaign_lease_held:
+        require_applied_migration_under_campaign_lease(lab)
+    else:
+        require_applied_migration(lab)
     try:
         manifest=json.loads((project/MANIFEST).read_text())
     except (OSError,ValueError):
@@ -246,10 +271,8 @@ def execute():
     base=PROJECT/"artifacts/evals/live"
     base.mkdir(parents=True,exist_ok=True)
     with machine_lease(LAB/".runtime/llm-live-readiness/campaign.lock"):
-        validate()
-        verify_authority()
         # Read-only model/account preflight occurs after an exclusive single-use marker.
-        frozen=validate()
+        frozen=validate(campaign_lease_held=True)
         write_once(PROJECT/INVOCATION,{"campaign":CAMPAIGN,"case":CASE,"trial":1,
                     "candidate":frozen["candidate"],"fingerprint":frozen["fingerprint"],
                     "root_policy_sha256":frozen["root_policy_sha256"],"single_invocation":True,

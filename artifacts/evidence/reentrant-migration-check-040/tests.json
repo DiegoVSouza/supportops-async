@@ -1,0 +1,8 @@
+{
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "command": ".venv/Scripts/python.exe -m pytest -q --basetemp=artifacts/evidence/reentrant-migration-check-040/pytest2 tests/test_revalidation_operation.py tests/test_credential_presence.py",
+  "exit_code": 0,
+  "output": "17 passed in 0.34s",
+  "check_fast": {"command": ".venv/Scripts/python.exe scripts/check_fast.py", "exit_code": 0, "output": "check-fast: PASS"},
+  "provider_accessed": false
+}

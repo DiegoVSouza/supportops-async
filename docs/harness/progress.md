@@ -1,5 +1,10 @@
 # Progress
 
+## 2026-10-30 — Phase 040 reentrant migration check
+
+- Reproduced the phase039 pre-invocation stop: the controller held the campaign lease while its migration subprocess attempted to acquire the same lease, yielding `account_lease_busy`. The controller now rechecks applied audit, policy, registry and ledger prefixes under the already-held campaign lease and the account lease.
+- Offline regression17 and check_fast PASS. The earlier failed operation is not replayed; a future candidate needs a distinct identity, manifest and full-gate authority.
+
 ## 2026-10-30 — Phase 038 current manifest binding
 
 - The historical P04 revalidation manifest is create-only and remains preserved. It is bound to the earlier candidate/fingerprint and correctly rejects validation against current sources; no replacement was written.
