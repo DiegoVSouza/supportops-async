@@ -14,6 +14,12 @@ def test_status_age_does_not_invent_container_replacement():
     assert all(not diff["missing"] and not diff["added"] for diff in compare(before, after).values())
 
 
+def test_crash_looping_published_ports_do_not_invent_container_replacement():
+    before = inventory("id1|gossett_backend|image|Up 2 seconds|0.0.0.0:8000->8000/tcp|gosset")
+    after = inventory("id1|gossett_backend|image|Restarting (1) 4 seconds ago||gosset")
+    assert all(not diff["missing"] and not diff["added"] for diff in compare(before, after).values())
+
+
 def test_new_id_and_changed_compose_owner_are_detected():
     before = inventory("id1|service|image|running|127.0.0.1:80|owner")
     after = inventory("id2|service|image|running|127.0.0.1:80|other")
@@ -25,7 +31,7 @@ def test_new_id_and_changed_compose_owner_are_detected():
 
 def test_legacy_command_output_format_and_failed_collection():
     output = {"exit_code": 0, "output": "id|service|img|running||owner\n"}
-    assert stable_rows({"containers": output}, "containers") == {("id", "service", "img", "", "owner")}
+    assert stable_rows({"containers": output}, "containers") == {("id", "service", "img", "owner")}
     with pytest.raises(ValueError, match="failed"):
         stable_rows({"containers": {"exit_code": 1, "output": ""}}, "containers")
 

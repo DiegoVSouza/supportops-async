@@ -1,4 +1,13 @@
-"""Compare Docker inventory identities while ignoring changing status age."""
+"""Compare Docker inventory identities while ignoring volatile runtime state.
+
+Container identity is `ID|Names|Image|<compose project label>`. Both the status
+string and the published-ports string are runtime state, not identity: a
+crash-looping container owned by an unrelated project alternates between an
+empty ports field while restarting and a populated one during its brief running
+window, which otherwise reports the same container as simultaneously missing and
+added. Any genuine port-mapping change requires recreating the container, which
+changes its ID and is still detected.
+"""
 from __future__ import annotations
 
 from typing import Any
@@ -20,7 +29,7 @@ def stable_rows(inventory: dict[str, Any], kind: str) -> set[tuple[str, ...]]:
         if kind == "containers":
             if len(fields) != 6 or not fields[0] or not fields[1]:
                 raise ValueError("invalid container identity")
-            fields = fields[:3] + fields[4:]
+            fields = fields[:3] + fields[5:]
         elif kind in {"networks", "volumes", "images"}:
             if not fields[0]:
                 raise ValueError("invalid resource identity")
