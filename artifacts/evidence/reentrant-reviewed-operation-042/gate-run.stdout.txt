@@ -1,0 +1,1 @@
+{"cleanup_exit_code": 0, "gate_consumed": true, "gate_exit_code": 1, "image_remove_exit_code": 0, "live_operation_invoked": false, "namespace_empty": true, "owned_labels_verified": true, "protected_output_unchanged": true, "provider_accessed": false, "status": "INCOMPLETE", "up_exit_code": 0}
