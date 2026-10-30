@@ -1,0 +1,26 @@
+{
+  "up_exit_code": 0,
+  "dispatch_exit_code": 2,
+  "cleanup_exit_code": 0,
+  "owned_labels_verified": true,
+  "namespace_empty": true,
+  "baseline_diff": {
+    "containers": {
+      "missing": [],
+      "added": []
+    },
+    "networks": {
+      "missing": [],
+      "added": []
+    },
+    "volumes": {
+      "missing": [],
+      "added": []
+    },
+    "images": {
+      "missing": [],
+      "added": []
+    }
+  },
+  "replay_allowed": false
+}
