@@ -18,11 +18,11 @@ from supportops_async.accounted import AccountedWorkflowRunner, STEPS
 
 PROJECT = Path(__file__).resolve().parents[1]
 LAB = PROJECT.parents[1]
-CASE = "fixture-revalidation-01"
-CAMPAIGN = "local-revalidation-v1"
+CASE = "fixture-reviewed-operation-038"
+CAMPAIGN = "local-reviewed-operation-038-v1"
 MANIFEST = f"artifacts/evals/live/{CAMPAIGN}/manifest.json"
-INVOCATION = "artifacts/evidence/root-migration-revalidation-032/invocation.json"
-LIVE_RESULT = "artifacts/evidence/root-migration-revalidation-032/live-result.json"
+INVOCATION = "artifacts/evidence/distinct-reviewed-operation-039/invocation.json"
+LIVE_RESULT = "artifacts/evidence/distinct-reviewed-operation-039/live-result.json"
 CAPS = {"requests":9,"input_tokens":36864,"output_tokens":4608,"estimated_cost_usd":Decimal("0.0041472")}
 RESERVATION = {"calls":3,"input_tokens":12288,"output_tokens":1536,"estimated_cost_usd":Decimal("0.0013824")}
 ROOT_SOURCES = (
@@ -31,6 +31,7 @@ ROOT_SOURCES = (
     "scripts/harness/migrate_p01_p04_revalidation.py",
     "shared/policies/groq-free-campaign.json",
     ".planning/llm-live-readiness/phases/039-p01-p04-reviewed-revalidation/AUTHORIZATION.json",
+    ".planning/llm-live-readiness/phases/045-current-candidate-authority-proposal/AUTHORIZATION.json",
 )
 MODEL = "openai/gpt-oss-20b"
 HOST_PORTS = {"postgres":35532,"localstack":35566,"api":35580}
@@ -264,8 +265,8 @@ def execute():
         dsn,endpoint=services
         store=PostgresTaskStore(dsn)
         sqs=boto3.client("sqs",endpoint_url=endpoint,region_name="us-east-1",aws_access_key_id="test",aws_secret_access_key="test")
-        queue=sqs.create_queue(QueueName="p04-revalidation-032")['QueueUrl']
-        dlq=sqs.create_queue(QueueName="p04-revalidation-032-dlq")['QueueUrl']
+        queue=sqs.create_queue(QueueName="p04-reviewed-039")['QueueUrl']
+        dlq=sqs.create_queue(QueueName="p04-reviewed-039-dlq")['QueueUrl']
         broker=SqsBroker(sqs,queue,dlq)
         server=uvicorn.Server(uvicorn.Config(create_app(store,broker),host="127.0.0.1",port=35580,log_level="critical",access_log=False))
         thread=threading.Thread(target=server.run,daemon=True)
@@ -277,10 +278,10 @@ def execute():
             time.sleep(.1)
         trace_id=uuid.uuid4().hex
         context={"status":"preparing","trace_id":trace_id,"campaign":CAMPAIGN,"case":CASE}
-        out=PROJECT/"artifacts/evidence/root-migration-revalidation-032"
+        out=PROJECT/"artifacts/evidence/distinct-reviewed-operation-039"
         out.mkdir(parents=True,exist_ok=True)
         try:
-            runner=AccountedWorkflowRunner(base/"revalidation-operations.sqlite",LazySession(lambda:ProviderSession(LAB,"p04",policy)),allow_live=True,scenario="greeting")
+            runner=AccountedWorkflowRunner(base/"reviewed-operations-039.sqlite",LazySession(lambda:ProviderSession(LAB,"p04",policy)),allow_live=True,scenario="greeting")
             with httpx.Client(base_url="http://127.0.0.1:35580",timeout=10) as client:
                 response=client.post("/tasks",headers={"Idempotency-Key":CASE,"traceparent":f"00-{trace_id}-0123456789abcdef-01"},json={"payload":{"operation_id":CASE},"steps":list(STEPS)})
                 if response.status_code!=202:
@@ -302,7 +303,7 @@ def execute():
                     raise OperationBlocked("duplicate_task_mismatch")
             import sqlite3
             from contextlib import closing
-            with closing(sqlite3.connect((base/"revalidation-operations.sqlite").resolve().as_uri()+"?mode=ro",uri=True)) as db:
+            with closing(sqlite3.connect((base/"reviewed-operations-039.sqlite").resolve().as_uri()+"?mode=ro",uri=True)) as db:
                 rows=db.execute("SELECT receipt,input_tokens,output_tokens FROM attempts WHERE status='ok'").fetchall()
             if len(rows)!=2:
                 raise OperationBlocked("receipt_count")
