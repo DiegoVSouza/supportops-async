@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "command": ".venv/Scripts/python.exe -m pytest -q tests/test_revalidation_operation.py",
+  "output": "........ [100%]`n8 passed in 0.14s",
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "provider_accessed": false,
+  "credential_values_read": false
+}

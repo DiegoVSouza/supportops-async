@@ -1,0 +1,8 @@
+{
+  "command": ".venv/Scripts/python.exe -m py_compile scripts/revalidation_operation.py tests/test_revalidation_operation.py artifacts/evidence/root-migration-revalidation-032/run-operation-once.py",
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 0,
+  "output": "",
+  "provider_accessed": false,
+  "credential_values_exposed": false
+}
