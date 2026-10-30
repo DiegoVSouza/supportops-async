@@ -1,3 +1,5 @@
 # Verification plan
 
-PENDING offline key-source tests and sanitized evidence. No live dispatch or new full-gate claim is authorized in this phase.
+Four offline key-source tests PASS, `pytest -q --basetemp=artifacts/evidence/credential-discovery-035/pytest-attempt1 tests/test_credential_presence.py`, exit0; command/cwd/output saved in `artifacts/evidence/credential-discovery-035/presence-tests.json`. The new preflight reports process and root `.env` key names only, returns INCOMPLETE for process-only credentials because the existing shared provider actually reads the root `.env`, and explicitly reports whether the historical wrapper's five-variable process precondition is met. No credential values or hashes are returned.
+
+This corrects the misleading presence assessment but does not alter the historical phase032 live wrapper or authorize a new one to dispatch. Integration of this preflight into a reviewed replacement wrapper remains PENDING after a valid full gate and current binding. The live operation was not invoked; no provider was accessed. These focused tests do not substitute for the consumed full gate.

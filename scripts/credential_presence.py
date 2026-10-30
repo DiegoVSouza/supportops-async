@@ -18,3 +18,18 @@ def presence(root: Path, environment: Mapping[str, str]) -> dict[str, dict[str, 
             file_values[name] = bool(value.strip().strip('"').strip("'"))
     return {name: {"process": bool(environment.get(name)), "root_env": file_values[name]}
             for name in NAMES}
+
+
+def preflight(root: Path, environment: Mapping[str, str]) -> dict[str, object]:
+    """Describe the provider's root-file requirement without returning values."""
+    slots = presence(root, environment)
+    root_slots = [name for name in NAMES if slots[name]["root_env"]]
+    process_slots = [name for name in NAMES if slots[name]["process"]]
+    return {
+        "status": "PRESENT" if root_slots else "INCOMPLETE",
+        "provider_root_env_slots": root_slots,
+        "process_slots": process_slots,
+        "legacy_wrapper_process_precondition": len(process_slots) == len(NAMES),
+        "provider_accessed": False,
+        "credential_values_exposed": False,
+    }
