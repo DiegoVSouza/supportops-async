@@ -1,0 +1,9 @@
+{
+  "status": "INCOMPLETE",
+  "observed_output": "{\"status\":\"INCOMPLETE\",\"reason\":\"operation_stopped_no_replay\"}",
+  "command": ".venv/Scripts/python.exe -m scripts.revalidation_operation --freeze-manifest",
+  "provider_accessed": false,
+  "subsequent_offline_validation": "PASS",
+  "diagnostic": "wrapper did not capture a reliable freeze exit; frozen manifest is independently bound and validates against committed candidate",
+  "manifest_created": true
+}

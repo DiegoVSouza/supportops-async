@@ -1,0 +1,8 @@
+{
+  "provider_accessed": false,
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "credential_values_read": false,
+  "command": ".venv/Scripts/python.exe -m scripts.revalidation_operation --validate",
+  "exit_code": 0,
+  "output": "{\"candidate\":\"f0fd092a899c3d9bc4893843d4058568539437f1\",\"fingerprint\":\"9286ba440dd98389c8b93bdf103deec75b6bb6491ba358c5f95a3164ffa823df\",\"root_policy_sha256\":\"f8428a8da06fd551e6a41d3d009db69d1d31c620eda68ef21a02ff1dbcc32cdf\",\"status\":\"PASS\"}"
+}
