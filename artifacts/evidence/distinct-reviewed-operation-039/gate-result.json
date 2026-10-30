@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "gate_exit_code": 0,
+  "gate_consumed": true,
+  "up_exit_code": 0,
+  "cleanup_exit_code": 0,
+  "image_remove_exit_code": 0,
+  "owned_labels_verified": true,
+  "namespace_empty": true,
+  "protected_output_unchanged": true,
+  "baseline_diff": {
+    "containers": {
+      "missing": [],
+      "added": []
+    },
+    "networks": {
+      "missing": [],
+      "added": []
+    },
+    "volumes": {
+      "missing": [],
+      "added": []
+    },
+    "images": {
+      "missing": [],
+      "added": []
+    }
+  },
+  "provider_accessed": false,
+  "live_operation_invoked": false
+}
