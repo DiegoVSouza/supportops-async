@@ -1,0 +1,20 @@
+{
+  "command": [
+    "uv",
+    "pip",
+    "install",
+    "--help"
+  ],
+  "cwd": "C:\\estudo\\Golpe\\lab",
+  "exit_code": 0,
+  "flags_present": {
+    "--offline": true,
+    "--no-index": true,
+    "--find-links": true,
+    "--require-hashes": true,
+    "--no-deps": true,
+    "--python-platform": true,
+    "--only-binary": true
+  },
+  "provider_accessed": false
+}

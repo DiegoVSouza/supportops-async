@@ -1,0 +1,16 @@
+{
+  "command": [
+    "uv",
+    "export",
+    "--locked",
+    "--no-dev",
+    "--no-emit-project",
+    "--offline",
+    "--format",
+    "requirements-txt"
+  ],
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 0,
+  "stderr": "Resolved 49 packages in 0.95ms\n",
+  "provider_accessed": false
+}

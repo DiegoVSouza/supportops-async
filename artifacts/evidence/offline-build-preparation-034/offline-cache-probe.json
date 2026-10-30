@@ -1,0 +1,26 @@
+{
+  "command": [
+    "uv",
+    "pip",
+    "install",
+    "--offline",
+    "--no-deps",
+    "--only-binary",
+    ":all:",
+    "--require-hashes",
+    "--python-platform",
+    "x86_64-manylinux_2_28",
+    "--python-version",
+    "3.13",
+    "--target",
+    "C:\\estudo\\Golpe\\lab\\projects\\p04\\artifacts\\evidence\\offline-build-preparation-034\\dependency-probe",
+    "-r",
+    "C:\\estudo\\Golpe\\lab\\projects\\p04\\artifacts\\evidence\\offline-build-preparation-034\\locked-runtime-requirements.txt"
+  ],
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 1,
+  "output": "Using CPython 3.13.12 interpreter at: .venv\\Scripts\\python.exe\nResolved 36 packages in 87ms\n  \u00c3\u2014 Failed to download `psycopg-binary==3.2.10`\n  \u00e2\u2022\u00b0\u00e2\u201d\u20ac\u00e2\u2013\u00b6 Network connectivity is disabled, but the\n      requested data wasn't found in the cache for:\n      `https://files.pythonhosted.org/packages/fc/0d/59024313b5e6c5da3e2a016103494c609d73a95157a86317e0f600c8acb3/psycopg_binary-3.2.10-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl`\n",
+  "provider_accessed": false,
+  "image_build": false,
+  "gate_executed": false
+}
