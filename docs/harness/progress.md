@@ -1,5 +1,10 @@
 # Progress
 
+## 2026-10-30 — Phase 037 safe credential preflight
+
+- The P04 revalidation wrapper now checks the root `.env` source actually used by the shared provider while reporting process-only slots safely as non-ready diagnostics. It preserves all explicit-live, authority, reservation and no-replay checks.
+- Offline credential and operation tests passed 14/14 with no provider access. This is not a live readiness result: phase036 gate is consumed, and manifest/binding work remains separate.
+
 ## 2026-10-30 — Phase 036 isolated wheelhouse validation
 
 - PASS: one separately authorized isolated fake full gate used a complete hash-pinned CPython 3.13 Linux wheelhouse with network disabled during build. Snapshot preflight, services, full gate and owned cleanup all exited 0. Stable container/network/volume/image baseline comparison reported no additions or removals.

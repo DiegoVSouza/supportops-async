@@ -187,12 +187,18 @@ def write_once(path,value):
 
 
 def live_preconditions():
-    names=["GROQ_API_KEY"]+[f"GROQ_API_KEY_{i}" for i in range(1,5)]
-    missing=[name for name in names if not os.getenv(name)]
-    if missing:
-        return {"status":"BLOCKED_PRECONDITION","reason":"credentials_missing",
-                "required_variables_present":{name:name not in missing for name in names},
-                "values_exposed":False,"provider_accessed":False,"generation_calls":0}
+    from scripts.credential_presence import NAMES, preflight
+
+    report = preflight(LAB, os.environ)
+    # ProviderSession deliberately reads numbered slots from LAB/.env. Process
+    # slots are diagnostic-only until the shared provider contract changes.
+    if report["status"] != "PRESENT":
+        return {"status":"BLOCKED_PRECONDITION","reason":"root_credentials_missing",
+                "required_variables_present":{name:False for name in NAMES},
+                "provider_root_env_slots":report["provider_root_env_slots"],
+                "process_slots":report["process_slots"],
+                "credential_source":"root_env","values_exposed":False,
+                "provider_accessed":False,"generation_calls":0}
     return None
 
 

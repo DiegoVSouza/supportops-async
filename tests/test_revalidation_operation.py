@@ -62,13 +62,32 @@ class RevalidationOperationTests(unittest.TestCase):
             self.assertEqual(json.loads(marker.read_text())["campaign"],CAMPAIGN)
 
     def test_missing_credentials_stop_without_values_or_provider_access(self):
-        with patch.dict(os.environ,{},clear=True):
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("scripts.revalidation_operation.LAB",Path(directory)), \
+             patch.dict(os.environ,{},clear=True):
             result=live_preconditions()
         self.assertEqual(result["status"],"BLOCKED_PRECONDITION")
-        self.assertEqual(result["reason"],"credentials_missing")
+        self.assertEqual(result["reason"],"root_credentials_missing")
         self.assertFalse(result["provider_accessed"])
         self.assertFalse(result["values_exposed"])
         self.assertEqual(result["generation_calls"],0)
+
+    def test_root_env_credential_is_accepted_without_process_slots(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            (root / ".env").write_text("GROQ_API_KEY=root-secret\n",encoding="utf-8")
+            with patch("scripts.revalidation_operation.LAB",root), patch.dict(os.environ,{},clear=True):
+                self.assertIsNone(live_preconditions())
+
+    def test_process_only_credential_stops_with_sanitized_source_report(self):
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("scripts.revalidation_operation.LAB",Path(directory)), \
+             patch.dict(os.environ,{"GROQ_API_KEY":"process-secret"},clear=True):
+            result=live_preconditions()
+        self.assertEqual(result["reason"],"root_credentials_missing")
+        self.assertEqual(result["process_slots"],["GROQ_API_KEY"])
+        self.assertEqual(result["provider_root_env_slots"],[])
+        self.assertNotIn("process-secret",repr(result))
 
     def test_lazy_session_binds_exact_new_campaign_on_both_phases(self):
         class FakeSession:
@@ -82,7 +101,9 @@ class RevalidationOperationTests(unittest.TestCase):
         self.assertEqual(session.seen,[("preview",CAMPAIGN),("complete",CAMPAIGN)])
 
     def test_execute_blocks_missing_keys_before_marker_or_provider(self):
-        with patch.dict(os.environ,{"LLM_MODE":"live"},clear=True), \
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("scripts.revalidation_operation.LAB",Path(directory)), \
+             patch.dict(os.environ,{"LLM_MODE":"live"},clear=True), \
              patch("scripts.revalidation_operation.validate",return_value={}), \
              patch("scripts.revalidation_operation.verify_authority"):
             self.assertEqual(execute(),2)
