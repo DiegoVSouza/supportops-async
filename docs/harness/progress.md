@@ -181,3 +181,5 @@ Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry
 - Human quality, holdout, and promotion remain pending. No Terraform apply or external effect.
 
 2026-10-30 phase033: investigated Docker baseline identity and corrected comparison of volatile status text; all 11 relevant inventories show the same gossett_backend ID prefix. Historical phase032 INCOMPLETE remains preserved; Docker event history/ownership attribution UNKNOWN. The one additional isolated fake gate was consumed and FAIL: 119 tests/services/Terraform validate and plan PASS, offline image build missing a cached dependency. Unique namespace cleanup and prior-resource identity reconciliation PASS. No provider call or P04 live operation. Current manifest is stale after the root guard change. See phase033 VERIFY.
+
+2026-10-30 phase043: isolated full fake gate with the lab root in the snapshot PASS on `82beb69`: 127 tests, locked service scenarios, image build, Terraform plan, owned cleanup, empty global Docker diff, ledgers unchanged, no provider access. Consumed. See phase043 VERIFY and artifacts/evidence/root-snapshot-gate-043/.

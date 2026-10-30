@@ -1,0 +1,2 @@
+{"cleanup_exit_code": 0, "gate_consumed": true, "gate_exit_code": 0, "image_remove_exit_code": 0, "live_operation_invoked": false, "namespace_empty": true, "owned_labels_verified": true, "protected_output_unchanged": true, "provider_accessed": false, "snapshot_ledger_rows_unchanged": true, "source_ledgers_unchanged": true, "status": "PASS", "up_exit_code": 0}
+exit=0
