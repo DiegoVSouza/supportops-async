@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "provider_calls": 2,
+  "input_tokens": 292,
+  "output_tokens": 71,
+  "receipts": [
+    "832a16f2af404791b39534b130dbfbc2",
+    "5f6e80683f9c4a19960f5ce8f74c0187"
+  ],
+  "trace_id": "53ba9fcaa8584226a4e721576045f21d",
+  "telemetry_flushed": true,
+  "api_worker_status": "done",
+  "duplicate_task_reused": true,
+  "actual_billed_usd": null
+}

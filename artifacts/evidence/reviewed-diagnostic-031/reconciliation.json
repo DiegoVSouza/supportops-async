@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "provider_calls": 2,
+  "input_tokens": 292,
+  "output_tokens": 71,
+  "receipt_matches": true,
+  "correlated_api_worker_llm": true,
+  "content_exported": false,
+  "trace_id": "53ba9fcaa8584226a4e721576045f21d",
+  "reserved_workflow_calls": 3,
+  "operating_envelope": 6,
+  "actual_billed_usd": null
+}

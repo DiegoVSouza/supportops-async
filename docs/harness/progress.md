@@ -138,3 +138,5 @@ Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry
 - Added P04-owned fixture-accounted callable to the actual API/Worker path, with durable step reservations, shared protocol/receipt validation, output contracts and permanent uncertainty classification to prevent queue replay.
 - Four focused tests pass; full offline gate has 89 passes, four service skips and exit 2 INCOMPLETE. Docker access was intentionally disabled for the offline scope, not diagnosed unavailable. See artifacts/evidence/accounted-worker-029/.
 - Live activation/allocation/manifest, PostgreSQL/SQS/Redis/service export on the changed candidate, quality and reviews remain pending. No real provider call or effect occurred.
+
+2026-10-29 phase031: approved separate synthetic diagnostic PASS, two accounted provider calls292/71 with correlated private actual OTLP trace and full fake services/build/Terraform plan PASS. Original phase030 remains INCOMPLETE, original three-call reserve/step unchanged. Total logical reserve six. See phase031 VERIFY and reviewed-diagnostic-031 evidence. Quality/human/holdout/promotion PENDING; no further diagnostic authorized.
