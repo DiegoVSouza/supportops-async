@@ -140,3 +140,11 @@ Candidate `beff749202805b138d820daaddb80a4468afc7c9` passed 13 focused telemetry
 - Live activation/allocation/manifest, PostgreSQL/SQS/Redis/service export on the changed candidate, quality and reviews remain pending. No real provider call or effect occurred.
 
 2026-10-29 phase031: approved separate synthetic diagnostic PASS, two accounted provider calls292/71 with correlated private actual OTLP trace and full fake services/build/Terraform plan PASS. Original phase030 remains INCOMPLETE, original three-call reserve/step unchanged. Total logical reserve six. See phase031 VERIFY and reviewed-diagnostic-031 evidence. Quality/human/holdout/promotion PENDING; no further diagnostic authorized.
+
+## 2026-10-30 — Phase 032 root-authorized current-source revalidation
+
+- Implemented a separate single-use accounted P04 synthetic API/worker operation under the applied root policy SHA `f8428a8da06fd551e6a41d3d009db69d1d31c620eda68ef21a02ff1dbcc32cdf`.
+- Candidate commit `f0fd092a899c3d9bc4893843d4058568539437f1`; source fingerprint `9286ba440dd98389c8b93bdf103deec75b6bb6491ba358c5f95a3164ffa823df`; frozen manifest commit `3f6b51151573ff9004db186480cf4371c19f7947`.
+- Focused controller tests passed (8), compile and fast gate passed. Full fake service gate passed 113 tests plus services/build/Terraform plan (6 add / 0 change / 0 destroy), with one deprecation warning. Docker global reconciliation is INCOMPLETE: an unrelated same-name `gossett_backend` container ID changed; phase-owned resources were removed and verified. Three service gate attempts are exhausted.
+- The new live operation is BLOCKED_PRECONDITION because the five required Groq environment variables are absent. No marker, provider dispatch or new reservation exists; maximum additional reserve remains 3 calls / 12,288 input / 1,536 output, paid USD 0. Phase 030 original remains INCOMPLETE with its three-call reserve; phase 031 diagnostic remains PASS (two calls).
+- Human quality, holdout, and promotion remain pending. No Terraform apply or external effect.
