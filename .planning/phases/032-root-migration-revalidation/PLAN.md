@@ -1,0 +1,9 @@
+# Plan
+
+1. Capture a read-only Docker/resource and host-port inventory before deciding whether any service gate is needed. Run a provider-free root migration audit that proves the applied SHA, P04 original/diagnostic provider receipt prefix, logical ledger prefix and unchanged P04 candidate source. Save sanitized commands, cwd, exit codes and output.
+2. Run the P04 locked fast and full fake gates in an isolated snapshot with current root shared-account files overlaid. Preserve the existing user-modified gate outputs. The snapshot must not call a model provider, run Terraform apply, or reuse any historical Docker resources.
+3. Reconcile PASS/FAIL/INCOMPLETE for the P04 prior operation and current shared-account compatibility, record exact fingerprint/dependency, update P04 progress and phase evidence, and commit locally. If a needed service gate cannot use a proven isolated namespace and free ports, record that exact dependency and continue other authorized work.
+
+allowed_write_paths: `.planning/phases/032-root-migration-revalidation/**`; `artifacts/evidence/root-migration-revalidation-032/**`; `docs/harness/progress.md`.
+
+forbidden_changes: P04 source, prior manifests and campaign IDs, any logical/provider/step ledger row, historical operation result or receipt, review/holdout/promotion data, project gate outputs, sibling projects, root policy or authorization, new live/provider calls, Docker resources not proven owned by this phase, Terraform apply, deploy/push/PR/merge/external messages, customer data or real effects. Fake mode only. `max_tries: 3` applies to local verification only; no run authorizes replay. Stop on any unrecognized prefix, changed fingerprint, incomplete migration, non-preserved output or ambiguous Docker ownership. Plan-check is implementer self-assessment.

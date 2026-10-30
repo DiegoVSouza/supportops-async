@@ -1,0 +1,9 @@
+{
+  "status": "FAIL",
+  "attempt": 1,
+  "command": "python -",
+  "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+  "exit_code": 1,
+  "reason": "plan self-check required the phrase no new provider request in PLAN, although SPEC already states it; plan scope itself was otherwise unchanged",
+  "provider_accessed": false
+}
