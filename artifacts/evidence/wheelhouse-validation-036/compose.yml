@@ -1,0 +1,47 @@
+name: p04-wheelhouse-validation-036
+services:
+  postgres:
+    image: postgres:17.11-alpine3.24
+    environment:
+      POSTGRES_DB: supportops
+      POSTGRES_USER: supportops
+      POSTGRES_PASSWORD: supportops
+    ports: ["127.0.0.1:37532:5432"]
+    volumes: ["pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U supportops -d supportops"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  localstack:
+    image: localstack/localstack:4.14.0
+    environment:
+      SERVICES: sqs,sns,iam,sts
+      AWS_DEFAULT_REGION: us-east-1
+      SQS_ENDPOINT_STRATEGY: path
+    ports: ["127.0.0.1:37566:4566"]
+    volumes: ["localstack:/var/lib/localstack"]
+    healthcheck:
+      test: [CMD, curl, -fsS, "http://localhost:4566/_localstack/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
+  redis:
+    image: redis@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576
+    ports: ["127.0.0.1:37579:6379"]
+    volumes: ["redis:/tmp"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  jaeger:
+    image: jaegertracing/jaeger:2.18.0
+    ports: ["127.0.0.1:37586:16686", "127.0.0.1:37518:4318"]
+volumes:
+  pg:
+  localstack:
+  redis:
+networks:
+  default:
+    name: p04-wheelhouse-validation-036-local

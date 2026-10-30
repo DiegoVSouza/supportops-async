@@ -1,5 +1,11 @@
 # Progress
 
+## 2026-10-30 — Phase 036 isolated wheelhouse validation
+
+- PASS: one separately authorized isolated fake full gate used a complete hash-pinned CPython 3.13 Linux wheelhouse with network disabled during build. Snapshot preflight, services, full gate and owned cleanup all exited 0. Stable container/network/volume/image baseline comparison reported no additions or removals.
+- The historical phase033 offline-build failure remains preserved, as do historical gates3/3. This phase consumed its distinct phase036 exception1/1 and did not access a provider, create a P04 live reservation or invoke a live operation. The stale manifest and safe root `.env` credential-wrapper integration remain separate prerequisites for any future live scope.
+- Evidence: `artifacts/evidence/wheelhouse-validation-036/`; wheel manifest and offline coverage: root `artifacts/evidence/llm-live-readiness/additional-validation-043/`.
+
 ## 2026-10-28 — Current phase 027 full privacy/service gate
 
 - The complete locked fake gate passed 87 tests, PostgreSQL/Redis/LocalStack recovery scenarios, actual API/worker OTLP HTTP wire privacy, unique image build and Terraform init/validate/plan (6 add, 0 change, 0 destroy; no apply). Product source remains phase-026 candidate 5e08bd6; evidence commit 89bce09d8a47e428bf7795cd27221db2b9002960.
