@@ -5,6 +5,11 @@
 - Retargeted the controller to the distinct root-authorized `local-reviewed-operation-040-v1` identity, preserving the stopped `-038-` operation and its paths. Its manifest, invocation, service queues, operation database, and evidence path are new and create-only.
 - Focused operation regressions passed 13 tests and `check_fast` passed. No manifest was frozen, no gate/live operation/provider/reservation occurred; these remain conditional single-use actions.
 
+## 2026-10-30 — Phase 041 isolated gate stop
+
+- The fresh isolated gate marker was written only after its namespace passed Compose startup, but the execution host interrupted before a full-gate result was emitted. The owned `p04-reentrant-validation-041` resources were explicitly removed; no provider call, reservation, invocation, or live operation occurred.
+- This gate is conservatively INCOMPLETE and consumed, not replayable. The replacement operation remains blocked because a PASS full gate is a precondition.
+
 ## 2026-10-30 — Phase 040 reentrant migration check
 
 - Reproduced the phase039 pre-invocation stop: the controller held the campaign lease while its migration subprocess attempted to acquire the same lease, yielding `account_lease_busy`. The controller now rechecks applied audit, policy, registry and ledger prefixes under the already-held campaign lease and the account lease.

@@ -1,0 +1,12 @@
+{
+  "status": "INCOMPLETE",
+  "gate_consumed": true,
+  "gate_exit_code": null,
+  "up_exit_code": 0,
+  "cleanup_exit_code": 0,
+  "reason": "execution_host_interrupted_after_consumption_marker_before_full_gate_result",
+  "provider_accessed": false,
+  "live_operation_invoked": false,
+  "replay_allowed": false,
+  "namespace_empty_after_owned_cleanup": true
+}
