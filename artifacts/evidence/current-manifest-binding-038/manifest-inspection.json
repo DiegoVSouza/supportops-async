@@ -1,0 +1,25 @@
+{
+  "commands": [
+    {
+      "command": ".venv/Scripts/python.exe -m scripts.revalidation_operation --freeze-manifest",
+      "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+      "exit_code": 2,
+      "output": "{\"status\": \"INCOMPLETE\", \"reason\": \"operation_stopped_no_replay\"}"
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m scripts.revalidation_operation --validate",
+      "cwd": "C:\\estudo\\Golpe\\lab\\projects\\p04",
+      "exit_code": 2,
+      "output": "{\"status\": \"INCOMPLETE\", \"reason\": \"manifest_mismatch\"}"
+    }
+  ],
+  "facts": {
+    "existing_manifest": "artifacts/evals/live/local-revalidation-v1/manifest.json",
+    "historical_candidate": "f0fd092a899c3d9bc4893843d4058568539437f1",
+    "historical_fingerprint": "9286ba440dd98389c8b93bdf103deec75b6bb6491ba358c5f95a3164ffa823df",
+    "provider_accessed": false,
+    "credentials_read": false,
+    "reservation_created": false,
+    "invocation_created": false
+  }
+}

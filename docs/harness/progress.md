@@ -1,5 +1,10 @@
 # Progress
 
+## 2026-10-30 — Phase 038 current manifest binding
+
+- The historical P04 revalidation manifest is create-only and remains preserved. It is bound to the earlier candidate/fingerprint and correctly rejects validation against current sources; no replacement was written.
+- No provider, credential, reservation, invocation, service or Docker action occurred. A future technical path needs a distinct operation identity, finite authorization and newly authorized full gate; this is not an evaluation dependency.
+
 ## 2026-10-30 — Phase 037 safe credential preflight
 
 - The P04 revalidation wrapper now checks the root `.env` source actually used by the shared provider while reporting process-only slots safely as non-ready diagnostics. It preserves all explicit-live, authority, reservation and no-replay checks.
