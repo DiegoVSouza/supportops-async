@@ -8,6 +8,10 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           version: 0.12.7
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.16.6
+          terraform_wrapper: false
       - run: uv sync --locked
       - run: docker compose -p p04-ci -f docker-compose.async.yml -f docker-compose.remediation.yml up -d --wait
       - run: uv run --locked python scripts/check_full.py
