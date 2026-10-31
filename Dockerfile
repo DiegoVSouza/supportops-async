@@ -4,6 +4,7 @@ COPY --from=uv-bin /uv /uvx /bin/
 WORKDIR /app
 COPY pyproject.toml uv.lock README.md ./
 COPY supportops_async ./supportops_async
+COPY infra/logging ./logcfg
 RUN uv sync --locked --no-dev
 
 FROM python:3.13.12-slim AS runtime
