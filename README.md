@@ -11,6 +11,28 @@
 - **Docs.** [Architecture](docs/architecture.md), [decisions](docs/decisions).
 <!-- case:end -->
 
+<!-- flow:start -->
+## How it works
+
+Generated from the same data as the diagram on the portfolio site (`projects/async/`), so the two cannot drift.
+
+```mermaid
+stateDiagram-v2
+  queued --> leased
+  leased --> running
+  running --> done
+  running --> retry: transient failure
+  retry --> queued
+  running --> dead: permanent failure
+  queued: Queued
+  leased: Leased
+  running: Running
+  retry: Retry
+  dead: Dead letter
+  done: Done
+```
+<!-- flow:end -->
+
 An independently installable FastAPI and worker service for durable, asynchronous support workflows. The local demo uses a deterministic fake runner and makes no model or cloud calls.
 
 ## Problem
