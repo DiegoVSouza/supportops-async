@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: astral-sh/setup-uv@v6
         with:
           version: 0.12.7
@@ -21,3 +23,5 @@ jobs:
           P04_LOCALSTACK_ENDPOINT: http://127.0.0.1:14566
       - if: always()
         run: docker compose -p p04-ci -f docker-compose.async.yml -f docker-compose.remediation.yml down
+      - if: failure()
+        run: cat artifacts/evidence/check-full.txt 2>/dev/null || true
