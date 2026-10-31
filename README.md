@@ -1,5 +1,16 @@
 # SupportOps Async Platform
 
+<!-- case:start -->
+## The case
+
+- **Problem.** Work continues after the HTTP response, and brokers deliver a message more than once.
+- **Decision.** Leases, retries, a dead-letter path and an effect record, so a redelivery cannot repeat an effect. A stuck task is a designed state.
+- **Measured.** An isolated full fake gate passed on commit `82beb69`: 127 tests, locked service scenarios against real Redis Streams and an SQS-compatible service, image build, Terraform plan, and clean teardown (`docs/harness/progress.md`, phase 043).
+- **Run it.** `uv sync --locked`, then the compose files named in the workflow, then `uv run --locked python scripts/check_full.py`. The service gate needs Docker.
+- **Limits.** The demo runner is deterministic. No cloud deployment of P04 alone is claimed.
+- **Docs.** [Architecture](docs/architecture.md), [decisions](docs/decisions).
+<!-- case:end -->
+
 An independently installable FastAPI and worker service for durable, asynchronous support workflows. The local demo uses a deterministic fake runner and makes no model or cloud calls.
 
 ## Problem

@@ -1,5 +1,16 @@
 # Plataforma assíncrona SupportOps
 
+<!-- case:start -->
+## O case
+
+- **Problema.** O trabalho continua depois da resposta HTTP, e brokers entregam a mesma mensagem mais de uma vez.
+- **Decisão.** Leases, retries, dead-letter e registro de efeito, então uma reentrega não repete um efeito. Tarefa travada é um estado projetado.
+- **Medido.** Um gate fake completo e isolado passou no commit `82beb69`: 127 testes, cenários de serviço travados com Redis Streams real e um serviço compatível com SQS, build da imagem, plano Terraform e limpeza (`docs/harness/progress.md`, fase 043).
+- **Como rodar.** `uv sync --locked`, depois os arquivos compose citados no workflow, depois `uv run --locked python scripts/check_full.py`. O gate de serviços precisa de Docker.
+- **Limites.** O runner do demo é determinístico. Não se afirma um deploy em nuvem só do P04.
+- **Docs.** [Arquitetura](docs/architecture.md), [decisões](docs/decisions).
+<!-- case:end -->
+
 Serviço FastAPI e worker instaláveis de forma independente para fluxos de suporte duráveis e assíncronos. A demonstração local usa um runner fake determinístico e não chama modelo nem nuvem.
 
 ## Arquitetura
