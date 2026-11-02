@@ -86,10 +86,10 @@
       "detail": "Actual API/worker failure spans pass a loopback OTLP HTTP protobuf privacy test and the 87-test full local fake/service gate. Production exporter/backend reliability remains unverified."
     },
     {
-      "id": "P04-RAG",
-      "description": "Retrieve attributable, authorized knowledge from a P04-owned source",
-      "status": "INCOMPLETE",
-      "evidence": "No P04-owned retrieval source, corpus or tenant protocol exists"
+      "id": "P04-FLY-QUEUE-RUN",
+      "description": "The API, the Redis Streams queue and the worker run on Fly and finish a task",
+      "status": "PASS_FLY_ONE_RUN",
+      "evidence": "artifacts/evidence/status-reconcile/fly-queue-acceptance.txt (create 202, task done at step 2:draft_reply, 2026-11-02); earlier run in the lab at artifacts/evidence/fly/p04-redis-queue-acceptance.txt"
     }
   ]
 }

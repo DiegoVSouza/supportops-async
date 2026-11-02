@@ -1,0 +1,4 @@
+command=POST https://supportops-lab-p04.fly.dev/tasks then poll GET /tasks/{id} (Fly stack, 2026-11-02T14:10:17Z)
+create_http=202
+task_id_present=true
+poll1=done 2:draft_reply 2

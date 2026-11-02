@@ -21,3 +21,7 @@ Prepare 60 synthetic P04 task/worker scenarios with an 18/42 development/holdout
 ## 2026-10-26 — Bounded workflow campaign ledger
 
 Phase 012 adds P04-local reservations, cumulative accounting, process exclusion, and read-only resume inspection. It does not implement provider dispatch or production-worker recovery. Paid spend remains USD 0; free-tier quota, cumulative caps, confirmation capacity, reviewer sign-off, service identity/ports, pacing, wall-clock ceiling, and model preflight remain `PENDING`. Service acceptance still requires the real PostgreSQL/SQS/Redis API-worker path.
+
+## 2026-11-02: retrieval is not a P04 responsibility
+
+P04 is the durable async platform. It has no corpus and no tenant retrieval protocol, and P05 already owns tenant-scoped RAG with its own feature records and evidence. The `P04-RAG` feature was a permanent `INCOMPLETE` that no P04 phase would close, so it is removed from `docs/harness/feature_list.json` instead of being kept as an open item. If a workflow here ever needs retrieval, it calls P05; it does not grow its own index. Owner decision recorded in the lab's status-truth plan (`docs/harness/portfolio/PLANO-CORRECAO-STATUS.pt-BR.md`).
