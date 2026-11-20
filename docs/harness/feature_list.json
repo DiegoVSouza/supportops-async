@@ -81,7 +81,7 @@
     {
       "id": "P04-API-WORKER-SPAN-PRIVACY",
       "description": "Sync API middleware and worker exception spans omit exception messages, status descriptions, events and attributes",
-      "status": "PASS_LOCAL_OTLP_WIRE_AND_FULL_FAKE_GATE; PASS_FLY_API_SPANS; WORKER_FAILURE_SPAN_NOT_EXERCISED_IN_PRODUCTION",
+      "status": "PASS_LOCAL_OTLP_WIRE_AND_FULL_FAKE_GATE; PASS_FLY_API_SPANS; WORKER_ERROR_SPAN_PRODUCTION_PENDING",
       "evidence": "artifacts/evidence/api-worker-span-privacy-021/focused-tests.txt; artifacts/evidence/current-full-privacy-027/full-attempt2-run4.txt Lab artifacts/evidence/fly-prod-privacy-20261120/SUMMARY.md: 340 Jaeger traces from a 55/55 production probe, 0 content hits, fixed exception messages only; one run, API and MCP paths. A worker-side failure was not provoked in production.",
       "detail": "Actual API/worker failure spans pass a loopback OTLP HTTP protobuf privacy test and the 87-test full local fake/service gate. Production exporter/backend reliability remains unverified."
     },
